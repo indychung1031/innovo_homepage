@@ -1,0 +1,10 @@
+---
+description: Always read CLAUDE.md before any task
+alwaysApply: true
+---
+
+# Mandatory Project Context
+
+- Before answering, planning, editing, or running commands, read `C:\Users\indyc\Desktop\antigravity\project\Innovo_homepage\CLAUDE.md`.
+- Treat `CLAUDE.md` as the primary project rule source for folder usage and workflow constraints.
+- If user instructions conflict with `CLAUDE.md`, ask for clarification before proceeding.
