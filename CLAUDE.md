@@ -2,7 +2,7 @@
 
 ## 프로젝트 정보
 - **Git Root**: `c:/Users/indyc/Desktop/antigravity/project/Innovo_homepage`
-- **Remote**: (미설정 — GitHub 저장소 생성 후 기록)
+- **Remote**: `https://github.com/indychung1031/innovo_homepage.git`
 - **Branch**: `master`
 - **규칙 원본**: `.antigravity/rules/` (11개 파일)
 - **목적**: Innovosolution 공식 홈페이지 (www.innovosolution.co.kr)
