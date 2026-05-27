@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quote Detail | Admin</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+  <style>
+    .detail-table th { width: 160px; text-align: left; padding: 8px 12px; background: #f1f5f9; color: #475569; font-weight: 500; vertical-align: top; }
+    .detail-table td { padding: 8px 12px; color: #1e293b; }
+    .detail-table tr { border-bottom: 1px solid #e2e8f0; }
+    .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; padding: 16px 12px 4px; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <header class="bg-navy text-white px-4 py-3 flex gap-4 text-sm">
+    <a href="/admin/quotes" class="font-semibold">Quotes</a>
+    <a href="/admin/contacts" class="opacity-80">Contacts</a>
+    <a href="/admin/users" class="opacity-80">Users</a>
+    <button type="button" id="logoutBtn" class="ml-auto opacity-80">Logout</button>
+  </header>
+  <main class="max-w-3xl mx-auto p-4">
+    <div class="flex items-center gap-3 mb-4">
+      <button onclick="window.close()" class="text-sm text-sky hover:underline">← Close</button>
+      <h1 class="text-xl font-bold">Quote Detail</h1>
+      <span id="quoteId" class="text-gray-mid text-sm"></span>
+    </div>
+    <div id="content" class="bg-white rounded border border-gray-light overflow-hidden">
+      <p class="p-4 text-gray-mid">Loading...</p>
+    </div>
+  </main>
+  <script src="/static/js/admin.js"></script>
+  <script>
+  if (!InnovoAdmin.requireAuth()) throw new Error('auth');
+  document.getElementById('logoutBtn').onclick = function () { InnovoAdmin.clearToken(); location.href = '/admin'; };
+
+  const id = new URLSearchParams(location.search).get('id');
+  document.getElementById('quoteId').textContent = id ? '#' + id : '';
+
+  function val(v) { return (v === null || v === undefined || v === '') ? '<span class="text-slate-400">—</span>' : v; }
+
+  (async function () {
+    if (!id) { document.getElementById('content').innerHTML = '<p class="p-4 text-red-600">ID not specified.</p>'; return; }
+    const res = await InnovoAdmin.api('/quick-quotes/' + id);
+    if (!res || !res.ok) { document.getElementById('content').innerHTML = '<p class="p-4 text-red-600">Failed to load.</p>'; return; }
+    const r = await res.json();
+
+    const size = r.package_d + ' × ' + r.package_e + ' mm' + (r.package_a ? ' (A: ' + r.package_a + ' mm)' : '');
+
+    document.getElementById('content').innerHTML = `
+      <table class="detail-table w-full text-sm">
+        <tr><td colspan="2" class="section-title">IC Information</td></tr>
+        <tr><th>Package Type</th><td>${val(r.ic_package_type)}</td></tr>
+        <tr><th>IC Type</th><td>${val(r.ic_type)}</td></tr>
+        <tr><th>IC Code</th><td>${val(r.ic_code)}</td></tr>
+        <tr><th>Pin Count</th><td>${val(r.pin_count)} pin</td></tr>
+        <tr><th>Pitch</th><td>${val(r.pitch)}</td></tr>
+        <tr><th>Package Size (D×E)</th><td>${size}</td></tr>
+
+        <tr><td colspan="2" class="section-title">Order Information</td></tr>
+        <tr><th>Quantity</th><td>${r.quantity ? r.quantity + ' pcs' : val(null)}</td></tr>
+        <tr><th>Desired Delivery</th><td>${val(r.desired_delivery)}</td></tr>
+        <tr><th>Message</th><td style="white-space:pre-wrap">${val(r.message)}</td></tr>
+
+        <tr><td colspan="2" class="section-title">Customer Information</td></tr>
+        <tr><th>Company</th><td>${val(r.company_name)}</td></tr>
+        <tr><th>Name</th><td>${val(r.contact_name)}</td></tr>
+        <tr><th>Email</th><td><a href="mailto:${r.contact_email}" class="text-sky hover:underline">${val(r.contact_email)}</a></td></tr>
+        <tr><th>Phone</th><td>${val(r.contact_phone)}</td></tr>
+
+        <tr><td colspan="2" class="section-title">Admin</td></tr>
+        <tr><th>Status</th><td>${val(r.status)}</td></tr>
+        <tr><th>Admin Note</th><td style="white-space:pre-wrap">${val(r.admin_note)}</td></tr>
+        <tr><th>Received</th><td>${val(r.created_at ? r.created_at.slice(0,19).replace('T',' ') : null)}</td></tr>
+      </table>`;
+  })();
+  </script>
+</body>
+</html>

@@ -41,10 +41,12 @@ env/
 .pydevproject
 .settings/
 
-# Database (로컬 개발용)
+# Database (로컬 개발용 — PostgreSQL 덤프 등)
 *.db
 *.sqlite
 *.sqlite3
+*.sql
+!database/**/*.sql
 
 # Logs
 *.log
@@ -56,6 +58,7 @@ backup/
 # Uploads (사용자 업로드 파일)
 uploads/
 private_uploads/
+upload/contact/
 
 # OS generated files
 .DS_Store

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{% if lang == 'ko' %}로그인{% else %}Login{% endif %} | Innovo Solution{% endblock %}
+
+{% block content %}
+<section class="py-16 max-w-md mx-auto px-4">
+  {% set breadcrumb_items = [{'label': 'Login' if lang == 'en' else '로그인'}] %}
+  {% include "partials/breadcrumb.html" %}
+  <h1 class="text-2xl font-bold mb-6">{% if lang == 'ko' %}로그인{% else %}Login{% endif %}</h1>
+  <form id="loginForm" class="space-y-4">
+    <div>
+      <label for="email" class="block text-sm font-medium mb-1">Email</label>
+      <input type="email" id="email" required class="w-full border border-gray-light rounded px-3 py-2">
+    </div>
+    <div>
+      <label for="password" class="block text-sm font-medium mb-1">{% if lang == 'ko' %}비밀번호{% else %}Password{% endif %}</label>
+      <input type="password" id="password" required class="w-full border border-gray-light rounded px-3 py-2">
+    </div>
+    <button type="submit" class="w-full bg-navy text-white py-3 rounded font-medium">{% if lang == 'ko' %}로그인{% else %}Sign in{% endif %}</button>
+  </form>
+  <p id="loginMsg" class="mt-4 text-sm hidden"></p>
+  <p class="mt-6 text-sm space-y-2">
+    <a href="/{{ lang }}/register" class="text-sky block">{% if lang == 'ko' %}회원가입{% else %}Create account{% endif %}</a>
+    <a href="/{{ lang }}/forgot-password" class="text-sky block">{% if lang == 'ko' %}비밀번호 찾기{% else %}Forgot password{% endif %}</a>
+  </p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/auth.js"></script>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const msg = document.getElementById('loginMsg');
+  msg.classList.add('hidden');
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      if (data.detail === 'email_not_verified') {
+        throw new Error('{% if lang == "ko" %}이메일 인증이 필요합니다.{% else %}Email verification required.{% endif %}');
+      }
+      throw new Error(data.detail || 'Login failed');
+    }
+    InnovoAuth.saveToken(data.access_token);
+    msg.textContent = '{% if lang == "ko" %}로그인 성공{% else %}Logged in{% endif %}';
+    msg.className = 'mt-4 text-sm text-green-700';
+    msg.classList.remove('hidden');
+  } catch (err) {
+    msg.textContent = err.message;
+    msg.className = 'mt-4 text-sm text-red-700';
+    msg.classList.remove('hidden');
+  }
+});
+</script>
+{% endblock %}

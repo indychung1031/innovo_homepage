@@ -1,0 +1,47 @@
+﻿<header class="site-header bg-white text-charcoal sticky top-0 z-50 shadow-sm border-b border-gray-light">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4 relative">
+    <a href="/{{ lang }}/" class="flex items-center gap-2 shrink-0">
+      <img src="/upload/logo/LOGO%20(Mask%20%EC%A0%9C%EA%B1%B0).png" alt="Innovo Solution" class="h-8 w-auto" width="120" height="32">
+    </a>
+
+    <button type="button" id="navToggle" class="md:hidden p-2 rounded border border-gray-light text-navy" aria-expanded="false" aria-controls="siteNav">
+      <span class="sr-only">{{ t.nav.menu_open if t is defined else 'Menu' }}</span>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <nav id="siteNav" class="site-nav hidden md:flex md:items-center md:gap-5 md:flex-wrap text-sm" aria-label="{{ t.a11y.main_nav if t is defined else 'Main' }}">
+      <a href="/{{ lang }}/about" class="hover:text-navy text-charcoal">{{ t.nav.about }}</a>
+
+      <div class="relative group">
+        <button type="button" class="flex items-center gap-1 hover:text-navy text-charcoal products-trigger" aria-haspopup="true">
+          {{ t.nav.products }}
+          <svg class="w-4 h-4 hidden md:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="products-dropdown md:absolute md:left-0 md:top-full md:pt-2 md:opacity-0 md:invisible md:group-hover:opacity-100 md:group-hover:visible transition-all">
+          <div class="md:bg-white md:text-charcoal md:shadow-lg md:rounded md:min-w-[11rem] md:py-2 flex flex-col md:block pl-4 md:pl-0 border-l border-gray-light md:border-0 mt-2 md:mt-0">
+            <a href="/{{ lang }}/products/test-socket" class="block px-3 py-2 text-charcoal hover:bg-slate-50 rounded">{{ t.nav.test_socket }}</a>
+            <a href="/{{ lang }}/products/probe-pin" class="block px-3 py-2 text-charcoal hover:bg-slate-50 rounded">{{ t.nav.probe_pin }}</a>
+            <a href="/{{ lang }}/products/test-jig" class="block px-3 py-2 text-charcoal hover:bg-slate-50 rounded">{{ t.nav.test_jig }}</a>
+          </div>
+        </div>
+      </div>
+
+      <a href="/{{ lang }}/technology" class="hover:text-navy text-charcoal">{{ t.nav.technology }}</a>
+      <a href="/{{ lang }}/contact" class="hover:text-navy text-charcoal">{{ t.nav.contact }}</a>
+
+      <a href="/{{ lang }}/login" class="hover:text-navy text-charcoal">{{ t.nav.login }}</a>
+
+      <a href="/{{ lang }}/quote" class="inline-flex items-center justify-center bg-sky text-white px-4 py-2 rounded font-medium hover:opacity-95 transition-opacity">
+        {{ t.nav.quote }}
+      </a>
+
+      <span class="text-gray-mid flex items-center gap-1">
+        <a href="/en{{ path_without_lang }}" class="hover:text-navy {% if lang == 'en' %}font-semibold text-navy{% endif %}" {% if lang == 'en' %}aria-current="page"{% endif %}>EN</a>
+        <span aria-hidden="true">|</span>
+        <a href="/ko{{ path_without_lang }}" class="hover:text-navy {% if lang == 'ko' %}font-semibold text-navy{% endif %}" {% if lang == 'ko' %}aria-current="page"{% endif %}>KO</a>
+      </span>
+    </nav>
+  </div>
+</header>

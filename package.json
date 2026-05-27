@@ -1,0 +1,11 @@
+{
+  "name": "innovo-homepage",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i frontend/css/tailwind.src.css -o frontend/css/site.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

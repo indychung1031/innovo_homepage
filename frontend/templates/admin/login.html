@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Innovo</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+    <h1 class="text-xl font-bold text-navy mb-6">Innovo Admin</h1>
+    <div id="stepLogin">
+      <form id="adminLoginForm" class="space-y-4">
+        <input type="email" id="adminEmail" required placeholder="Email" class="w-full border rounded px-3 py-2">
+        <input type="password" id="adminPassword" required placeholder="Password" class="w-full border rounded px-3 py-2">
+        <button type="submit" class="w-full bg-navy text-white py-2 rounded">Continue</button>
+      </form>
+    </div>
+    <div id="step2fa" class="hidden">
+      <p class="text-sm text-gray-mid mb-3">Enter the 6-digit code sent to your email.</p>
+      <input type="text" id="otpCode" maxlength="6" class="w-full border rounded px-3 py-2 mb-3" placeholder="000000">
+      <button type="button" id="verify2faBtn" class="w-full bg-sky text-white py-2 rounded">Verify</button>
+    </div>
+    <p id="adminMsg" class="mt-4 text-sm hidden"></p>
+  </div>
+  <script src="/static/js/admin.js"></script>
+  <script>
+  let challengeToken = '';
+  document.getElementById('adminLoginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const msg = document.getElementById('adminMsg');
+    const res = await fetch('/admin/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('adminEmail').value.trim(),
+        password: document.getElementById('adminPassword').value,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      msg.textContent = data.detail || 'Login failed';
+      msg.className = 'mt-4 text-sm text-red-700';
+      msg.classList.remove('hidden');
+      return;
+    }
+    challengeToken = data.challenge_token;
+    document.getElementById('stepLogin').classList.add('hidden');
+    document.getElementById('step2fa').classList.remove('hidden');
+  });
+  document.getElementById('verify2faBtn').addEventListener('click', async function () {
+    const msg = document.getElementById('adminMsg');
+    const res = await fetch('/admin/api/verify-2fa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ challenge_token: challengeToken, otp_code: document.getElementById('otpCode').value.trim() }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      msg.textContent = data.detail || 'Invalid code';
+      msg.className = 'mt-4 text-sm text-red-700';
+      msg.classList.remove('hidden');
+      return;
+    }
+    InnovoAdmin.setToken(data.access_token);
+    window.location.href = '/admin/quotes';
+  });
+  if (InnovoAdmin.getToken()) window.location.href = '/admin/quotes';
+  </script>
+</body>
+</html>

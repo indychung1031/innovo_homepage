@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.yamaichi.co.jp)",
+      "WebFetch(domain:ic-socket-solutions.com)",
+      "WebFetch(domain:www.testfixtures.com)",
+      "WebFetch(domain:signalin.com)",
+      "Bash(sqlite3 \"C:/Users/indyc/Desktop/antigravity/project/socket_auto_design/database/mydb.db\" \".tables\")",
+      "PowerShell(python -c $script)",
+      "PowerShell(python -c \"import sqlite3; conn = sqlite3.connect\\('C:/Users/indyc/Desktop/antigravity/project/socket_auto_design/database/mydb.db'\\); cur = conn.cursor\\(\\); cur.execute\\(\\\\\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\\\\\"\\); print\\([r[0] for r in cur.fetchall\\(\\)]\\); conn.close\\(\\)\")",
+      "PowerShell($script = 'import sqlite3; conn = sqlite3.connect\\(r\\\\\"C:\\\\Users\\\\indyc\\\\Desktop\\\\antigravity\\\\project\\\\socket_auto_design\\\\database\\\\mydb.db\\\\\"\\); cur = conn.cursor\\(\\); cur.execute\\(\\\\\"SELECT name FROM sqlite_master WHERE type=chr\\(39\\)+chr\\(116\\)+chr\\(97\\)+chr\\(98\\)+chr\\(108\\)+chr\\(101\\)+chr\\(39\\) ORDER BY name\\\\\"\\); print\\([r[0] for r in cur.fetchall\\(\\)]\\); conn.close\\(\\)')",
+      "Bash(alembic upgrade *)",
+      "Bash(alembic current *)",
+      "Bash(alembic history *)",
+      "Bash(python -c ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{redirect_url}\" http://127.0.0.1:8000/admin)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8000/static/js/admin.js)",
+      "Bash(uvicorn backend.main:app --reload)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8000/health)",
+      "Bash(curl -s -X POST http://127.0.0.1:8000/admin/api/login -H 'Content-Type: application/json' -d '{\"email\":\"sbchung@innovotech.co.kr\",\"password\":\"AdminTest123!\"}')",
+      "Bash(uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000)",
+      "Bash(grep -E \"\\\\.png$\")"
+    ]
+  }
+}

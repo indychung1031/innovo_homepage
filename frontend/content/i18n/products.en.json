@@ -1,0 +1,17 @@
+{
+  "meta": {"title": "Products | Innovo Solution"},
+  "index": {
+    "title": "Products & services",
+    "lead": "Test sockets, probe pins, and test jigs for semiconductor validation."
+  },
+  "category": {
+    "variants": "Variants",
+    "max_package": "Max package",
+    "handler": "Handler",
+    "manual": "Manual",
+    "both": "Manual + Handler",
+    "handler_only": "Handler only",
+    "manual_only": "Manual only",
+    "socket_list": "Download Socket List (PDF)"
+  }
+}

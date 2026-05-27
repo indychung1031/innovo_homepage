@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "title": "Privacy Policy",
+    "effective_date": "2026-05-21",
+    "version": "1.1"
+  },
+  "intro": "INNOVO SOLUTION CO., LTD. (\"Innovo\", \"we\", \"us\") operates www.innovosolution.co.kr. This Privacy Policy explains how we collect, use, retain, and protect personal information when you use our B2B website, quote requests, contact forms, and member services, in accordance with applicable laws including the Personal Information Protection Act (Korea) and the GDPR.",
+  "sections": [
+    {
+      "id": "controller",
+      "title": "1. Data Controller and Privacy Officer",
+      "paragraphs": [
+        "Company: INNOVO SOLUTION CO., LTD. (주) 이노보솔루션",
+        "Representative: Young-Jae Chung (정영재)",
+        "Address: 12, Galmachi-ro 203beon-gil, Jungwon-gu, Seongnam-si, Gyeonggi-do, Republic of Korea",
+        "Contact: sbchung@innovotech.co.kr | Tel: +82-31-735-6141~2",
+        "Privacy Officer: Young-Jae Chung (CEO) — sbchung@innovotech.co.kr | +82-31-735-6141~2"
+      ]
+    },
+    {
+      "id": "matrix",
+      "title": "2. Data We Collect, Purposes, and Retention",
+      "paragraphs": [
+        "We collect only the minimum personal information necessary for the purposes below. For non-member Quick Quote and Contact submissions, the same applies; we record your privacy consent and the time of consent (privacy_agreed_at) at submission."
+      ],
+      "table": {
+        "headers": ["Service", "Data collected", "Purpose", "Retention"],
+        "rows": [
+          ["Registration", "Name, company, email, phone, password (hashed)", "Account, quotes, catalog access", "Deleted on account withdrawal"],
+          ["Quick Quote (incl. non-members)", "Company/contact details, IC specs, optional qty/delivery/notes", "Quote intake, sales follow-up", "5 years (non-member) / anonymized 5 years after withdrawal (member)"],
+          ["Contact", "Category, company/contact, subject/message, optional attachments", "Inquiry response", "3 years"],
+          ["Automatic", "IP, browser, access logs, reCAPTCHA data", "Security, bot prevention", "Typically 12 months"],
+          ["Analytics (opt-in)", "GA4 cookies, usage statistics (minimized IDs)", "Site improvement", "Until consent withdrawn or GA4 default (26 months)"]
+        ]
+      }
+    },
+    {
+      "id": "refusal",
+      "title": "3. Refusal of Consent and Consequences",
+      "paragraphs": [
+        "You may refuse consent to collection and use of personal information. However, if you do not consent to required items (e.g. privacy checkbox on Quick Quote, Contact, or registration), you cannot use those services."
+      ]
+    },
+    {
+      "id": "legal_basis",
+      "title": "4. Legal Basis (GDPR — EEA/UK)",
+      "paragraphs": [
+        "We rely on: (a) consent (e.g. analytics cookies), (b) contract or pre-contractual steps at your request (quotes, inquiries), (c) legitimate interests (security, bot prevention via reCAPTCHA, service operation), and (d) legal obligations.",
+        "reCAPTCHA runs on form submission based on our legitimate interest in preventing abuse; data may be transferred to Google LLC (USA)."
+      ]
+    },
+    {
+      "id": "entrustment",
+      "title": "5. Processors (Entrusted Processing)",
+      "paragraphs": ["We entrust processing as follows:"],
+      "table": {
+        "headers": ["Processor", "Task entrusted", "Retention"],
+        "rows": [
+          ["Mailnara (SMTP)", "Transactional emails (confirmations, verification)", "Until contract ends or purpose fulfilled"],
+          ["Google LLC (reCAPTCHA v3)", "Bot/abuse verification", "Per Google policies"],
+          ["Google LLC (Analytics 4, optional)", "Usage statistics (with consent)", "Until consent withdrawn or GA settings"]
+        ]
+      },
+      "paragraphs_after": [
+        "Hosting/cloud processors will be listed when production infrastructure is finalized and this Policy updated."
+      ]
+    },
+    {
+      "id": "provision",
+      "title": "6. Provision to Third Parties",
+      "paragraphs": [
+        "We do not provide personal information to third parties except where required by law or with your separate consent.",
+        "We do not sell personal information."
+      ]
+    },
+    {
+      "id": "international",
+      "title": "7. International Transfers",
+      "paragraphs": [
+        "When using Google reCAPTCHA and Google Analytics, data may be transferred to the USA and other countries where Google operates.",
+        "Data transferred: IP, device/browser info, usage logs, reCAPTCHA tokens, etc.",
+        "Purpose: bot prevention; analytics (if consented)",
+        "Retention: per processor policies",
+        "Your choices: refusing analytics cookies disables GA4; reCAPTCHA may be required to submit certain forms.",
+        "Safeguards: Google Standard Contractual Clauses (SCC), DPA, and other measures required by law"
+      ]
+    },
+    {
+      "id": "destruction",
+      "title": "8. Destruction Procedure",
+      "paragraphs": [
+        "We destroy data without delay when retention expires or the purpose is fulfilled.",
+        "Electronic files: deleted in an irrecoverable manner",
+        "Paper: shredded or incinerated",
+        "On withdrawal: account data deleted immediately; quote/inquiry records anonymized (\"withdrawn user\")"
+      ]
+    },
+    {
+      "id": "rights",
+      "title": "9. Your Rights",
+      "list": [
+        "Access, rectification, erasure, restriction of processing",
+        "Withdraw consent where processing is consent-based",
+        "Data portability (where applicable)",
+        "Object to processing based on legitimate interests",
+        "Lodge a complaint with a supervisory authority (EEA/UK)"
+      ],
+      "paragraphs_after": [
+        "Contact: sbchung@innovotech.co.kr — we respond within one month under GDPR (extendable by two months with notice where necessary)."
+      ]
+    },
+    {
+      "id": "security",
+      "title": "10. Security Measures",
+      "paragraphs": [
+        "HTTPS, access controls, password hashing, rate limiting, admin 2FA, least privilege, and access logging.",
+        "Do not upload NDA or classified materials via public forms; email sbchung@innovotech.co.kr directly."
+      ]
+    },
+    {
+      "id": "cookies",
+      "title": "11. Cookies and Similar Technologies",
+      "paragraphs": [
+        "Essential: language, session, consent state (localStorage).",
+        "Analytics (GA4): only after you choose \"Accept analytics\"; change anytime via \"Cookie settings\" in the footer.",
+        "reCAPTCHA: may run on form submit (see Sections 4 and 7)."
+      ]
+    },
+    {
+      "id": "children",
+      "title": "12. Children",
+      "paragraphs": [
+        "Services are for business professionals. We do not knowingly collect data from children under 16 (under 14 in Korea); if discovered, we delete it promptly."
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "13. Changes to This Policy",
+      "paragraphs": [
+        "We may update this Policy and revise the effective date and version. Material changes may be announced on the website or by email."
+      ]
+    }
+  ]
+}

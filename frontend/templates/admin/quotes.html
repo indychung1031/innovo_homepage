@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Quotes | Admin</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <header class="bg-navy text-white px-4 py-3 flex gap-4 text-sm">
+    <a href="/admin/quotes" class="font-semibold">Quotes</a>
+    <a href="/admin/contacts" class="opacity-80">Contacts</a>
+    <a href="/admin/users" class="opacity-80">Users</a>
+    <button type="button" id="logoutBtn" class="ml-auto opacity-80">Logout</button>
+  </header>
+  <main class="max-w-6xl mx-auto p-4">
+    <h1 class="text-xl font-bold mb-4">Quick Quotes</h1>
+    <table class="w-full text-sm bg-white border border-gray-light rounded overflow-hidden">
+      <thead class="bg-slate-100"><tr>
+        <th class="p-2 text-left">ID</th>
+        <th class="p-2 text-left">Company</th>
+        <th class="p-2 text-left">Name</th>
+        <th class="p-2 text-left">Email</th>
+        <th class="p-2 text-left">IC Code</th>
+        <th class="p-2 text-left">Package</th>
+        <th class="p-2 text-left">Pin Count</th>
+        <th class="p-2 text-left">Pitch</th>
+        <th class="p-2 text-left">Status</th>
+        <th class="p-2 text-left">Created</th>
+      </tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </main>
+  <script src="/static/js/admin.js"></script>
+  <script>
+  if (!InnovoAdmin.requireAuth()) throw new Error('auth');
+  document.getElementById('logoutBtn').onclick = function () { InnovoAdmin.clearToken(); location.href = '/admin'; };
+  (async function () {
+    const res = await InnovoAdmin.api('/quick-quotes?page=1&size=50');
+    if (!res) return;
+    const data = await res.json();
+    document.getElementById('tableBody').innerHTML = data.items.map(function (r) {
+      return '<tr class="border-t hover:bg-slate-50 cursor-pointer" onclick="window.open(\'/admin/quotes/detail?id=' + r.id + '\',\'_blank\',\'width=900,height=700\')">'
+        + '<td class="p-2">' + r.id + '</td>'
+        + '<td class="p-2">' + r.company_name + '</td>'
+        + '<td class="p-2">' + r.contact_name + '</td>'
+        + '<td class="p-2">' + r.contact_email + '</td>'
+        + '<td class="p-2">' + (r.ic_code || '—') + '</td>'
+        + '<td class="p-2">' + r.ic_package_type + '</td>'
+        + '<td class="p-2">' + r.pin_count + ' pin</td>'
+        + '<td class="p-2">' + r.pitch + '</td>'
+        + '<td class="p-2">' + r.status + '</td>'
+        + '<td class="p-2">' + r.created_at.slice(0,10) + '</td>'
+        + '</tr>';
+    }).join('');
+  })();
+  </script>
+</body>
+</html>

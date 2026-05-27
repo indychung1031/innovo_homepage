@@ -1,0 +1,34 @@
+{
+  "slug": "probe-pin",
+  "title_en": "Probe Pin",
+  "title_ko": "Probe Pin",
+  "description_en": "General and special POGO pins — high current, low pitch, and customized tips.",
+  "description_ko": "일반·특수 POGO 핀 — 고전류, 미세 피치, 맞춤형 팁.",
+  "socket_list_pdf": null,
+  "families": [
+    {
+      "id": "general",
+      "name": "General POGO Pin",
+      "max_package": "Various pitches",
+      "image": null,
+      "coming_soon": false,
+      "variants": [{"code": "—", "type": "Standard catalog range"}]
+    },
+    {
+      "id": "special",
+      "name": "Special POGO Pin",
+      "max_package": "High current & low pitch",
+      "image": null,
+      "coming_soon": false,
+      "variants": [{"code": "—", "type": "Custom engineering"}]
+    },
+    {
+      "id": "custom",
+      "name": "Customized Probe Pin",
+      "max_package": "Per application",
+      "image": "/upload/catalog/probe_pin_plunger_shape.png",
+      "coming_soon": false,
+      "variants": [{"code": "—", "type": "Tip shape & current rating on request"}]
+    }
+  ]
+}

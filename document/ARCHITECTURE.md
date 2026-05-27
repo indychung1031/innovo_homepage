@@ -11,10 +11,18 @@ Innovosolution 공식 홈페이지 (www.innovosolution.co.kr)
 ## 3. 기술 스택
 
 - Frontend: HTML5, CSS3, Vanilla JS, Tailwind CSS
-- Backend: (필요 시) FastAPI + Jinja2
-- Database: (필요 시) SQLite
+- Backend: FastAPI + Jinja2
+- Database: **PostgreSQL** (SQLAlchemy + Alembic)
+- DB 드라이버: psycopg2
 - Hosting: (미정)
 
-## 4. 페이지 구성
+## 4. PostgreSQL
+
+- 로컬·운영 모두 PostgreSQL 사용 (SQLite 미사용)
+- 접속: `.env`의 `POSTGRES_*` 환경변수
+- 기본 DB명: `innovo_homepage`
+- 스키마 문서: `document/data_dictionary/`
+
+## 5. 페이지 구성
 
 (마스터 플랜 확정 후 페이지 목록을 기록하세요)

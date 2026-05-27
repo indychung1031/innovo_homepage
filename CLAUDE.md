@@ -67,19 +67,28 @@ Innovo_homepage/
 │   ├── css/
 │   ├── js/
 │   └── templates/       # Jinja2 또는 정적 HTML 페이지
-├── backend/             # (필요 시) FastAPI — 문의 폼·API 등
-├── database/            # (필요 시) DB 파일
+├── backend/             # FastAPI — 문의 폼·API 등
+├── database/            # Alembic 마이그레이션·시드·SQL 스크립트
 ├── upload/              # 사용자 업로드·미디어 에셋
 ├── document/
 │   ├── plan/            # 기획 문서 (계층적 번호 체계)
 │   ├── tasks/           # 태스크 문서
-│   └── reports/         # 작업 보고서
+│   ├── reports/         # 작업 보고서
+│   └── data_dictionary/ # DB 스키마 문서
 └── .antigravity/        # 규칙 원본 (Junction)
 ```
 
-### DB 위치 규칙 (백엔드 도입 시)
-- **✅ 공식 위치**: `database/mydb.db`
+### DB 규칙 (PostgreSQL)
+- **✅ 기본 DB**: **PostgreSQL** (로컬·운영 공통)
+- **✅ 접속 설정**: `.env`의 `POSTGRES_*` 환경변수 사용 (`os.getenv()`)
+- **✅ 스키마 변경**: **Alembic** revision으로 관리
+- **❌ 절대 금지**: SQLite를 기본 DB로 사용
 - **❌ 절대 금지**: `backend/` 폴더 내 `.db` 파일 생성
+- **❌ 절대 금지**: DB 비밀번호·연결 문자열 하드코딩
+
+### 데이터 사전 (Data Dictionary)
+- **위치**: `document/data_dictionary/` (예: `00_schema.md`)
+- **DB 스키마를 수정한 경우**: 반드시 위 폴더 문서를 해당 변경에 맞게 업데이트한다.
 
 ### 기획 문서 명명 규칙
 - 마스터: `00_master_plan.md`
@@ -95,9 +104,21 @@ Innovo_homepage/
 - **❌ 금지**: React, Vue.js, Angular, Svelte 등 SPA 프레임워크
 - 외부 라이브러리 추가 시 반드시 사용자 승인 후 설치
 
-### 백엔드 (선택)
-- 문의 폼·동적 기능이 필요할 때만 **FastAPI** (Python) + **SQLite** + **Jinja2** 도입
-- 정적 페이지만으로 충분하면 `frontend/` 단독 구성 가능
+### 백엔드
+- **FastAPI** (Python) + **PostgreSQL** + **SQLAlchemy** + **Jinja2**
+- DB 드라이버: `psycopg2` (또는 `psycopg2-binary`)
+- 스키마 마이그레이션: **Alembic**
+- 정적 페이지만 먼저 구현하더라도, DB·API 설계는 PostgreSQL 기준으로 작성한다.
+
+### PostgreSQL 환경변수 (`.env`)
+```
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=innovo_homepage
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+```
+- `.env.example`을 참고하고, 실제 값은 `.env`에만 저장한다.
 
 ### 배포 (확정 전 — 기획 단계에서 결정)
 - 후보: AWS S3 + CloudFront, EC2, GitHub Pages 등
@@ -140,7 +161,8 @@ Innovo_homepage/
 - 대규모 구현 작업 전 백업 여부 확인
 - 전체 폴더 백업 금지 → **변경 부분만** 선별 백업
 - 백업 위치: `backups/Innovo_homepage/YYYYMMDD_HHMM/`
-- 제외 항목: `__pycache__/`, `*.pyc`, `*.db`, `.git/`, `venv/`, `node_modules/`
+- DB 백업: `pg_dump innovo_homepage > backup_YYYYMMDD.sql`
+- 제외 항목: `__pycache__/`, `*.pyc`, `.git/`, `venv/`, `node_modules/`
 
 ---
 
@@ -183,4 +205,5 @@ Innovo_homepage/
 
 ### Push 전 확인 사항
 - 민감 정보 (`.env`, 비밀번호, API 키) 가 포함된 파일은 커밋하지 않는다.
-- DB 파일, 빌드 결과물, 임시 파일은 커밋하지 않는다.
+- `.env`, DB 덤프 파일(`*.sql`), 빌드 결과물, 임시 파일은 커밋하지 않는다.
+- DB 스키마 변경이 포함된 커밋은 사용자 확인 후 진행한다.

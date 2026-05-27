@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Innovo Solution — Innovative Test Solution Provider"
+  },
+  "hero": {
+    "title": "Innovative test solution provider",
+    "subtitle": "Integrated test socket and probe pin design for global semiconductor customers.",
+    "tagline": "From probe pin to test socket — engineered for precision."
+  },
+  "values": {
+    "title": "Core capabilities",
+    "items": [
+      {
+        "title": "Integrated test solution",
+        "body": "End-to-end design from probe pins to test sockets with 3D simulation to catch defects early."
+      },
+      {
+        "title": "Size optimization",
+        "body": "Custom sockets tailored to IC dimensions for the optimal test environment."
+      },
+      {
+        "title": "High current solutions",
+        "body": "Proven experience in Power IC and PMIC testing under high-current conditions."
+      },
+      {
+        "title": "Custom test machines",
+        "body": "Dedicated test equipment development with a certified quality management system."
+      }
+    ]
+  },
+  "stats": {
+    "title": "Numbers that define Innovo",
+    "visible": false,
+    "items": [
+      {"label": "Years in business", "value": "—"},
+      {"label": "Patents", "value": "—"},
+      {"label": "Countries served", "value": "—"}
+    ]
+  },
+  "map": {
+    "title": "Global delivery",
+    "caption": "We supply test solutions worldwide. Customer names are not disclosed on this site."
+  },
+  "teaser": {
+    "title": "Product lines",
+    "items": [
+      {
+        "slug": "test-socket",
+        "title": "Test Socket",
+        "body": "Tiny to Large series, WLCSP, Multi, Magnetic and more."
+      },
+      {
+        "slug": "probe-pin",
+        "title": "Probe Pin",
+        "body": "General and special POGO pins for high current and fine pitch."
+      },
+      {
+        "slug": "test-jig",
+        "title": "Test JIG",
+        "body": "PCB and ECU test fixtures built to your requirements."
+      }
+    ]
+  },
+  "bottom_cta": {
+    "title": "Need a custom test socket?",
+    "body": "Submit IC specifications and our sales team will respond within 1–2 business days."
+  }
+}

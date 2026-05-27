@@ -1,0 +1,24 @@
+<div id="cookieBanner" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-navy shadow-lg z-[1000] p-4" role="dialog" aria-labelledby="cookieBannerTitle" hidden>
+  <div class="max-w-4xl mx-auto">
+    <p id="cookieBannerTitle" class="font-semibold text-navy mb-1">
+      {% if lang == 'ko' %}쿠키 및 개인정보{% else %}Cookies &amp; privacy{% endif %}
+    </p>
+    <p class="text-sm text-gray-mid mb-3">
+      {% if lang == 'ko' %}
+        필수 쿠키는 사이트 운영에 사용됩니다. 분석(Google Analytics)은 선택 동의 시에만 사용됩니다.
+        <a href="/{{ lang }}/privacy" class="text-sky hover:underline">개인정보처리방침</a>
+      {% else %}
+        Essential cookies run the site. Analytics (Google Analytics) loads only if you accept.
+        <a href="/{{ lang }}/privacy" class="text-sky hover:underline">Privacy Policy</a>
+      {% endif %}
+    </p>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" class="px-4 py-2 rounded border border-gray-light text-navy text-sm hover:bg-slate-50" id="cookieEssentialOnly">
+        {% if lang == 'ko' %}필수만{% else %}Essential only{% endif %}
+      </button>
+      <button type="button" class="px-4 py-2 rounded bg-sky text-white text-sm hover:opacity-95" id="cookieAcceptAll">
+        {% if lang == 'ko' %}분석 허용{% else %}Accept analytics{% endif %}
+      </button>
+    </div>
+  </div>
+</div>

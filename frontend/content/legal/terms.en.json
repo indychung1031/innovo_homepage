@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Terms of Service",
+    "effective_date": "2026-05-21",
+    "version": "1.1"
+  },
+  "intro": "These Terms of Service (\"Terms\") govern **use of the website and B2B services** provided by INNOVO SOLUTION CO., LTD. (\"Innovo\"). **Personal data** is handled under our separate Privacy Policy. Registration requires agreement to both Terms and Privacy Policy.",
+  "sections": [
+    {
+      "id": "service",
+      "title": "1. Service Description",
+      "paragraphs": [
+        "Innovo provides information on test sockets, probe pins, and test jigs, and channels for Quick Quote, Contact, and member quotes.",
+        "Online and automated quotes are indicative; final price, delivery, and terms are confirmed by our sales team and formal quotation.",
+        "We may modify or suspend all or part of the service for operational or technical reasons; material changes will be announced in advance where practicable."
+      ]
+    },
+    {
+      "id": "eligibility",
+      "title": "2. Eligibility",
+      "list": [
+        "Services are for business users acting on behalf of a company.",
+        "You must provide accurate company and contact information.",
+        "Members must complete email verification.",
+        "Verified member benefits (catalog, base pricing) require Innovo approval."
+      ]
+    },
+    {
+      "id": "account",
+      "title": "3. Account Security, Suspension, and Withdrawal",
+      "paragraphs": [
+        "You are responsible for your password and account activity. Report suspected unauthorized access to sbchung@innovotech.co.kr immediately.",
+        "We may restrict or delete accounts for false information, Terms violations, abuse, or security threats, with notice beforehand or afterwards if urgent.",
+        "You may request account withdrawal at any time; data is handled per our Privacy Policy."
+      ]
+    },
+    {
+      "id": "quotes",
+      "title": "4. Quotes and Orders",
+      "list": [
+        "Online quotes are not binding offers unless confirmed in Innovo's formal quotation.",
+        "Quote validity is typically 7 days from issuance unless stated otherwise.",
+        "Submitting a quote request does not create a purchase or supply obligation.",
+        "Specifications, MOQ, delivery, payment, and Incoterms are governed by **separate purchase contracts and formal quotes** where applicable.",
+        "Product defects and fitness for purpose are subject to those contracts and applicable law."
+      ]
+    },
+    {
+      "id": "uploads",
+      "title": "5. Files and Confidential Information",
+      "paragraphs": [
+        "You may optionally upload general specifications (PDF, DXF, STEP).",
+        "Do not upload NDA, export-controlled, or classified materials via public forms; email sbchung@innovotech.co.kr directly.",
+        "You warrant that you have the right to share uploaded content for evaluation.",
+        "Innovo may **non-exclusively** view and store uploads for quote and technical review and will not disclose them to third parties without your consent except as required by law."
+      ]
+    },
+    {
+      "id": "conduct",
+      "title": "6. Acceptable Use",
+      "list": [
+        "No form abuse, bots, or unauthorized access",
+        "No false company identities or fraudulent requests",
+        "No interference with service operation",
+        "Compliance with applicable export control and sanctions laws (international customers)"
+      ]
+    },
+    {
+      "id": "ip",
+      "title": "7. Intellectual Property",
+      "paragraphs": [
+        "Site content, logos, and product descriptions belong to Innovo or licensors. No commercial redistribution without prior written consent (internal evaluation excepted)."
+      ]
+    },
+    {
+      "id": "disclaimer",
+      "title": "8. Disclaimer and Limitation of Liability",
+      "paragraphs": [
+        "The website and tools are provided \"as is\" to the extent permitted by law.",
+        "Except for willful misconduct or gross negligence, Innovo is not liable for indirect, special, or consequential damages.",
+        "Mandatory consumer or data protection laws in your jurisdiction apply where they cannot be waived."
+      ]
+    },
+    {
+      "id": "privacy",
+      "title": "9. Privacy",
+      "paragraphs": [
+        "Personal data is processed as described in our Privacy Policy at /{lang}/privacy."
+      ]
+    },
+    {
+      "id": "law",
+      "title": "10. Governing Law and Disputes",
+      "paragraphs": [
+        "These Terms are governed by the laws of the Republic of Korea.",
+        "Disputes are subject to the courts of the Republic of Korea in principle; a separate written purchase contract may specify different governing law and jurisdiction.",
+        "Mandatory laws in your country apply where they cannot be excluded."
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "11. Changes to Terms",
+      "paragraphs": [
+        "We may amend these Terms. **Material changes** will be announced at least 7 days before effective date (30 days if unfavorable to members), via the website and email to registered members.",
+        "Members may need to **re-consent**; you may withdraw if you do not agree.",
+        "Changes affecting public features (Quick Quote, Contact) take effect upon notice."
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "12. Contact",
+      "paragraphs": [
+        "INNOVO SOLUTION CO., LTD. | sbchung@innovotech.co.kr | +82-31-735-6141~2",
+        "12, Galmachi-ro 203beon-gil, Jungwon-gu, Seongnam-si, Gyeonggi-do, Republic of Korea"
+      ]
+    }
+  ]
+}

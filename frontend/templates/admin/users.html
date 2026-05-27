@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users | Admin</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <header class="bg-navy text-white px-4 py-3 flex gap-4 text-sm">
+    <a href="/admin/quotes" class="opacity-80">Quotes</a>
+    <a href="/admin/contacts" class="opacity-80">Contacts</a>
+    <a href="/admin/users" class="font-semibold">Users</a>
+    <button type="button" id="logoutBtn" class="ml-auto opacity-80">Logout</button>
+  </header>
+  <main class="max-w-6xl mx-auto p-4">
+    <h1 class="text-xl font-bold mb-4">Members</h1>
+    <table class="w-full text-sm bg-white border border-gray-light rounded overflow-hidden">
+      <thead class="bg-slate-100"><tr>
+        <th class="p-2 text-left">ID</th><th class="p-2 text-left">Email</th><th class="p-2 text-left">Company</th><th class="p-2 text-left">Tier</th><th class="p-2 text-left">Action</th><th class="p-2 text-left">Delete</th>
+      </tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </main>
+  <script src="/static/js/admin.js"></script>
+  <script>
+  if (!InnovoAdmin.requireAuth()) throw new Error('auth');
+  document.getElementById('logoutBtn').onclick = function () { InnovoAdmin.clearToken(); location.href = '/admin'; };
+  async function load() {
+    const res = await InnovoAdmin.api('/users?page=1&size=50');
+    if (!res) return;
+    const data = await res.json();
+    document.getElementById('tableBody').innerHTML = data.items.map(function (u) {
+      var tierBtn = u.membership_tier === 'verified'
+        ? '<button data-id="' + u.id + '" data-tier="general" class="text-sky revoke">Revoke</button>'
+        : '<button data-id="' + u.id + '" data-tier="verified" class="text-sky approve">Approve</button>';
+      var delBtn = '<button data-id="' + u.id + '" data-email="' + u.email + '" class="text-red-500 del-btn">Delete</button>';
+      return '<tr class="border-t"><td class="p-2">' + u.id + '</td><td class="p-2">' + u.email + '</td><td class="p-2">' + u.company_name + '</td><td class="p-2">' + u.membership_tier + '</td><td class="p-2">' + tierBtn + '</td><td class="p-2">' + delBtn + '</td></tr>';
+    }).join('');
+    document.querySelectorAll('.approve, .revoke').forEach(function (btn) {
+      btn.onclick = async function () {
+        await InnovoAdmin.api('/users/' + btn.dataset.id + '/membership', {
+          method: 'PATCH',
+          body: JSON.stringify({ membership_tier: btn.dataset.tier }),
+        });
+        load();
+      };
+    });
+    document.querySelectorAll('.del-btn').forEach(function (btn) {
+      btn.onclick = async function () {
+        if (!confirm(btn.dataset.email + ' 계정을 삭제하시겠습니까?\n견적 기록은 익명화 후 보존됩니다.')) return;
+        await InnovoAdmin.api('/users/' + btn.dataset.id, { method: 'DELETE' });
+        load();
+      };
+    });
+  }
+  load();
+  </script>
+</body>
+</html>

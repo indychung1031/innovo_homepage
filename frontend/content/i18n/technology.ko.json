@@ -1,0 +1,32 @@
+{
+  "meta": {"title": "기술력 | 이노보솔루션"},
+  "hero": {
+    "title": "엔지니어링 & 시뮬레이션",
+    "lead": "3D 설계, 고전류 전문성, 사내 검증 장비."
+  },
+  "simulation": {
+    "title": "3D 설계 & 시뮬레이션",
+    "body": "제조 전 IC 로딩·핀 정렬을 시뮬레이션하여 리스크를 줄입니다."
+  },
+  "high_current": {
+    "title": "고전류 테스트 솔루션",
+    "body": "Power IC·PMIC 등 까다로운 전기 조건에서의 풍부한 적용 경험."
+  },
+  "optimization": {
+    "title": "사이즈 최적화",
+    "body": "IC footprint에 맞춘 소켓 설계로 안정적 접촉과 컴팩트한 handler 연동을 지원합니다."
+  },
+  "equipment": {
+    "title": "검증 장비",
+    "items": [
+      {"id": "dimension", "name": "치수 측정기", "image": "/upload/technology/equipment/dimension_meter.png"},
+      {"id": "life", "name": "수명 시험기", "image": "/upload/technology/equipment/life_cycle_tester.png"},
+      {"id": "resistance", "name": "저항 측정기", "image": "/upload/technology/equipment/resistance_meter.png"},
+      {"id": "force", "name": "힘 측정기", "image": "/upload/technology/equipment/force_meter.png"}
+    ]
+  },
+  "patents": {
+    "title": "특허 & R&D",
+    "body": "특허 수·대표 목록은 공개 승인 후 게시 예정입니다."
+  }
+}

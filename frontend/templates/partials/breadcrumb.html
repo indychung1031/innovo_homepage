@@ -1,0 +1,20 @@
+<nav
+  class="text-sm mb-4 {% if breadcrumb_variant == 'light' %}text-slate-300{% else %}text-gray-mid{% endif %}"
+  aria-label="Breadcrumb"
+>
+  <a
+    href="/{{ lang }}/"
+    class="{% if breadcrumb_variant == 'light' %}text-sky hover:text-white{% else %}text-sky hover:underline{% endif %}"
+  >{{ t.breadcrumb.main }}</a>
+  {% for item in breadcrumb_items %}
+  <span class="mx-1" aria-hidden="true">/</span>
+  {% if item.href %}
+  <a
+    href="{{ item.href }}"
+    class="{% if breadcrumb_variant == 'light' %}text-sky hover:text-white{% else %}text-sky hover:underline{% endif %}"
+  >{{ item.label }}</a>
+  {% else %}
+  <span {% if loop.last %}aria-current="page"{% endif %}>{{ item.label }}</span>
+  {% endif %}
+  {% endfor %}
+</nav>

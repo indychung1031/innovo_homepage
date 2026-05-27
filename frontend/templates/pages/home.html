@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}{{ t.home.meta.title }}{% endblock %}
+
+{% block content %}
+<section class="bg-navy text-white py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4">
+    <p class="text-sky font-medium mb-2">{{ t.home.hero.tagline }}</p>
+    <h1 class="text-3xl md:text-5xl font-bold text-white mb-4 max-w-3xl">{{ t.home.hero.title }}</h1>
+    <p class="text-slate-300 text-lg max-w-2xl mb-8">{{ t.home.hero.subtitle }}</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="/{{ lang }}/quote" class="inline-flex bg-sky text-white px-6 py-3 rounded font-medium hover:opacity-95">{{ t.cta.quote }}</a>
+      <a href="/{{ lang }}/products" class="inline-flex bg-white text-navy px-6 py-3 rounded font-medium hover:bg-slate-100">{{ t.cta.explore_products }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="py-14 bg-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-8">{{ t.home.values.title }}</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {% for item in t.home.values['items'] %}
+      <article class="border border-gray-light rounded-lg p-5 hover:shadow-sm transition-shadow">
+        <span class="text-sky font-display font-bold text-lg">{{ loop.index }}</span>
+        <h3 class="font-semibold mt-2 mb-2">{{ item.title }}</h3>
+        <p class="text-gray-mid text-sm leading-relaxed">{{ item.body }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if t.home.stats.visible %}
+<section class="py-14 bg-slate-50">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-2xl font-bold mb-8">{{ t.home.stats.title }}</h2>
+    <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+      {% for stat in t.home.stats['items'] %}
+      <div>
+        <p class="text-3xl font-bold text-navy">{{ stat.value }}</p>
+        <p class="text-gray-mid text-sm mt-1">{{ stat.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="py-14 bg-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-2">{{ t.home.map.title }}</h2>
+    <p class="text-gray-mid mb-6 max-w-2xl">{{ t.home.map.caption }}</p>
+    <div class="bg-slate-100 border border-gray-light rounded-lg aspect-[2/1] flex items-center justify-center text-gray-mid">
+      <svg viewBox="0 0 800 400" class="w-full max-w-3xl opacity-40" aria-hidden="true">
+        <ellipse cx="400" cy="200" rx="360" ry="170" fill="none" stroke="#26337D" stroke-width="2"/>
+        <path d="M120,180 Q400,120 680,190" fill="none" stroke="#1C93D2" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="py-14 bg-slate-50">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-8">{{ t.home.teaser.title }}</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      {% for item in t.home.teaser['items'] %}
+      <a href="/{{ lang }}/products/{{ item.slug }}" class="group block bg-white border border-gray-light rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+        <div class="h-40 bg-slate-100 flex items-center justify-center text-navy/30 font-display text-xl">{{ item.title }}</div>
+        <div class="p-5">
+          <h3 class="font-semibold group-hover:text-sky transition-colors">{{ item.title }}</h3>
+          <p class="text-gray-mid text-sm mt-2">{{ item.body }}</p>
+          <span class="inline-block mt-3 text-sky text-sm font-medium">{{ t.cta.view_details }} →</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-14 bg-navy text-white">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-2xl font-bold text-white mb-3">{{ t.home.bottom_cta.title }}</h2>
+    <p class="text-slate-300 mb-6 max-w-xl mx-auto">{{ t.home.bottom_cta.body }}</p>
+    <a href="/{{ lang }}/quote" class="inline-flex bg-white text-navy px-6 py-3 rounded font-medium hover:bg-slate-100">{{ t.cta.quote }}</a>
+  </div>
+</section>
+{% endblock %}

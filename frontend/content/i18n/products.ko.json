@@ -1,0 +1,17 @@
+{
+  "meta": {"title": "제품 | 이노보솔루션"},
+  "index": {
+    "title": "제품·서비스",
+    "lead": "반도체 검증을 위한 테스트 소켓, 프로브 핀, 테스트 지그."
+  },
+  "category": {
+    "variants": "변형",
+    "max_package": "최대 패키지",
+    "handler": "Handler",
+    "manual": "Manual",
+    "both": "Manual + Handler",
+    "handler_only": "Handler 전용",
+    "manual_only": "Manual 전용",
+    "socket_list": "Socket List PDF 다운로드"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "meta": {"title": "About | Innovo Solution"},
+  "intro": {
+    "title": "About Innovo Solution",
+    "lead": "Since 2007, we design and manufacture semiconductor test sockets and probe pins for customers worldwide."
+  },
+  "ceo": {
+    "title": "Message from the CEO",
+    "name": "Young-Jae Chung",
+    "name_ko": "정영재",
+    "role": "Chief Executive Officer",
+    "body": "Message to be provided. We are committed to quality, price, performance, and delivery for every customer partnership."
+  },
+  "vision": {
+    "title": "Vision & values",
+    "goal": "Customer — Quality · Price · Performance · Delivery",
+    "pillars": "Originality · Novelty · Creativity · Productivity · Stability",
+    "image_alt": "Innovo vision and values: Customer at the top; Quality, Price, Performance, Delivery; foundation values Originality, Novelty, Creativity, Productivity, Stability"
+  },
+  "org": {
+    "title": "Organization",
+    "ceo": "CEO",
+    "image_alt": "Innovo organization chart: CEO, Sales, QA, Management, Design, Production (Mfg · Assembly), and R&D",
+    "departments": ["QA", "Management", "Sales", "Design", "Production (Mfg · Assembly)", "R&D"]
+  },
+  "timeline": {
+    "title": "Company history",
+    "placeholder": "Detailed milestones will be added.",
+    "items": [
+      {"year": "2007", "text": "Company founded (Feb 13, 2007)"},
+      {"year": "—", "text": "Milestone coming soon"},
+      {"year": "—", "text": "Milestone coming soon"}
+    ]
+  },
+  "iso": {
+    "title": "ISO 9001 certification",
+    "body": "Quality management system certified.",
+    "cert_en": "ISO9001 (2024) Eng.pdf",
+    "cert_ko": "ISO9001 (2024) Kor.pdf"
+  },
+  "faq": {
+    "title": "FAQ",
+    "items": [
+      {"q": "Is there a minimum order quantity (MOQ)?", "a": "There is no minimum order quantity. We can manufacture from as little as 1 set."},
+      {"q": "How long is delivery after receiving a quote?", "a": "Delivery time varies by quantity. For orders of 10 sets or fewer, shipment is possible within 2 weeks. Domestic (Korea) delivery takes 1–2 days. International delivery typically takes about 1 week depending on the airline schedule."},
+      {"q": "Can you design and build custom test sockets?", "a": "Innovosolution specializes in designing sockets tailored to special requests. We welcome inquiries about unique products at any time. Please contact us via the contact form or email and we will respond with care."},
+      {"q": "Do you support both handler and manual test environments?", "a": "We can supply test sockets for both manual and handler use."},
+      {"q": "Should I use the quote portal or email for inquiries?", "a": "You are welcome to reach us through either the contact form or email, whichever is more convenient for you."},
+      {"q": "How can I receive catalogs and datasheets? (Verified members)", "a": "Please register as a member and contact us by email."},
+      {"q": "Can I purchase or get recommendations for probe pins only?", "a": "Probe pins can be purchased separately. We can recommend from our existing inventory or design and supply probe pins tailored to your specific environment."},
+      {"q": "Can I request a quote without DXF/PDF/STEP drawings?", "a": "If you can provide detailed specifications in text, a quote request is possible. If gathering detailed specifications is difficult, please contact us via the contact form or email and we will guide you kindly."},
+      {"q": "Do you support overseas delivery and English quotations?", "a": "Overseas delivery and English quotations are available. Please feel free to request at any time."}
+    ]
+  }
+}

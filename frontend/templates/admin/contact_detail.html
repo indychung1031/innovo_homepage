@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Detail | Admin</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+  <style>
+    .detail-table th { width: 140px; text-align: left; padding: 8px 12px; background: #f1f5f9; color: #475569; font-weight: 500; vertical-align: top; }
+    .detail-table td { padding: 8px 12px; color: #1e293b; }
+    .detail-table tr { border-bottom: 1px solid #e2e8f0; }
+    .section-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; padding: 16px 12px 4px; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <header class="bg-navy text-white px-4 py-3 flex gap-4 text-sm">
+    <a href="/admin/quotes" class="opacity-80">Quotes</a>
+    <a href="/admin/contacts" class="font-semibold">Contacts</a>
+    <a href="/admin/users" class="opacity-80">Users</a>
+    <button type="button" id="logoutBtn" class="ml-auto opacity-80">Logout</button>
+  </header>
+  <main class="max-w-3xl mx-auto p-4">
+    <div class="flex items-center gap-3 mb-4">
+      <button onclick="window.close()" class="text-sm text-sky hover:underline">← Close</button>
+      <h1 class="text-xl font-bold">Contact Detail</h1>
+      <span id="contactId" class="text-gray-mid text-sm"></span>
+    </div>
+    <div id="content" class="bg-white rounded border border-gray-light overflow-hidden mb-4">
+      <p class="p-4 text-gray-mid">Loading...</p>
+    </div>
+    <div id="otherSection" class="hidden">
+      <h2 class="text-sm font-semibold text-slate-500 mb-2">Other contacts from same email</h2>
+      <div id="otherList" class="bg-white rounded border border-gray-light overflow-hidden text-sm"></div>
+    </div>
+  </main>
+  <script src="/static/js/admin.js"></script>
+  <script>
+  if (!InnovoAdmin.requireAuth()) throw new Error('auth');
+  document.getElementById('logoutBtn').onclick = function () { InnovoAdmin.clearToken(); location.href = '/admin'; };
+
+  const id = new URLSearchParams(location.search).get('id');
+  document.getElementById('contactId').textContent = id ? '#' + id : '';
+
+  function val(v) { return (v === null || v === undefined || v === '') ? '<span class="text-slate-400">—</span>' : v; }
+
+  (async function () {
+    if (!id) { document.getElementById('content').innerHTML = '<p class="p-4 text-red-600">ID not specified.</p>'; return; }
+    const res = await InnovoAdmin.api('/contacts/' + id + '/detail');
+    if (!res || !res.ok) { document.getElementById('content').innerHTML = '<p class="p-4 text-red-600">Failed to load.</p>'; return; }
+    const r = await res.json();
+
+    document.getElementById('content').innerHTML = `
+      <table class="detail-table w-full text-sm">
+        <tr><td colspan="2" class="section-title">Inquiry</td></tr>
+        <tr><th>Category</th><td>${val(r.category)}</td></tr>
+        <tr><th>Subject</th><td>${val(r.subject)}</td></tr>
+        <tr><th>Message</th><td style="white-space:pre-wrap">${val(r.message)}</td></tr>
+        <tr><th>Attachment</th><td>${r.has_attachment
+          ? '<button class="text-sky hover:underline" id="dlBtn">' + r.attachment_name + '</button>'
+          : val(null)}</td></tr>
+
+        <tr><td colspan="2" class="section-title">Customer</td></tr>
+        <tr><th>Company</th><td>${val(r.company_name)}</td></tr>
+        <tr><th>Name</th><td>${val(r.contact_name)}</td></tr>
+        <tr><th>Email</th><td><a href="mailto:${r.contact_email}" class="text-sky hover:underline">${val(r.contact_email)}</a></td></tr>
+        <tr><th>Phone</th><td>${val(r.contact_phone)}</td></tr>
+
+        <tr><td colspan="2" class="section-title">Admin</td></tr>
+        <tr><th>Status</th><td>${val(r.status)}</td></tr>
+        <tr><th>Admin Note</th><td style="white-space:pre-wrap">${val(r.admin_note)}</td></tr>
+        <tr><th>Received</th><td>${val(r.created_at ? r.created_at.slice(0,19).replace('T',' ') : null)}</td></tr>
+      </table>`;
+
+    if (r.has_attachment) {
+      document.getElementById('dlBtn').onclick = async function () {
+        const res2 = await fetch('/admin/api/contacts/' + id + '/attachment', { headers: InnovoAdmin.authHeaders() });
+        if (!res2.ok) return alert('Download failed');
+        const blob = await res2.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = r.attachment_name;
+        a.click();
+      };
+    }
+
+    if (r.other_contacts && r.other_contacts.length > 0) {
+      document.getElementById('otherSection').classList.remove('hidden');
+      document.getElementById('otherList').innerHTML = r.other_contacts.map(function (o) {
+        return '<div class="border-b p-3 flex justify-between items-center">'
+          + '<span class="text-sky cursor-pointer hover:underline" onclick="window.open(\'/admin/contacts/detail?id=' + o.id + '\',\'_blank\',\'width=900,height=700\')">#' + o.id + ' — ' + o.subject + '</span>'
+          + '<span class="text-slate-400">' + o.created_at.slice(0,10) + '</span>'
+          + '</div>';
+      }).join('');
+    }
+  })();
+  </script>
+</body>
+</html>

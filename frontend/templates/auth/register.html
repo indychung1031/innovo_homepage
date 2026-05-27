@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}{% if lang == 'ko' %}회원가입{% else %}Register{% endif %} | Innovo Solution{% endblock %}
+
+{% block head %}
+{% if recaptcha_site_key %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="py-16 max-w-md mx-auto px-4">
+  {% set breadcrumb_items = [{'label': 'Create Account' if lang == 'en' else '회원가입'}] %}
+  {% include "partials/breadcrumb.html" %}
+  <h1 class="text-2xl font-bold mb-6">{% if lang == 'ko' %}회원가입{% else %}Create Account{% endif %}</h1>
+  <form id="registerForm" class="space-y-3">
+    <input type="text" id="full_name" required maxlength="50" placeholder="{% if lang == 'ko' %}이름 *{% else %}Full name *{% endif %}" class="w-full border border-gray-light rounded px-3 py-2">
+    <input type="text" id="company_name" required maxlength="100" placeholder="{% if lang == 'ko' %}회사명 *{% else %}Company *{% endif %}" class="w-full border border-gray-light rounded px-3 py-2">
+    <input type="email" id="email" required placeholder="Email *" class="w-full border border-gray-light rounded px-3 py-2">
+    <input type="tel" id="phone" required maxlength="30" placeholder="{% if lang == 'ko' %}연락처 *{% else %}Phone *{% endif %}" class="w-full border border-gray-light rounded px-3 py-2">
+    <input type="password" id="password" required placeholder="{% if lang == 'ko' %}비밀번호 (8자+, 영문+숫자) *{% else %}Password *{% endif %}" class="w-full border border-gray-light rounded px-3 py-2">
+    <input type="password" id="password_confirm" required placeholder="{% if lang == 'ko' %}비밀번호 확인 *{% else %}Confirm password *{% endif %}" class="w-full border border-gray-light rounded px-3 py-2">
+    <label class="flex items-start gap-2 text-sm">
+      <input type="checkbox" id="privacy_agreed" required class="mt-1">
+      <span><a href="/{{ lang }}/privacy" class="text-sky" target="_blank">Privacy</a> ({% if lang == 'ko' %}필수{% else %}required{% endif %})</span>
+    </label>
+    <label class="flex items-start gap-2 text-sm">
+      <input type="checkbox" id="terms_agreed" required class="mt-1">
+      <span><a href="/{{ lang }}/terms" class="text-sky" target="_blank">Terms</a> ({% if lang == 'ko' %}필수{% else %}required{% endif %})</span>
+    </label>
+    <button type="submit" class="w-full bg-navy text-white py-3 rounded font-medium">{% if lang == 'ko' %}가입하기{% else %}Register{% endif %}</button>
+  </form>
+  <p id="regMsg" class="mt-4 text-sm hidden"></p>
+  <p class="mt-4 text-sm"><a href="/{{ lang }}/login" class="text-sky">{% if lang == 'ko' %}로그인{% else %}Login{% endif %}</a></p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const LANG = '{{ lang }}';
+const RECAPTCHA_KEY = '{{ recaptcha_site_key }}';
+async function getRecaptchaToken() {
+  if (!RECAPTCHA_KEY || !window.grecaptcha) return 'dev-skip-token';
+  return grecaptcha.execute(RECAPTCHA_KEY, { action: 'register' });
+}
+document.getElementById('registerForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const msg = document.getElementById('regMsg');
+  msg.classList.add('hidden');
+  const payload = {
+    full_name: document.getElementById('full_name').value.trim(),
+    company_name: document.getElementById('company_name').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    password: document.getElementById('password').value,
+    password_confirm: document.getElementById('password_confirm').value,
+    privacy_agreed: document.getElementById('privacy_agreed').checked,
+    terms_agreed: document.getElementById('terms_agreed').checked,
+    recaptcha_token: await getRecaptchaToken(),
+    lang: LANG,
+  };
+  try {
+    const res = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Registration failed');
+    msg.textContent = data.message;
+    msg.className = 'mt-4 text-sm text-green-700';
+    msg.classList.remove('hidden');
+    e.target.reset();
+  } catch (err) {
+    msg.textContent = err.message;
+    msg.className = 'mt-4 text-sm text-red-700';
+    msg.classList.remove('hidden');
+  }
+});
+</script>
+{% endblock %}

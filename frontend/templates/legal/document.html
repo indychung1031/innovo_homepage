@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{{ doc.meta.title }} | Innovo Solution{% endblock %}
+
+{% block content %}
+<article class="legal-doc max-w-3xl mx-auto px-4 py-12">
+  <header class="mb-8">
+    {% set breadcrumb_items = [{'label': doc.meta.title}] %}
+    {% include "partials/breadcrumb.html" %}
+    <h1 class="text-3xl font-bold mb-2">{{ doc.meta.title }}</h1>
+    <p class="text-gray-mid text-sm">
+      {% if lang == 'ko' %}
+        시행일: {{ doc.meta.effective_date }} · 버전 {{ doc.meta.version }}
+      {% else %}
+        Effective: {{ doc.meta.effective_date }} · Version {{ doc.meta.version }}
+      {% endif %}
+    </p>
+  </header>
+
+  <p class="text-lg mb-8 leading-relaxed">{{ doc.intro }}</p>
+
+  {% for section in doc.sections %}
+  <section id="{{ section.id }}" class="mb-8">
+    <h2 class="text-lg font-semibold border-b border-gray-light pb-2 mb-3">{{ section.title }}</h2>
+    {% for para in section.get('paragraphs', []) %}
+    <p class="mb-3 leading-relaxed">{{ para | replace('/{lang}/privacy', '/' ~ lang ~ '/privacy') | replace('/{lang}/terms', '/' ~ lang ~ '/terms') }}</p>
+    {% endfor %}
+    {% if section.get('table') %}
+    <div class="overflow-x-auto my-4">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="bg-slate-50">
+            {% for h in section.table.headers %}
+            <th class="border border-gray-light px-3 py-2 text-left font-semibold text-navy">{{ h }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in section.table.rows %}
+          <tr class="even:bg-slate-50/50">
+            {% for cell in row %}
+            <td class="border border-gray-light px-3 py-2 align-top">{{ cell }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+    {% if section.get('list') %}
+    <ul class="list-disc pl-5 space-y-1 mb-3">
+      {% for item in section.list %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% for para in section.get('paragraphs_after', []) %}
+    <p class="mb-3 leading-relaxed">{{ para | replace('/{lang}/privacy', '/' ~ lang ~ '/privacy') | replace('/{lang}/terms', '/' ~ lang ~ '/terms') }}</p>
+    {% endfor %}
+  </section>
+  {% endfor %}
+</article>
+{% endblock %}
