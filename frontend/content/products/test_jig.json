@@ -14,12 +14,8 @@
       "image": null,
       "coming_soon": false,
       "specs": {
-        "ic_type": null,
-        "socket_size": null,
-        "operating_temp": null,
-        "humidity": null,
-        "cover_type": null,
-        "material": null
+        "en": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null },
+        "ko": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null }
       }
     },
     {
@@ -30,12 +26,8 @@
       "image": null,
       "coming_soon": false,
       "specs": {
-        "ic_type": null,
-        "socket_size": null,
-        "operating_temp": null,
-        "humidity": null,
-        "cover_type": null,
-        "material": null
+        "en": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null },
+        "ko": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null }
       }
     }
   ]

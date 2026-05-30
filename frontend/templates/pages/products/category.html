@@ -44,6 +44,7 @@
         {% endif %}
 
         {% if family.specs and not family.coming_soon %}
+        {% set s = family.specs.en if lang == 'en' else family.specs.ko %}
         <button type="button" class="text-left text-sky text-sm font-medium mb-2" data-spec-toggle aria-expanded="false" aria-controls="spec-{{ family.id }}">
           {{ t.cta.view_specs }}
         </button>
@@ -52,34 +53,33 @@
             <tbody>
               <tr>
                 <td class="py-1 pr-3 text-gray-mid w-2/5">{{ t.products.category.spec_ic_type }}</td>
-                <td class="py-1 font-medium">{{ family.specs.ic_type or '—' }}</td>
+                <td class="py-1 font-medium">{{ s.ic_type or '—' }}</td>
               </tr>
               <tr>
                 <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_socket_size }}</td>
-                <td class="py-1 font-medium">{{ family.specs.socket_size or '—' }}</td>
+                <td class="py-1 font-medium">{{ s.socket_size or '—' }}</td>
               </tr>
               <tr>
                 <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_operating_temp }}</td>
-                <td class="py-1 font-medium">{{ family.specs.operating_temp or '—' }}</td>
+                <td class="py-1 font-medium">{{ s.operating_temp or '—' }}</td>
               </tr>
               <tr>
                 <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_humidity }}</td>
-                <td class="py-1 font-medium">{{ family.specs.humidity or '—' }}</td>
+                <td class="py-1 font-medium">{{ s.humidity or '—' }}</td>
               </tr>
               <tr>
                 <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_cover_type }}</td>
-                <td class="py-1 font-medium">{{ family.specs.cover_type or '—' }}</td>
+                <td class="py-1 font-medium">{{ s.cover_type or '—' }}</td>
               </tr>
               <tr>
                 <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_material }}</td>
-                <td class="py-1 font-medium">{{ family.specs.material or '—' }}</td>
+                <td class="py-1 font-medium">{{ s.material or '—' }}</td>
               </tr>
             </tbody>
           </table>
         </div>
         {% endif %}
 
-        <a href="/{{ lang }}/quote" class="mt-auto inline-flex justify-center bg-navy text-white text-sm px-4 py-2 rounded hover:opacity-95">{{ t.cta.request_quote }}</a>
       </div>
     </article>
     {% endfor %}
