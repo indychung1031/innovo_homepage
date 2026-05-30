@@ -14,12 +14,12 @@
       "image": "/upload/products/renders/test_socket/tiny_socket_render.png",
       "coming_soon": false,
       "specs": {
-        "ic_type": null,
-        "socket_size": null,
-        "operating_temp": null,
-        "humidity": null,
+        "ic_type": "BGA / QFN / DFN",
+        "socket_size": "19.30 × 7.90 × 17.00 mm",
+        "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+        "humidity": "0~99%",
         "cover_type": "Clamshell",
-        "material": null
+        "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
       }
     },
     {
