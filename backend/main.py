@@ -118,6 +118,33 @@ def products_index(request: Request, lang: LangCode):
     )
 
 
+@app.get("/{lang}/products/probe-pin/general")
+def probe_pin_general(request: Request, lang: LangCode):
+    return templates.TemplateResponse(
+        request=request,
+        name="pages/products/probe_pin_general.html",
+        context=_page_context(request, lang, page="products"),
+    )
+
+
+@app.get("/{lang}/products/probe-pin/special")
+def probe_pin_special(request: Request, lang: LangCode):
+    return templates.TemplateResponse(
+        request=request,
+        name="pages/products/probe_pin_special.html",
+        context=_page_context(request, lang, page="products"),
+    )
+
+
+@app.get("/{lang}/products/probe-pin/custom")
+def probe_pin_custom(request: Request, lang: LangCode):
+    return templates.TemplateResponse(
+        request=request,
+        name="pages/products/probe_pin_custom.html",
+        context=_page_context(request, lang, page="products"),
+    )
+
+
 @app.get("/{lang}/products/{category_slug}")
 def products_category(request: Request, lang: LangCode, category_slug: CategorySlug):
     try:

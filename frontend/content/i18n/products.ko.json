@@ -13,6 +13,7 @@
     "handler_only": "Handler 전용",
     "manual_only": "Manual 전용",
     "socket_list": "Socket List PDF 다운로드",
+    "view_detail_list": "상세 목록 보기",
     "spec_ic_type": "적용 IC 타입",
     "spec_socket_size": "소켓 크기<br>(X, Y, Z)",
     "spec_operating_temp": "동작 온도",

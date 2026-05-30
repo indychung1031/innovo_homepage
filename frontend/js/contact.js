@@ -7,6 +7,13 @@
   const LANG = document.documentElement.lang || 'en';
   const RECAPTCHA_KEY = form.dataset.recaptchaKey || '';
 
+  // URL 파라미터 ?category=xxx 로 Inquiry category 자동 선택
+  const categoryParam = new URLSearchParams(window.location.search).get('category');
+  if (categoryParam) {
+    const sel = document.getElementById('category');
+    if (sel) sel.value = categoryParam;
+  }
+
   async function getRecaptchaToken() {
     if (!RECAPTCHA_KEY || !window.grecaptcha) return 'dev-skip-token';
     return grecaptcha.execute(RECAPTCHA_KEY, { action: 'contact' });

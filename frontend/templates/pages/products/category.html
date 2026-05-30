@@ -43,7 +43,11 @@
         </p>
         {% endif %}
 
-        {% if family.specs and not family.coming_soon %}
+        {% if family.detail_url and not family.coming_soon %}
+        <a href="/{{ lang }}{{ family.detail_url }}" class="text-sky text-sm font-medium mb-2 inline-block hover:underline">
+          {{ t.products.category.view_detail_list }}
+        </a>
+        {% elif family.specs and not family.coming_soon %}
         {% set s = family.specs.en if lang == 'en' else family.specs.ko %}
         <button type="button" class="text-left text-sky text-sm font-medium mb-2" data-spec-toggle aria-expanded="false" aria-controls="spec-{{ family.id }}">
           {{ t.cta.view_specs }}

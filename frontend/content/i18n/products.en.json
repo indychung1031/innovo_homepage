@@ -13,6 +13,7 @@
     "handler_only": "Handler only",
     "manual_only": "Manual only",
     "socket_list": "Download Socket List (PDF)",
+    "view_detail_list": "View Detailed List",
     "spec_ic_type": "Available IC type",
     "spec_socket_size": "Socket size<br>(X, Y, Z)",
     "spec_operating_temp": "Operating Temp.",
