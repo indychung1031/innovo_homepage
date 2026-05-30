@@ -56,7 +56,7 @@
                 <td class="py-1 font-medium">{{ s.ic_type or '—' }}</td>
               </tr>
               <tr>
-                <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_socket_size }}</td>
+                <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_socket_size | safe }}</td>
                 <td class="py-1 font-medium">{{ s.socket_size or '—' }}</td>
               </tr>
               <tr>

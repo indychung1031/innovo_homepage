@@ -14,7 +14,7 @@
     "manual_only": "Manual only",
     "socket_list": "Download Socket List (PDF)",
     "spec_ic_type": "Available IC type",
-    "spec_socket_size": "Socket size (X, Y, Z)",
+    "spec_socket_size": "Socket size<br>(X, Y, Z)",
     "spec_operating_temp": "Operating Temp.",
     "spec_humidity": "Humidity",
     "spec_cover_type": "Cover type",
