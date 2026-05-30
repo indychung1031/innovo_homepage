@@ -2,8 +2,18 @@
 {% block title %}{{ t.about.meta.title }}{% endblock %}
 
 {% block content %}
-<section class="py-12 bg-white border-b border-gray-light">
-  <div class="max-w-3xl mx-auto px-4">
+<section class="bg-white border-b border-gray-light">
+  <div class="w-full">
+    <img
+      src="/upload/about/intro_hero.png"
+      alt="{% if lang == 'ko' %}이노보솔루션 — 고객과 함께 성장하는 파트너{% else %}Innovo Solution — Growing together with our customers{% endif %}"
+      class="w-full h-56 sm:h-72 md:h-96 object-cover"
+      width="1200"
+      height="480"
+      loading="eager"
+    >
+  </div>
+  <div class="max-w-3xl mx-auto px-4 py-10">
     {% set breadcrumb_items = [{'label': t.nav.about}] %}
     {% include "partials/breadcrumb.html" %}
     <h1 class="text-3xl font-bold mb-3">{{ t.about.intro.title }}</h1>
