@@ -12,6 +12,12 @@
     "both": "Manual + Handler",
     "handler_only": "Handler 전용",
     "manual_only": "Manual 전용",
-    "socket_list": "Socket List PDF 다운로드"
+    "socket_list": "Socket List PDF 다운로드",
+    "spec_ic_type": "적용 IC 타입",
+    "spec_socket_size": "소켓 크기 (X, Y, Z)",
+    "spec_operating_temp": "동작 온도",
+    "spec_humidity": "습도",
+    "spec_cover_type": "커버 타입",
+    "spec_material": "소재"
   }
 }

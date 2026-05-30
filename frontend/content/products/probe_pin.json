@@ -12,7 +12,14 @@
       "max_package": "Various pitches",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Standard catalog range"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": null,
+        "material": null
+      }
     },
     {
       "id": "special",
@@ -20,7 +27,14 @@
       "max_package": "High current & low pitch",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Custom engineering"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": null,
+        "material": null
+      }
     },
     {
       "id": "custom",
@@ -28,7 +42,14 @@
       "max_package": "Per application",
       "image": "/upload/catalog/probe_pin_plunger_shape.png",
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Tip shape & current rating on request"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": null,
+        "material": null
+      }
     }
   ]
 }

@@ -13,7 +13,14 @@
       "mode": "manual_only",
       "image": "/upload/products/renders/test_socket/tiny_socket_render.png",
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "mini",
@@ -22,7 +29,14 @@
       "mode": "manual_only",
       "image": "/upload/products/renders/test_socket/mini_socket_render.png",
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "mini_bottlecap",
@@ -31,7 +45,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "mini_hea",
@@ -40,7 +61,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "HEA",
+        "material": null
+      }
     },
     {
       "id": "mini_opentop",
@@ -49,7 +77,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Open Top",
+        "material": null
+      }
     },
     {
       "id": "exmini",
@@ -58,7 +93,14 @@
       "mode": "manual_only",
       "image": "/upload/products/renders/test_socket/exmini_socket_render.png",
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "exmini_bottlecap",
@@ -67,7 +109,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "exmini_hea",
@@ -76,7 +125,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "HEA",
+        "material": null
+      }
     },
     {
       "id": "exmini_opentop",
@@ -85,7 +141,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Open Top",
+        "material": null
+      }
     },
     {
       "id": "exmini_handle",
@@ -94,10 +157,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [
-        {"code": "M", "type": "Manual"},
-        {"code": "H", "type": "Handler"}
-      ]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "exmini_bottlecap_handle",
@@ -106,10 +173,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [
-        {"code": "M", "type": "Manual"},
-        {"code": "H", "type": "Handler"}
-      ]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large30c",
@@ -118,7 +189,14 @@
       "mode": "both",
       "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
       "coming_soon": false,
-      "variants": [{"code": "C", "type": "Clamshell · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large30ch",
@@ -127,7 +205,14 @@
       "mode": "handler_only",
       "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
       "coming_soon": false,
-      "variants": [{"code": "CH", "type": "Clamshell · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large30b",
@@ -136,7 +221,14 @@
       "mode": "both",
       "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
       "coming_soon": false,
-      "variants": [{"code": "B", "type": "Bottle Cap · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large30bh",
@@ -145,7 +237,14 @@
       "mode": "handler_only",
       "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
       "coming_soon": false,
-      "variants": [{"code": "BH", "type": "Bottle Cap · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large36c",
@@ -154,7 +253,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "C", "type": "Clamshell · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large36ch",
@@ -163,7 +269,14 @@
       "mode": "handler_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "CH", "type": "Clamshell · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large36b",
@@ -172,7 +285,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "B", "type": "Bottle Cap · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large36bh",
@@ -181,7 +301,14 @@
       "mode": "handler_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "BH", "type": "Bottle Cap · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large42c",
@@ -190,7 +317,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "C", "type": "Clamshell · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large42ch",
@@ -199,7 +333,14 @@
       "mode": "handler_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "CH", "type": "Clamshell · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large42b",
@@ -208,7 +349,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "B", "type": "Bottle Cap · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large42bh",
@@ -217,7 +365,14 @@
       "mode": "handler_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "BH", "type": "Bottle Cap · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large48c",
@@ -226,7 +381,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "C", "type": "Clamshell · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large48ch",
@@ -235,7 +397,14 @@
       "mode": "handler_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "CH", "type": "Clamshell · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Clamshell",
+        "material": null
+      }
     },
     {
       "id": "large48b",
@@ -244,7 +413,14 @@
       "mode": "both",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "B", "type": "Bottle Cap · Manual+Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "large48bh",
@@ -253,7 +429,14 @@
       "mode": "handler_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "BH", "type": "Bottle Cap · Handler"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Bottle Cap",
+        "material": null
+      }
     },
     {
       "id": "wlcsp",
@@ -262,7 +445,14 @@
       "mode": "handler_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Handler"}]
+      "specs": {
+        "ic_type": "WLP / WLCSP",
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": "Open Top",
+        "material": null
+      }
     },
     {
       "id": "multi",
@@ -271,7 +461,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Manual"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": null,
+        "material": null
+      }
     },
     {
       "id": "pedestal",
@@ -280,7 +477,7 @@
       "mode": "both",
       "image": null,
       "coming_soon": true,
-      "variants": []
+      "specs": null
     },
     {
       "id": "pedestal_emmi",
@@ -289,7 +486,7 @@
       "mode": "both",
       "image": null,
       "coming_soon": true,
-      "variants": []
+      "specs": null
     }
   ]
 }

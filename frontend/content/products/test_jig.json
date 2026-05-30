@@ -13,7 +13,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Board-level fixture"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": null,
+        "material": null
+      }
     },
     {
       "id": "ecu",
@@ -22,7 +29,14 @@
       "mode": "manual_only",
       "image": null,
       "coming_soon": false,
-      "variants": [{"code": "—", "type": "Module / ECU fixture"}]
+      "specs": {
+        "ic_type": null,
+        "socket_size": null,
+        "operating_temp": null,
+        "humidity": null,
+        "cover_type": null,
+        "material": null
+      }
     }
   ]
 }

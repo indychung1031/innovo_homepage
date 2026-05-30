@@ -43,25 +43,37 @@
         </p>
         {% endif %}
 
-        {% if family.variants and not family.coming_soon %}
+        {% if family.specs and not family.coming_soon %}
         <button type="button" class="text-left text-sky text-sm font-medium mb-2" data-spec-toggle aria-expanded="false" aria-controls="spec-{{ family.id }}">
           {{ t.cta.view_specs }}
         </button>
         <div id="spec-{{ family.id }}" class="hidden text-sm border-t border-gray-light pt-3 mb-4">
           <table class="w-full text-left">
-            <thead>
-              <tr class="text-gray-mid">
-                <th class="pb-1 pr-2">{{ t.products.category.variants }}</th>
-                <th class="pb-1">Type</th>
-              </tr>
-            </thead>
             <tbody>
-              {% for v in family.variants %}
               <tr>
-                <td class="py-1 pr-2 font-medium">{{ v.code }}</td>
-                <td class="py-1 text-gray-mid">{{ v.type }}</td>
+                <td class="py-1 pr-3 text-gray-mid w-2/5">{{ t.products.category.spec_ic_type }}</td>
+                <td class="py-1 font-medium">{{ family.specs.ic_type or '—' }}</td>
               </tr>
-              {% endfor %}
+              <tr>
+                <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_socket_size }}</td>
+                <td class="py-1 font-medium">{{ family.specs.socket_size or '—' }}</td>
+              </tr>
+              <tr>
+                <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_operating_temp }}</td>
+                <td class="py-1 font-medium">{{ family.specs.operating_temp or '—' }}</td>
+              </tr>
+              <tr>
+                <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_humidity }}</td>
+                <td class="py-1 font-medium">{{ family.specs.humidity or '—' }}</td>
+              </tr>
+              <tr>
+                <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_cover_type }}</td>
+                <td class="py-1 font-medium">{{ family.specs.cover_type or '—' }}</td>
+              </tr>
+              <tr>
+                <td class="py-1 pr-3 text-gray-mid">{{ t.products.category.spec_material }}</td>
+                <td class="py-1 font-medium">{{ family.specs.material or '—' }}</td>
+              </tr>
             </tbody>
           </table>
         </div>

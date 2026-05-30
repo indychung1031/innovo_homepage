@@ -12,6 +12,12 @@
     "both": "Manual + Handler",
     "handler_only": "Handler only",
     "manual_only": "Manual only",
-    "socket_list": "Download Socket List (PDF)"
+    "socket_list": "Download Socket List (PDF)",
+    "spec_ic_type": "Available IC type",
+    "spec_socket_size": "Socket size (X, Y, Z)",
+    "spec_operating_temp": "Operating Temp.",
+    "spec_humidity": "Humidity",
+    "spec_cover_type": "Cover type",
+    "spec_material": "Material"
   }
 }
