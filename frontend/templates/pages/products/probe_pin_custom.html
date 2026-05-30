@@ -2,8 +2,18 @@
 {% block title %}{% if lang == 'en' %}Customized Probe Pin | Innovo Solution{% else %}맞춤형 프로브 핀 | 이노보솔루션{% endif %}{% endblock %}
 
 {% block content %}
-<section class="py-12 bg-white border-b border-gray-light">
-  <div class="max-w-6xl mx-auto px-4">
+<section class="bg-white border-b border-gray-light">
+  <div class="w-full">
+    <img
+      src="/upload/products/probe_pin_custom_hero.png"
+      alt="{% if lang == 'ko' %}맞춤형 프로브 핀 — 이노보솔루션{% else %}Customized Probe Pin — Innovo Solution{% endif %}"
+      class="w-full h-56 sm:h-72 md:h-96 object-cover"
+      width="1200"
+      height="480"
+      loading="eager"
+    >
+  </div>
+  <div class="max-w-6xl mx-auto px-4 py-10">
     {% set breadcrumb_items = [
       {'label': t.nav.products, 'href': '/' ~ lang ~ '/products'},
       {'label': 'Probe Pin', 'href': '/' ~ lang ~ '/products/probe-pin'},
