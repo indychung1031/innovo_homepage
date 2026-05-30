@@ -7,7 +7,8 @@
     {% set breadcrumb_items = [{'label': t.nav.about}] %}
     {% include "partials/breadcrumb.html" %}
     <h1 class="text-3xl font-bold mb-3">{{ t.about.intro.title }}</h1>
-    <p class="text-gray-mid text-lg">{{ t.about.intro.lead }}</p>
+    <p class="text-navy font-semibold text-xl mb-4">{{ t.about.intro.lead }}</p>
+    <p class="text-gray-mid text-base leading-relaxed max-w-2xl">{{ t.about.intro.body }}</p>
   </div>
 </section>
 
