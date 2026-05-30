@@ -49,12 +49,16 @@
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl font-bold mb-2">{{ t.home.map.title }}</h2>
     <p class="text-gray-mid mb-6 max-w-2xl">{{ t.home.map.caption }}</p>
-    <div class="bg-slate-100 border border-gray-light rounded-lg aspect-[2/1] flex items-center justify-center text-gray-mid">
-      <svg viewBox="0 0 800 400" class="w-full max-w-3xl opacity-40" aria-hidden="true">
-        <ellipse cx="400" cy="200" rx="360" ry="170" fill="none" stroke="#26337D" stroke-width="2"/>
-        <path d="M120,180 Q400,120 680,190" fill="none" stroke="#1C93D2" stroke-width="1.5"/>
-      </svg>
-    </div>
+    <figure class="rounded-lg overflow-hidden border border-gray-light">
+      <img
+        src="/upload/images/global_delivery.jpg"
+        alt="{% if lang == 'ko' %}이노보솔루션 글로벌 납품 현황{% else %}Innovo Solution global delivery{% endif %}"
+        class="w-full h-auto"
+        width="1200"
+        height="600"
+        loading="lazy"
+      >
+    </figure>
   </div>
 </section>
 
