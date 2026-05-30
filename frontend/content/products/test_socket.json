@@ -401,7 +401,7 @@
       "name": "Large36C",
       "max_package": "17.0×17.0 mm",
       "mode": "both",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -427,7 +427,7 @@
       "name": "Large36CH (Clamshell with Handle)",
       "max_package": "17.0×17.0 mm",
       "mode": "handler_only",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -453,7 +453,7 @@
       "name": "Large36B",
       "max_package": "17.0×17.0 mm",
       "mode": "both",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -479,7 +479,7 @@
       "name": "Large36BH (Bottlecap with Handle)",
       "max_package": "17.0×17.0 mm",
       "mode": "handler_only",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -505,7 +505,7 @@
       "name": "Large42C",
       "max_package": "23.0×23.0 mm",
       "mode": "both",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -531,7 +531,7 @@
       "name": "Large42CH (Clamshell with Handle)",
       "max_package": "23.0×23.0 mm",
       "mode": "handler_only",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -557,7 +557,7 @@
       "name": "Large42B",
       "max_package": "23.0×23.0 mm",
       "mode": "both",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -583,7 +583,7 @@
       "name": "Large42BH (Bottlecap with Handle)",
       "max_package": "23.0×23.0 mm",
       "mode": "handler_only",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -609,7 +609,7 @@
       "name": "Large48C",
       "max_package": "29.0×29.0 mm",
       "mode": "both",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -635,7 +635,7 @@
       "name": "Large48CH (Clamshell with Handle)",
       "max_package": "29.0×29.0 mm",
       "mode": "handler_only",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -661,7 +661,7 @@
       "name": "Large48B",
       "max_package": "29.0×29.0 mm",
       "mode": "both",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
@@ -687,7 +687,7 @@
       "name": "Large48BH (Bottlecap with Handle)",
       "max_package": "29.0×29.0 mm",
       "mode": "handler_only",
-      "image": null,
+      "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
       "coming_soon": false,
       "specs": {
         "en": {
