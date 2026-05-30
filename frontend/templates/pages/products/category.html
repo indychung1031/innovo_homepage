@@ -47,7 +47,7 @@
 
         {% if family.detail_url and not family.coming_soon %}
         <a href="/{{ lang }}{{ family.detail_url }}" class="text-sky text-sm font-medium mb-2 inline-block hover:underline">
-          {{ t.products.category.view_detail_list }}
+          {{ (family.link_text_en if lang == 'en' else family.link_text_ko) if family.link_text_en else t.products.category.view_detail_list }}
         </a>
         {% elif family.specs and not family.coming_soon %}
         {% set s = family.specs.en if lang == 'en' else family.specs.ko %}

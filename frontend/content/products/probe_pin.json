@@ -37,6 +37,8 @@
       "image": "/upload/catalog/probe_pin_plunger_shape.png",
       "coming_soon": false,
       "detail_url": "/products/probe-pin/custom",
+      "link_text_en": "Start Customizing",
+      "link_text_ko": "맞춤 제작 시작",
       "specs": null
     }
   ]
