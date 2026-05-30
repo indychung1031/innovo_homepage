@@ -32,7 +32,9 @@
           <span class="text-xs bg-slate-200 text-gray-mid px-2 py-0.5 rounded shrink-0">{{ t.cta.coming_soon }}</span>
           {% endif %}
         </div>
-        {% if family.max_package %}
+        {% if family.desc_en %}
+        <p class="text-sm text-gray-mid mb-4">{{ family.desc_en if lang == 'en' else family.desc_ko }}</p>
+        {% elif family.max_package %}
         <p class="text-sm text-gray-mid {% if family.mode %}mb-1{% else %}mb-4{% endif %}">{{ t.products.category.max_package }}: {{ family.max_package }}</p>
         {% endif %}
         {% if family.mode %}
