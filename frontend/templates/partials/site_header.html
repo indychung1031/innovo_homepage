@@ -12,7 +12,7 @@
     </button>
 
     <nav id="siteNav" class="site-nav hidden md:flex md:items-center md:gap-5 md:flex-wrap text-sm" aria-label="{{ t.a11y.main_nav if t is defined else 'Main' }}">
-      <span class="text-xs font-semibold bg-amber-100 text-amber-700 border border-amber-300 px-2 py-1 rounded-full whitespace-nowrap">리뉴얼중</span>
+      <span class="text-xs font-semibold bg-amber-100 text-amber-700 border border-amber-300 px-2 py-1 rounded-full whitespace-nowrap">{{ '리뉴얼중' if lang == 'ko' else 'Under Renewal' }}</span>
 
       <a href="/{{ lang }}/about" class="hover:text-navy text-charcoal">{{ t.nav.about }}</a>
 
