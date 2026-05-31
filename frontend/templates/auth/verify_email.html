@@ -10,6 +10,7 @@
 {% endblock %}
 {% block scripts %}
 <script>
+const ERP_API_BASE = 'http://54.116.87.172';
 (async function () {
   const token = new URLSearchParams(window.location.search).get('token');
   const msg = document.getElementById('msg');
@@ -17,7 +18,7 @@
     msg.textContent = '{% if lang == "ko" %}토큰이 없습니다.{% else %}Missing token.{% endif %}';
     return;
   }
-  const res = await fetch('/api/auth/verify-email?token=' + encodeURIComponent(token));
+  const res = await fetch(`${ERP_API_BASE}/api/hp/auth/verify-email?token=` + encodeURIComponent(token));
   const data = await res.json();
   msg.textContent = res.ok ? data.message : (data.detail || 'Failed');
   msg.className = res.ok ? 'text-green-700' : 'text-red-700';

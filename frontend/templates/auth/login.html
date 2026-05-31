@@ -28,12 +28,13 @@
 {% block scripts %}
 <script src="/static/js/auth.js"></script>
 <script>
+const ERP_API_BASE = 'http://54.116.87.172';
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
   e.preventDefault();
   const msg = document.getElementById('loginMsg');
   msg.classList.add('hidden');
   try {
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch(`${ERP_API_BASE}/api/hp/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',

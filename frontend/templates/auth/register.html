@@ -38,6 +38,7 @@
 <script>
 const LANG = '{{ lang }}';
 const RECAPTCHA_KEY = '{{ recaptcha_site_key }}';
+const ERP_API_BASE = 'http://54.116.87.172';
 async function getRecaptchaToken() {
   if (!RECAPTCHA_KEY || !window.grecaptcha) return 'dev-skip-token';
   return grecaptcha.execute(RECAPTCHA_KEY, { action: 'register' });
@@ -59,7 +60,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     lang: LANG,
   };
   try {
-    const res = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const res = await fetch(`${ERP_API_BASE}/api/hp/auth/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || 'Registration failed');
     msg.textContent = data.message;
