@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-navy: #26337d;
+  --color-sky: #1c93d2;
+  --color-gray-light: #c7ced7;
+  --color-gray-mid: #8e959c;
+  --color-charcoal: #3a3a3a;
+  --font-display: 'Barlow', 'Noto Sans KR', sans-serif;
+  --font-body: 'Inter', 'Noto Sans KR', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-body text-charcoal antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-navy;
+  }
+}

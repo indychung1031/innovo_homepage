@@ -1,0 +1,65 @@
+{
+  "login": {
+    "title": "Login",
+    "breadcrumb": "Login",
+    "heading": "Login",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "success": "Logged in successfully.",
+    "register_link": "Create account",
+    "forgot_link": "Forgot password"
+  },
+  "register": {
+    "title": "Create Account",
+    "breadcrumb": "Create Account",
+    "heading": "Create Account",
+    "full_name": "Full name *",
+    "company_name": "Company *",
+    "email": "Email *",
+    "phone": "Phone *",
+    "password": "Password (8+ chars, letters and numbers) *",
+    "password_confirm": "Confirm password *",
+    "submit": "Register",
+    "login_link": "Login",
+    "terms_label": "Terms of Service (required)"
+  },
+  "forgot": {
+    "title": "Forgot Password",
+    "breadcrumb": "Forgot password",
+    "heading": "Forgot password",
+    "email": "Email",
+    "submit": "Send reset link"
+  },
+  "reset": {
+    "title": "Reset Password",
+    "breadcrumb": "Reset password",
+    "heading": "Reset password",
+    "new_password": "New password",
+    "confirm_password": "Confirm password",
+    "submit": "Update",
+    "missing_token": "Missing reset token."
+  },
+  "verify": {
+    "title": "Email Verification",
+    "breadcrumb": "Email verification",
+    "heading": "Email verification",
+    "processing": "Processing…",
+    "missing_token": "Missing verification token."
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "email_not_verified": "Email verification required. Check your inbox.",
+    "password_mismatch": "Passwords do not match.",
+    "password_weak": "Password must be at least 8 characters with letters and numbers.",
+    "consent_required": "You must agree to the Privacy Policy and Terms.",
+    "reCAPTCHA 검증 실패": "reCAPTCHA verification failed.",
+    "이미 등록된 이메일입니다.": "This email is already registered.",
+    "이메일 또는 비밀번호가 올바르지 않습니다.": "Invalid email or password.",
+    "비활성화된 계정입니다.": "This account is deactivated.",
+    "유효하지 않거나 만료된 토큰입니다.": "Invalid or expired token.",
+    "Refresh token 없음": "Session expired. Please sign in again.",
+    "유효하지 않은 refresh token": "Session expired. Please sign in again.",
+    "인증이 필요합니다.": "Authentication required."
+  }
+}
