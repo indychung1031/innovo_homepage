@@ -29,6 +29,7 @@
     "placeholder": "Detailed milestones will be added.",
     "items": [
       {"year": "2007", "text": "Company founded (Feb 13, 2007)"},
+      {"year": "2011", "text": "High current probe pin patent registered (Jun. 2011)"},
       {"year": "2014", "text": "First U.S. customer partnership — entry into the North American semiconductor market (Nov. 2014)"},
       {"year": "—", "text": "Milestone coming soon"}
     ]
