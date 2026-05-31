@@ -47,7 +47,11 @@
       {
         "slug": "test-socket",
         "title": "Test Socket",
-        "body": "Tiny to Large series, WLCSP, Multi, Magnetic and more."
+        "body": "Tiny to Large series, WLCSP, Multi, Magnetic and more.",
+        "images": [
+          "/upload/products/renders/test_socket/mini_socket_render.png",
+          "/upload/products/renders/test_socket/large30c_socket_render.png"
+        ]
       },
       {
         "slug": "probe-pin",

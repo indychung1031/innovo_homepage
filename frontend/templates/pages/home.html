@@ -68,7 +68,17 @@
     <div class="grid md:grid-cols-3 gap-6">
       {% for item in t.home.teaser['items'] %}
       <a href="/{{ lang }}/products/{{ item.slug }}" class="group block bg-white border border-gray-light rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+        {% if item.images %}
+        <div class="h-40 bg-slate-100 flex overflow-hidden">
+          {% for img in item.images %}
+          <div class="flex-1 flex items-center justify-center p-3 {% if not loop.last %}border-r border-slate-200{% endif %}">
+            <img src="{{ img }}" alt="{{ item.title }}" class="max-h-full max-w-full object-contain">
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
         <div class="h-40 bg-slate-100 flex items-center justify-center text-navy/30 font-display text-xl">{{ item.title }}</div>
+        {% endif %}
         <div class="p-5">
           <h3 class="font-semibold group-hover:text-sky transition-colors">{{ item.title }}</h3>
           <p class="text-gray-mid text-sm mt-2">{{ item.body }}</p>
