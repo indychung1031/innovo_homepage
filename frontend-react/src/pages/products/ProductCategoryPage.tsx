@@ -11,7 +11,6 @@ import {
   loadProductCatalog,
 } from '@/lib/products/catalog';
 import { isLangCode, type LangCode, withLang } from '@/lib/lang';
-import { mediaUrl } from '@/lib/media';
 
 export function ProductCategoryPage() {
   const { lang: langParam, categorySlug } = useParams();
@@ -43,16 +42,6 @@ export function ProductCategoryPage() {
           />
           <h1 className="mb-3 text-3xl font-bold">{title}</h1>
           <p className="max-w-2xl text-gray-mid">{catalogDescription(catalog, lang)}</p>
-          {catalog.socket_list_pdf && (
-            <a
-              href={mediaUrl(catalog.socket_list_pdf)}
-              className="mt-4 inline-block text-sm font-medium text-sky hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t('products:category.socket_list')}
-            </a>
-          )}
         </div>
       </section>
 
