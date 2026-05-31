@@ -229,3 +229,190 @@ curl -X POST http://54.116.87.172/api/hp/quick-quote \
 curl -X POST http://54.116.87.172/api/hp/contact \
   -F 'data={"inquiry_type":"test_socket","company_name":"Test Corp","contact_name":"테스터","contact_email":"test@example.com","subject":"테스트 문의","message":"테스트입니다","recaptcha_token":"dev-skip","privacy_agreed":true,"lang":"ko"}'
 ```
+
+---
+
+## React (`frontend-react`) 연동
+
+| 모듈 | 역할 |
+|------|------|
+| `src/lib/hpApi.ts` | URL 결정·`isHpApiEnabled()`·pitch 정규화 |
+| `src/api/hpFetch.ts` | 공통 POST·413/429 메시지 |
+| `src/api/contact.ts` | `inquiry_type` 매핑·10MB 검증 |
+| `src/api/quickQuote.ts` | `ic_type`·pitch 정규화 |
+
+### 환경 변수 (`frontend-react/.env`)
+
+```env
+# 운영(CloudFront 등): ERP 직접 호출 (CORS 허용 오리진 필요)
+VITE_USE_HP_API=true
+VITE_HP_API_BASE_URL=http://54.116.87.172
+VITE_RECAPTCHA_SITE_KEY=<사이트 키>
+
+# 로컬 FastAPI만 쓸 때
+# VITE_USE_HP_API=false
+```
+
+개발 시 `VITE_HP_API_BASE_URL`을 비우면 `http://localhost:5173/api/hp/*` → Vite가 `VITE_HP_PROXY_TARGET`으로 프록시합니다.
+
+### 프로덕션 빌드 예시
+
+```bash
+cd frontend-react
+# .env.production 또는 CLI
+npm run build
+```
+
+---
+
+## 3. B2B 회원 인증 (Phase 2)
+
+**Prefix**: `/api/hp/auth`  
+**인증 방식**: Access Token (Bearer) + Refresh Token (HttpOnly 쿠키 `hp_refresh_token`)
+
+### `POST /api/hp/auth/register`
+
+회원가입. reCAPTCHA 필수.
+
+```json
+{
+  "full_name": "홍길동",
+  "company_name": "ACME Corp",
+  "email": "hong@acme.com",
+  "phone": "010-1234-5678",
+  "password": "Pass1234",
+  "password_confirm": "Pass1234",
+  "privacy_agreed": true,
+  "terms_agreed": true,
+  "recaptcha_token": "<reCAPTCHA v3 token>",
+  "lang": "ko"
+}
+```
+
+응답 `201`:
+```json
+{ "success": true, "message": "인증 메일을 발송했습니다. 받은편지함을 확인해 주세요." }
+```
+
+---
+
+### `POST /api/hp/auth/login`
+
+로그인. 성공 시 `hp_refresh_token` 쿠키 설정.
+
+```json
+{ "email": "hong@acme.com", "password": "Pass1234" }
+```
+
+응답 `200`:
+```json
+{
+  "access_token": "<JWT>",
+  "token_type": "bearer",
+  "expires_in": 3600,
+  "user": {
+    "id": 1,
+    "email": "hong@acme.com",
+    "full_name": "홍길동",
+    "company_name": "ACME Corp",
+    "membership_tier": "general",
+    "email_verified": true
+  }
+}
+```
+
+에러 케이스:
+- `401` — 이메일/비밀번호 불일치
+- `403 detail: "email_not_verified"` — 이메일 미인증
+
+---
+
+### `POST /api/hp/auth/logout`
+
+쿠키 삭제. 응답 `{ "success": true, "message": "로그아웃되었습니다." }`
+
+---
+
+### `POST /api/hp/auth/refresh`
+
+`hp_refresh_token` 쿠키로 새 access token 발급.  
+응답 형식은 login과 동일.
+
+---
+
+### `GET /api/hp/auth/verify-email?token=<raw_token>`
+
+이메일 인증 링크 처리. 응답 `{ "success": true, "message": "이메일 인증이 완료되었습니다." }`
+
+---
+
+### `POST /api/hp/auth/resend-verification`
+
+```json
+{ "email": "hong@acme.com", "lang": "ko" }
+```
+
+항상 `200`. 이메일 존재 여부를 노출하지 않음.
+
+---
+
+### `POST /api/hp/auth/forgot-password`
+
+```json
+{ "email": "hong@acme.com", "lang": "ko" }
+```
+
+항상 `200`. 계정 존재 여부를 노출하지 않음.
+
+---
+
+### `POST /api/hp/auth/reset-password`
+
+```json
+{
+  "token": "<URL 파라미터 token 값>",
+  "new_password": "NewPass1234",
+  "new_password_confirm": "NewPass1234"
+}
+```
+
+응답 `{ "success": true, "message": "비밀번호가 변경되었습니다. 로그인해 주세요." }`
+
+---
+
+### `GET /api/hp/auth/me`
+
+헤더: `Authorization: Bearer <access_token>`
+
+응답: `UserPublic` 객체 (login 응답의 `user` 필드와 동일)
+
+---
+
+### 환경 변수 추가 (서버 `.env`)
+
+```env
+HP_JWT_SECRET_KEY=<랜덤 hex 32바이트>
+HP_JWT_ACCESS_EXPIRE_MINUTES=60
+HP_JWT_REFRESH_EXPIRE_DAYS=14
+HP_APP_BASE_URL=https://www.innovosolution.co.kr
+```
+
+### 프론트엔드 연동 예시
+
+```javascript
+const ERP_API_BASE = 'http://54.116.87.172';
+
+// 로그인
+const res = await fetch(`${ERP_API_BASE}/api/hp/auth/login`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  credentials: 'include',  // refresh 쿠키 수신
+  body: JSON.stringify({ email, password }),
+});
+const { access_token, user } = await res.json();
+
+// 인증 필요 API 호출
+await fetch(`${ERP_API_BASE}/api/hp/auth/me`, {
+  headers: { Authorization: `Bearer ${access_token}` },
+});
+```
