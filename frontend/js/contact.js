@@ -6,6 +6,7 @@
 
   const LANG = document.documentElement.lang || 'en';
   const RECAPTCHA_KEY = form.dataset.recaptchaKey || '';
+  const ERP_API_BASE = 'http://54.116.87.172';
 
   // URL 파라미터 ?category=xxx 로 Inquiry category 자동 선택
   const categoryParam = new URLSearchParams(window.location.search).get('category');
@@ -27,7 +28,7 @@
     if (msg) msg.classList.add('hidden');
 
     const payload = {
-      category: document.getElementById('category').value,
+      inquiry_type: document.getElementById('category').value,
       company_name: document.getElementById('company_name').value.trim(),
       contact_name: document.getElementById('contact_name').value.trim(),
       contact_email: document.getElementById('contact_email').value.trim(),
@@ -47,7 +48,7 @@
     }
 
     try {
-      const res = await fetch('/api/contact', { method: 'POST', body: fd });
+      const res = await fetch(`${ERP_API_BASE}/api/hp/contact`, { method: 'POST', body: fd });
       const data = await res.json();
       if (!res.ok) {
         const detail = data.detail;

@@ -113,6 +113,7 @@
 <script>
   const LANG = '{{ lang }}';
   const RECAPTCHA_KEY = '{{ recaptcha_site_key }}';
+  const ERP_API_BASE = 'http://54.116.87.172';
   document.getElementById('pitch').addEventListener('change', function () {
     const custom = document.getElementById('pitch_custom');
     custom.classList.toggle('hidden', this.value !== 'custom');
@@ -152,7 +153,7 @@
       recaptcha_token: await getRecaptchaToken(),
     };
     try {
-      const res = await fetch('/api/quick-quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const res = await fetch(`${ERP_API_BASE}/api/hp/quick-quote`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       const data = await res.json();
       if (!res.ok) {
         const detail = data.detail;
