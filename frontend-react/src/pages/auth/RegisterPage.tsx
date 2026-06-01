@@ -147,7 +147,7 @@ export function RegisterPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded bg-navy py-3 font-medium text-white disabled:opacity-60"
+          className="w-full rounded bg-navy py-3 font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {t('register.submit')}
         </button>

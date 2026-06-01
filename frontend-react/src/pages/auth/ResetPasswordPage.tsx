@@ -61,7 +61,7 @@ export function ResetPasswordPage() {
         <button
           type="submit"
           disabled={submitting || !token}
-          className="w-full rounded bg-navy py-3 text-white disabled:opacity-60"
+          className="w-full rounded bg-navy py-3 text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {t('reset.submit')}
         </button>

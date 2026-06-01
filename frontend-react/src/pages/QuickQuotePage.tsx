@@ -23,6 +23,7 @@ export function QuickQuotePage() {
   const recaptchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
 
   const [icPackageType, setIcPackageType] = useState('');
+  const [icType, setIcType] = useState('');
   const [icCode, setIcCode] = useState('');
   const [pinCount, setPinCount] = useState('');
   const [pitch, setPitch] = useState('');
@@ -61,6 +62,7 @@ export function QuickQuotePage() {
       const token = await getRecaptchaToken(recaptchaKey, 'quick_quote');
       const result = await submitQuickQuote({
         ic_package_type: icPackageType,
+        ic_type: icType.trim() || null,
         ic_code: icCode.trim() || null,
         pin_count: parseInt(pinCount, 10),
         pitch: resolvePitch(),
@@ -80,6 +82,7 @@ export function QuickQuotePage() {
       });
       setAlert({ variant: 'success', message: result.message });
       setIcPackageType('');
+      setIcType('');
       setIcCode('');
       setPinCount('');
       setPitch('');
@@ -155,6 +158,18 @@ export function QuickQuotePage() {
                 </option>
               ))}
             </select>
+            <label className="mb-1 block text-sm font-medium" htmlFor="ic_type">
+              {isKo ? 'IC 종류' : 'IC type'}
+            </label>
+            <input
+              id="ic_type"
+              type="text"
+              maxLength={50}
+              placeholder={isKo ? '예: Memory, Logic, Power IC' : 'e.g. Memory, Logic, Power IC'}
+              value={icType}
+              onChange={(e) => setIcType(e.target.value)}
+              className={`${inputClassName} mb-3`}
+            />
             <label className="mb-1 block text-sm font-medium" htmlFor="ic_code">
               IC Code
             </label>
@@ -419,7 +434,7 @@ export function QuickQuotePage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded bg-sky py-3 font-medium text-white hover:opacity-95 disabled:opacity-60"
+            className="w-full rounded bg-sky py-3 font-medium text-white hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isKo ? '가견적 요청하기' : 'Submit Quick Quote'}
           </button>

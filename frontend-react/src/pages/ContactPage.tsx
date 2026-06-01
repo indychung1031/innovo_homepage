@@ -3,7 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useParams, useSearchParams } from 'react-router-dom';
 
-import { submitContact, type ContactCategory } from '@/api/contact';
+import {
+  HP_MAX_ATTACHMENT_BYTES,
+  submitContact,
+  type ContactCategory,
+} from '@/api/contact';
 import { FormAlert } from '@/components/forms/FormAlert';
 import { inputClassName, PrivacyConsent } from '@/components/forms/PrivacyConsent';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
@@ -276,7 +280,22 @@ export function ContactPage() {
                 type="file"
                 accept=".pdf,.dxf,.step,.stp"
                 className="w-full text-sm text-charcoal"
-                onChange={(e) => setAttachment(e.target.files?.[0] ?? null)}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] ?? null;
+                  if (file && file.size > HP_MAX_ATTACHMENT_BYTES) {
+                    setAlert({
+                      variant: 'error',
+                      message:
+                        lang === 'ko'
+                          ? '파일 크기는 10MB 이하여야 합니다.'
+                          : 'File must be 10MB or less.',
+                    });
+                    e.target.value = '';
+                    setAttachment(null);
+                    return;
+                  }
+                  setAttachment(file);
+                }}
               />
               <p className="mt-1 text-xs text-gray-mid">{t('contact:form.attachment_hint')}</p>
             </div>
@@ -284,7 +303,7 @@ export function ContactPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full rounded bg-navy py-3 font-medium text-white hover:opacity-95 disabled:opacity-60"
+              className="w-full rounded bg-navy py-3 font-medium text-white hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {t('contact:form.submit')}
             </button>

@@ -48,7 +48,7 @@ export function ForgotPasswordPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded bg-navy py-3 text-white disabled:opacity-60"
+          className="w-full rounded bg-navy py-3 text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {t('forgot.submit')}
         </button>

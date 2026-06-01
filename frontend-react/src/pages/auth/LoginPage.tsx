@@ -95,7 +95,7 @@ export function LoginPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded bg-navy py-3 font-medium text-white disabled:opacity-60"
+          className="w-full rounded bg-navy py-3 font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {t('login.submit')}
         </button>
@@ -103,14 +103,14 @@ export function LoginPage() {
 
       {alert ? <FormAlert variant={alert.variant} message={alert.message} /> : null}
 
-      <p className="mt-6 space-y-2 text-sm">
+      <div className="mt-6 space-y-2 text-sm">
         <Link to={withLang(lang, '/register')} className="block text-sky">
           {t('login.register_link')}
         </Link>
         <Link to={withLang(lang, '/forgot-password')} className="block text-sky">
           {t('login.forgot_link')}
         </Link>
-      </p>
+      </div>
     </AuthFormSection>
   );
 }

@@ -26,6 +26,7 @@ import { ProbePinGeneralPage } from '@/pages/products/ProbePinGeneralPage';
 import { ProbePinSpecialPage } from '@/pages/products/ProbePinSpecialPage';
 import { ProductCategoryPage } from '@/pages/products/ProductCategoryPage';
 import { ProductsIndexPage } from '@/pages/products/ProductsIndexPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
 import { RootRedirect } from '@/pages/RootRedirect';
 import { TechnologyPage } from '@/pages/TechnologyPage';
 
@@ -60,8 +61,10 @@ export const router = createBrowserRouter([
       { path: 'verify-email', element: <VerifyEmailPage /> },
       { path: 'privacy', element: <LegalDocumentPage kind="privacy" /> },
       { path: 'terms', element: <LegalDocumentPage kind="terms" /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
+  { path: '*', element: <Navigate to="/en" replace /> },
   { path: '/admin/login', element: <AdminLoginPage /> },
   {
     path: '/admin',
