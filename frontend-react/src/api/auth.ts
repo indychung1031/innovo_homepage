@@ -27,7 +27,7 @@ function applyLoginResponse(data: LoginResponse): UserPublic {
 }
 
 export async function login(email: string, password: string): Promise<UserPublic> {
-  const res = await authFetch('/api/auth/login', {
+  const res = await authFetch('/api/hp/auth/login', {
     method: 'POST',
     body: JSON.stringify({ email, password }),
   });
@@ -39,7 +39,7 @@ export async function login(email: string, password: string): Promise<UserPublic
 }
 
 export async function refreshSession(): Promise<UserPublic> {
-  const res = await authFetch('/api/auth/refresh', { method: 'POST' });
+  const res = await authFetch('/api/hp/auth/refresh', { method: 'POST' });
   const data = (await res.json()) as LoginResponse & { detail?: unknown };
   if (!res.ok) {
     setAccessToken(null);
@@ -49,7 +49,7 @@ export async function refreshSession(): Promise<UserPublic> {
 }
 
 export async function fetchMe(): Promise<UserPublic> {
-  const res = await authFetch('/api/auth/me');
+  const res = await authFetch('/api/hp/auth/me');
   const data = (await res.json()) as UserPublic & { detail?: unknown };
   if (!res.ok) {
     setAccessToken(null);
@@ -60,7 +60,7 @@ export async function fetchMe(): Promise<UserPublic> {
 
 export async function logout(): Promise<void> {
   try {
-    await authFetch('/api/auth/logout', { method: 'POST' });
+    await authFetch('/api/hp/auth/logout', { method: 'POST' });
   } finally {
     setAccessToken(null);
   }
@@ -80,7 +80,7 @@ export type RegisterPayload = {
 };
 
 export async function register(payload: RegisterPayload): Promise<string> {
-  const res = await fetch('/api/auth/register', {
+  const res = await fetch('/api/hp/auth/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -93,7 +93,7 @@ export async function register(payload: RegisterPayload): Promise<string> {
 }
 
 export async function forgotPassword(email: string, lang: LangCode): Promise<string> {
-  const res = await fetch('/api/auth/forgot-password', {
+  const res = await fetch('/api/hp/auth/forgot-password', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, lang }),
@@ -110,7 +110,7 @@ export async function resetPassword(
   newPassword: string,
   newPasswordConfirm: string,
 ): Promise<string> {
-  const res = await fetch('/api/auth/reset-password', {
+  const res = await fetch('/api/hp/auth/reset-password', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -127,7 +127,7 @@ export async function resetPassword(
 }
 
 export async function verifyEmail(token: string): Promise<string> {
-  const res = await fetch(`/api/auth/verify-email?token=${encodeURIComponent(token)}`);
+  const res = await fetch(`/api/hp/auth/verify-email?token=${encodeURIComponent(token)}`);
   const data = (await res.json()) as MessageResponse & { detail?: unknown };
   if (!res.ok) {
     throw new Error(parseApiError(data.detail, 'Verification failed'));
