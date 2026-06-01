@@ -70,7 +70,7 @@ export function Header() {
               </svg>
             </span>
             <div className="mt-2 flex flex-col border-l border-gray-light pl-4 md:absolute md:left-0 md:top-full md:mt-0 md:border-0 md:pl-0 md:pt-2 md:opacity-0 md:invisible md:transition-all md:group-hover:visible md:group-hover:opacity-100">
-              <div className="flex flex-col md:block md:min-w-[11rem] md:rounded md:bg-white md:py-2 md:shadow-lg">
+              <div className="flex flex-col md:min-w-[11rem] md:rounded md:bg-white md:py-2 md:shadow-lg">
                 <Link
                   to={withLang(lang, '/products/test-socket')}
                   className="rounded px-3 py-2 text-charcoal hover:bg-slate-50"
