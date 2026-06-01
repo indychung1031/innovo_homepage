@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "Quote Wizard",
+    "breadcrumb": "Quote Wizard"
+  },
+  "stepper": {
+    "step1": "Product & IC",
+    "step2": "Specifications",
+    "step3": "Estimate",
+    "step4": "Confirm"
+  },
+  "step1": {
+    "heading": "Product & IC information",
+    "series": "Product series",
+    "series_test_socket": "Test Socket",
+    "series_probe_pin": "Probe Pin",
+    "series_test_jig": "Test JIG",
+    "ic_type": "IC type",
+    "ic_type_placeholder": "e.g. Memory, Logic, Power IC",
+    "ic_code": "IC / project code",
+    "ic_package": "IC package type",
+    "dimension_d": "D — width (mm)",
+    "dimension_e": "E — length (mm)",
+    "dimension_a": "A — body height (mm)",
+    "pitch": "Pitch (mm)",
+    "pin_count": "Pin count",
+    "tolerance": "Size tolerance (mm)",
+    "recommended": "Recommended family",
+    "no_recommend": "No matching family for these dimensions. Please contact our sales team.",
+    "manual_only": "Automated estimate is available for Test Socket only. For Probe Pin or Test JIG, please use Contact or Quick Quote.",
+    "multi_product": "Only one product per request. For multiple products, please contact our sales team."
+  },
+  "step2": {
+    "heading": "Specifications",
+    "quantity": "Quantity (pcs)",
+    "cover_type": "Cover type",
+    "material_type": "Material",
+    "spec_notes": "Special requirements (optional)",
+    "attachment": "Drawing attachment (optional)",
+    "attachment_hint": "DXF, PDF, STEP — max 10MB",
+    "dynamic_placeholder": "Family-specific spec fields will be added when master data is connected."
+  },
+  "step3": {
+    "heading": "Preliminary estimate",
+    "product_line": "Product",
+    "quantity": "Quantity",
+    "unit_price": "Unit price (est.)",
+    "total_price": "Estimated total",
+    "lead_time": "Lead time (est.)",
+    "payment_terms": "Payment terms",
+    "payment_verified": "Standard terms (verified member)",
+    "payment_general": "Advance payment may apply (general member +30%)",
+    "validity": "Valid for 7 days from request date",
+    "disclaimer": "This is a preliminary estimate. Final pricing will be confirmed by our sales team.",
+    "no_match": "We cannot calculate an automatic estimate for this combination. Our team will contact you.",
+    "back_edit": "← Edit",
+    "continue": "Confirm request →"
+  },
+  "step4": {
+    "heading": "Confirm & submit",
+    "contact_info": "Contact information",
+    "full_name": "Name",
+    "company_name": "Company",
+    "email": "Email",
+    "phone": "Phone",
+    "submit": "Submit quote request",
+    "submitting": "Submitting…"
+  },
+  "complete": {
+    "heading": "Request received",
+    "message": "Your quote request has been received. Our team will contact you within 1–2 business days.",
+    "new_quote": "Start another quote",
+    "home": "Back to home"
+  },
+  "nav": {
+    "back": "Back",
+    "next": "Next",
+    "draft_saved": "Draft saved locally"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "required": "Please fill in all required fields.",
+    "submit_failed": "Submission failed. Please try again later."
+  }
+}

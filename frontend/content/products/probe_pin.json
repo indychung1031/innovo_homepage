@@ -1,0 +1,45 @@
+{
+  "slug": "probe-pin",
+  "title_en": "Probe Pin",
+  "title_ko": "Probe Pin",
+  "description_en": "General and special POGO pins — high current, low pitch, and customized tips.",
+  "description_ko": "일반·특수 POGO 핀 — 고전류, 미세 피치, 맞춤형 팁.",
+  "socket_list_pdf": null,
+  "families": [
+    {
+      "id": "general",
+      "name": "General POGO Pin",
+      "max_package": null,
+      "desc_en": "High-quality POGO-type probe pins with precision-machined plunger, barrel, and spring for stable, repeatable electrical contact across a wide range of pitches and current ratings.",
+      "desc_ko": "정밀 가공된 플런저·배럴·스프링 구조의 고품질 POGO 타입 프로브 핀. 다양한 피치와 전류 범위에서 안정적이고 반복 가능한 전기 접촉을 제공합니다.",
+      "image": null,
+      "coming_soon": false,
+      "detail_url": "/products/probe-pin/general",
+      "specs": null
+    },
+    {
+      "id": "special",
+      "name": "Special POGO Pin",
+      "max_package": null,
+      "desc_en": "Application-specific POGO pins engineered for demanding environments — high current loads, high-speed signal integrity, and ultra-fine pitch requirements.",
+      "desc_ko": "고전류·고속 신호·초미세 피치 등 특수 테스트 환경에 맞춰 설계된 고성능 POGO 핀.",
+      "image": null,
+      "coming_soon": false,
+      "detail_url": "/products/probe-pin/special",
+      "specs": null
+    },
+    {
+      "id": "custom",
+      "name": "Customized Probe Pin",
+      "max_package": null,
+      "desc_en": "Probe pins fully designed to your specifications — tip shape, pitch, current rating, plating, and barrel length customized to match your exact test requirements.",
+      "desc_ko": "팁 형상·피치·전류·도금·배럴 길이 등 모든 사양을 고객 요구에 맞춰 설계·제작하는 맞춤형 프로브 핀.",
+      "image": "/upload/catalog/probe_pin_plunger_shape.png",
+      "coming_soon": false,
+      "detail_url": "/products/probe-pin/custom",
+      "link_text_en": "Start Customizing",
+      "link_text_ko": "맞춤 제작 시작",
+      "specs": null
+    }
+  ]
+}

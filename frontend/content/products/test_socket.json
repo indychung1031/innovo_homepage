@@ -1,0 +1,754 @@
+{
+  "slug": "test-socket",
+  "title_en": "Test Socket",
+  "title_ko": "Test Socket",
+  "description_en": "Clamshell, bottle-cap, and handler-compatible sockets from Tiny to Large series.",
+  "description_ko": "Tiny부터 Large 시리즈까지 Clamshell·Bottle Cap·Handler 호환 소켓.",
+  "socket_list_pdf": "/upload/catalog/Socket List 250108.pdf",
+  "families": [
+    {
+      "id": "tiny",
+      "name": "Tiny",
+      "max_package": "3.0×3.0 mm",
+      "mode": "manual_only",
+      "image": "/upload/products/renders/test_socket/tiny_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / LGA",
+          "socket_size": "19.30 × 7.90 × 17.00 mm",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / LGA",
+          "socket_size": "19.30 × 7.90 × 17.00 mm",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "mini",
+      "name": "Mini",
+      "max_package": "6.3×6.3 mm",
+      "mode": "manual_only",
+      "image": "/upload/products/renders/test_socket/mini_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "21.925 × 10.74 × 19.80 mm",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "21.925 × 10.74 × 19.80 mm",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "mini_bottlecap",
+      "name": "Mini (BottleCap)",
+      "max_package": "6.3×6.3 mm",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "mini_hea",
+      "name": "Mini (HEA)",
+      "max_package": "6.3×6.3 mm",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bolt joint",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bolt joint",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "mini_opentop",
+      "name": "Mini (Opentop)",
+      "max_package": "6.3×6.3 mm",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "exmini",
+      "name": "Expanded Mini (ExMini)",
+      "max_package": "10.3×10.3 mm",
+      "mode": "manual_only",
+      "image": "/upload/products/renders/test_socket/exmini_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "26.125 × 16.00 × 19.80 mm",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "26.125 × 16.00 × 19.80 mm",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "exmini_bottlecap",
+      "name": "ExMini (BottleCap)",
+      "max_package": "10.3×10.3 mm",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "exmini_hea",
+      "name": "ExMini (HEA)",
+      "max_package": "10.3×10.3 mm",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bolt joint",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bolt joint",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "exmini_opentop",
+      "name": "ExMini (Opentop)",
+      "max_package": "10.3×10.3 mm",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "exmini_handle",
+      "name": "ExMini with Handle",
+      "max_package": "10.3×10.3 mm",
+      "mode": "both",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "exmini_bottlecap_handle",
+      "name": "ExMini (BottleCap) with Handle",
+      "max_package": "10.3×10.3 mm",
+      "mode": "both",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large30c",
+      "name": "Large30C",
+      "max_package": "11.0×11.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "40.00 × 30.00 × TBD mm",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "40.00 × 30.00 × 미정 mm",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large30ch",
+      "name": "Large30CH (Clamshell with Handle)",
+      "max_package": "11.0×11.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large30b",
+      "name": "Large30B",
+      "max_package": "11.0×11.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large30bh",
+      "name": "Large30BH (Bottlecap with Handle)",
+      "max_package": "11.0×11.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large36c",
+      "name": "Large36C",
+      "max_package": "17.0×17.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "46.00 × 36.00 × TBD mm",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "46.00 × 36.00 × 미정 mm",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large36ch",
+      "name": "Large36CH (Clamshell with Handle)",
+      "max_package": "17.0×17.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large36b",
+      "name": "Large36B",
+      "max_package": "17.0×17.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large36bh",
+      "name": "Large36BH (Bottlecap with Handle)",
+      "max_package": "17.0×17.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large42c",
+      "name": "Large42C",
+      "max_package": "23.0×23.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "46.00 × 36.00 × TBD mm",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "46.00 × 36.00 × 미정 mm",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large42ch",
+      "name": "Large42CH (Clamshell with Handle)",
+      "max_package": "23.0×23.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large42b",
+      "name": "Large42B",
+      "max_package": "23.0×23.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large42bh",
+      "name": "Large42BH (Bottlecap with Handle)",
+      "max_package": "23.0×23.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large48c",
+      "name": "Large48C",
+      "max_package": "29.0×29.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30c_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "46.00 × 36.00 × TBD mm",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "46.00 × 36.00 × 미정 mm",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large48ch",
+      "name": "Large48CH (Clamshell with Handle)",
+      "max_package": "29.0×29.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30ch_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Clamshell + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large48b",
+      "name": "Large48B",
+      "max_package": "29.0×29.0 mm",
+      "mode": "both",
+      "image": "/upload/products/renders/test_socket/large30b_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "large48bh",
+      "name": "Large48BH (Bottlecap with Handle)",
+      "max_package": "29.0×29.0 mm",
+      "mode": "handler_only",
+      "image": "/upload/products/renders/test_socket/large30bh_socket_render.png",
+      "coming_soon": false,
+      "specs": {
+        "en": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "TBD",
+          "operating_temp": "-40~125°C (extendable to -55~185°C)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        },
+        "ko": {
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "socket_size": "미정",
+          "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
+          "humidity": "0~99%",
+          "cover_type": "Bottle Cap + Handle",
+          "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
+        }
+      }
+    },
+    {
+      "id": "wlcsp",
+      "name": "WLCSP",
+      "max_package": "All IC sizes",
+      "mode": "handler_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": { "ic_type": "WLP / WLCSP", "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": "Open Top", "material": null },
+        "ko": { "ic_type": "WLP / WLCSP", "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": "Open Top", "material": null }
+      }
+    },
+    {
+      "id": "multi",
+      "name": "Multi Array",
+      "max_package": "All IC sizes",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null },
+        "ko": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null }
+      }
+    },
+    {
+      "id": "pedestal",
+      "name": "Pedestal",
+      "max_package": "TBD",
+      "mode": "both",
+      "image": null,
+      "coming_soon": true,
+      "specs": null
+    },
+    {
+      "id": "pedestal_emmi",
+      "name": "Pedestal EMMI",
+      "max_package": "TBD",
+      "mode": "both",
+      "image": null,
+      "coming_soon": true,
+      "specs": null
+    }
+  ]
+}

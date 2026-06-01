@@ -1,0 +1,30 @@
+{
+  "meta": {"title": "문의 | 이노보솔루션"},
+  "title": "문의하기",
+  "nda_notice": "NDA·보안 등급 문서는 웹 업로드 대신 sbchung@innovotech.co.kr 로 직접 보내 주세요.",
+  "info": {
+    "tel": "전화",
+    "fax": "팩스",
+    "email": "이메일"
+  },
+  "form": {
+    "category": "문의 유형",
+    "categories": {
+      "test_socket": "Test Socket",
+      "probe_pin": "Probe Pin",
+      "test_jig": "Test JIG",
+      "other": "기타"
+    },
+    "company_name": "회사명",
+    "contact_name": "담당자명",
+    "contact_email": "이메일",
+    "contact_phone": "연락처 (선택)",
+    "subject": "제목",
+    "message": "문의 내용",
+    "attachment": "파일 첨부 (선택)",
+    "attachment_hint": "PDF, DXF, STEP — 최대 10MB, 1개 (API Phase 3)",
+    "privacy": "개인정보처리방침에 동의합니다 (필수)",
+    "submit": "문의 보내기",
+    "pending": "제출 기능은 Phase 3에서 활성화됩니다."
+  }
+}

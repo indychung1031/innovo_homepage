@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "about": "회사소개",
+    "products": "제품",
+    "test_socket": "Test Socket",
+    "probe_pin": "Probe Pin",
+    "test_jig": "Test JIG",
+    "technology": "기술력",
+    "contact": "문의",
+    "quote": "가견적",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "menu_open": "메뉴 열기",
+    "menu_close": "메뉴 닫기"
+  },
+  "footer": {
+    "company": "(주) 이노보솔루션",
+    "address": "경기도 성남시 중원구 갈마치로203번길 12",
+    "privacy": "개인정보처리방침",
+    "terms": "이용약관",
+    "cookies": "쿠키 설정"
+  },
+  "cta": {
+    "quote": "가견적 요청",
+    "explore_products": "제품 보기",
+    "view_details": "자세히 보기",
+    "view_specs": "사양 보기",
+    "request_quote": "가견적 요청",
+    "contact_us": "문의하기",
+    "coming_soon": "준비 중"
+  },
+  "a11y": {
+    "main_nav": "주 메뉴",
+    "legal_nav": "법적 고지"
+  },
+  "breadcrumb": {
+    "main": "Main"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "test-jig",
+  "title_en": "Test JIG",
+  "title_ko": "Test JIG",
+  "description_en": "PCB and ECU test fixtures designed and built to your specifications.",
+  "description_ko": "고객 사양에 맞는 PCB·ECU 테스트 지그 설계·제작.",
+  "socket_list_pdf": null,
+  "families": [
+    {
+      "id": "pcb",
+      "name": "PCB Test JIG",
+      "max_package": "Custom",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null },
+        "ko": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null }
+      }
+    },
+    {
+      "id": "ecu",
+      "name": "ECU Test JIG",
+      "max_package": "Custom",
+      "mode": "manual_only",
+      "image": null,
+      "coming_soon": false,
+      "specs": {
+        "en": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null },
+        "ko": { "ic_type": null, "socket_size": null, "operating_temp": null, "humidity": null, "cover_type": null, "material": null }
+      }
+    }
+  ]
+}

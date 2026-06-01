@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "이노보솔루션 — Innovative Test Solution Provider"
+  },
+  "hero": {
+    "title": "Innovative test solution provider",
+    "subtitle": "글로벌 반도체 고객을 위한 테스트 소켓·프로브 핀 설계·제조 전문 기업.",
+    "tagline": "고객 사양이 우리의 출발점입니다."
+  },
+  "values": {
+    "title": "핵심 역량",
+    "items": [
+      {
+        "title": "통합 테스트 솔루션",
+        "body": "프로브 핀부터 테스트 소켓까지 통합 설계, 3D 시뮬레이션으로 불량을 사전에 검출합니다."
+      },
+      {
+        "title": "사이즈 최적화",
+        "body": "IC 크기에 맞춘 커스터마이즈 소켓으로 최적의 테스트 환경을 제공합니다."
+      },
+      {
+        "title": "고전류 테스트",
+        "body": "Power IC·PMIC 분야 풍부한 경험, 고전류 환경에서도 안정적인 테스트를 지원합니다."
+      },
+      {
+        "title": "맞춤형 테스트 장비",
+        "body": "고객 요구에 맞는 전용 테스트 장비 개발 및 품질관리 시스템을 보유합니다."
+      }
+    ]
+  },
+  "stats": {
+    "title": "숫자로 보는 Innovo",
+    "visible": false,
+    "items": [
+      {"label": "업력", "value": "—"},
+      {"label": "특허", "value": "—"},
+      {"label": "납품 국가", "value": "—"}
+    ]
+  },
+  "map": {
+    "title": "전 세계 반도체 현장과 함께합니다",
+    "caption": "아시아, 아메리카, 유럽. 이노보솔루션의 정밀 소켓과 프로브 핀은 전 세계 반도체 테스트 현장에서 사용되고 있습니다. 품질과 납기에 대한 신뢰가 그 선택의 이유입니다."
+  },
+  "teaser": {
+    "title": "제품 라인업",
+    "items": [
+      {
+        "slug": "test-socket",
+        "title": "Test Socket",
+        "body": "Tiny·Mini·Large 시리즈, WLCSP, Multi, Magnetic 등.",
+        "images": [
+          "/upload/products/renders/test_socket/mini_socket_render.png",
+          "/upload/products/renders/test_socket/large30c_socket_render.png"
+        ]
+      },
+      {
+        "slug": "probe-pin",
+        "title": "Probe Pin",
+        "body": "일반·특수 POGO 핀 — 고전류·미세 피치 대응."
+      },
+      {
+        "slug": "test-jig",
+        "title": "Test JIG",
+        "body": "PCB·ECU 테스트 지그를 고객 사양에 맞게 제작합니다."
+      }
+    ]
+  },
+  "bottom_cta": {
+    "title": "맞춤형 테스트 소켓이 필요하신가요?",
+    "body": "IC 규격을 제출해 주시면 영업팀이 1–2 영업일 내 연락드립니다."
+  }
+}

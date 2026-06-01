@@ -1,0 +1,32 @@
+{
+  "meta": {"title": "Technology | Innovo Solution"},
+  "hero": {
+    "title": "Engineering & simulation",
+    "lead": "3D design, high-current expertise, and in-house validation equipment."
+  },
+  "simulation": {
+    "title": "3D design & simulation",
+    "body": "We simulate IC loading and pin alignment before manufacturing to reduce risk."
+  },
+  "high_current": {
+    "title": "High current test solutions",
+    "body": "Extensive experience with Power IC and PMIC applications under demanding electrical loads."
+  },
+  "optimization": {
+    "title": "Size optimization",
+    "body": "Sockets are customized to IC footprint for stable contact and compact handler integration."
+  },
+  "equipment": {
+    "title": "Validation equipment",
+    "items": [
+      {"id": "dimension", "name": "Dimension meter", "image": "/upload/technology/equipment/dimension_meter.png"},
+      {"id": "life", "name": "Life cycle tester", "image": "/upload/technology/equipment/life_cycle_tester.png"},
+      {"id": "resistance", "name": "Resistance meter", "image": "/upload/technology/equipment/resistance_meter.png"},
+      {"id": "force", "name": "Force meter", "image": "/upload/technology/equipment/force_meter.png"}
+    ]
+  },
+  "patents": {
+    "title": "Patents & R&D",
+    "body": "Patent count and representative listings will be published when approved for public release."
+  }
+}
