@@ -1,4 +1,4 @@
-"""Mailnara SMTP 이메일 발송."""
+"""SMTP 이메일 발송 (포트 465: SSL, 포트 587: STARTTLS)."""
 
 import logging
 import smtplib
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def _send_email(to_addr: str, subject: str, body: str) -> None:
-    """SMTP SSL로 단일 텍스트 메일 발송."""
+    """단일 텍스트 메일 발송. 포트 465: SSL, 포트 587: STARTTLS."""
     settings = get_settings()
 
     if not settings.smtp_user or not settings.smtp_password:
@@ -31,11 +31,19 @@ def _send_email(to_addr: str, subject: str, body: str) -> None:
     message.attach(MIMEText(body, "plain", "utf-8"))
 
     context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(
-        settings.smtp_host, settings.smtp_port, context=context, timeout=5
-    ) as server:
-        server.login(settings.smtp_user, settings.smtp_password)
-        server.sendmail(settings.smtp_from_email, [to_addr], message.as_string())
+    if settings.smtp_port == 465:
+        with smtplib.SMTP_SSL(
+            settings.smtp_host, settings.smtp_port, context=context, timeout=10
+        ) as server:
+            server.login(settings.smtp_user, settings.smtp_password)
+            server.sendmail(settings.smtp_from_email, [to_addr], message.as_string())
+    else:
+        with smtplib.SMTP(
+            settings.smtp_host, settings.smtp_port, timeout=10
+        ) as server:
+            server.starttls(context=context)
+            server.login(settings.smtp_user, settings.smtp_password)
+            server.sendmail(settings.smtp_from_email, [to_addr], message.as_string())
 
 
 def _format_ic_specs(inquiry: QuickQuoteInquiry) -> str:
