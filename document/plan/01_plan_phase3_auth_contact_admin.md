@@ -613,7 +613,8 @@ ADMIN_SEED_ROLES=sales_admin
 - [ ] forgot-password → 메일 → reset-password → 로그인
 
 ### Admin
-- [ ] 2FA 없이 JWT 발급 불가
+- [x] 2FA 없이 JWT 발급 불가
+- [x] Admin 이메일 OTP 발송 — Amazon SES (ap-northeast-2) 정상 동작 확인 (2026-06-02)
 - [ ] sales_admin: quotes/contacts R/W, settings 불가
 - [ ] 인증회원 승인 → tier=verified + 알림 메일
 
@@ -651,6 +652,56 @@ ADMIN_SEED_ROLES=sales_admin
 | `03_plan_quick_quote_integration.md` | Quick Quote 상세 |
 | `00_plan_gap_checklist.md` | 전체 갭 추적 |
 | `document/data_dictionary/00_schema.md` | 스키마 SSOT (개발 시 동기화) |
+
+---
+
+## 14. SMTP 인프라 — Amazon SES 마이그레이션 ✅ 완료 (2026-06-02)
+
+### 배경
+
+메일나라(Mailnara) SMTP(`smtp.mailnara.com:465`)는 AWS EC2 IP 대역을 스팸 방지 목적으로 차단한다. EC2에서 직접 메일 발송이 불가능하여 Amazon SES로 교체하였다.
+
+### 완료 작업
+
+| 항목 | 내용 |
+|------|------|
+| SES 도메인 인증 | `innovotech.co.kr` — 아시아 태평양(서울) ap-northeast-2 |
+| DNS 레코드 | DKIM CNAME 3개 → 마이다이렉트 고객센터 수동 등록 (UI 언더스코어 미지원) |
+| SMTP 자격 증명 | IAM 사용자 `ses-smtp-user.20260602-095249` 생성 |
+| 코드 수정 | `backend/utils/email_utils.py` — 포트 465: `SMTP_SSL`, 포트 587: `STARTTLS` 자동 분기 |
+| EC2 `.env` | 메일나라 설정 주석 처리 + SES 설정 적용 |
+
+### SMTP 설정값 (운영)
+
+```env
+# [메일나라 SMTP - AWS EC2 IP 차단으로 사용 불가, 필요시 주석 해제]
+# SMTP_HOST=smtp.mailnara.com
+# SMTP_PORT=465
+# SMTP_USER=sbchung@innovotech.co.kr
+# SMTP_PASSWORD=...
+# SMTP_FROM_EMAIL=sbchung@innovotech.co.kr
+
+# [Amazon SES SMTP - ap-northeast-2 서울]
+SMTP_HOST=email-smtp.ap-northeast-2.amazonaws.com
+SMTP_PORT=587
+SMTP_USER=AKIAT5KF4TGE7MFNGPBB
+SMTP_PASSWORD=<SES SMTP 비밀번호 — .csv 파일 보관>
+SMTP_FROM_EMAIL=sbchung@innovotech.co.kr
+```
+
+### DNS 레코드 (innovotech.co.kr — 마이다이렉트 등록 완료)
+
+| 유형 | 호스트 | 값 |
+|------|--------|-----|
+| CNAME | `4s5oyekrkhd3st5kz2wdaz24sehdx5v2._domainkey` | `4s5oyekrkhd3st5kz2wdaz24sehdx5v2.dkim.amazonses.com` |
+| CNAME | `dkd56lvixyjvzbnwyqg4mi6okdhuicjr._domainkey` | `dkd56lvixyjvzbnwyqg4mi6okdhuicjr.dkim.amazonses.com` |
+| CNAME | `ufsc5spsekwjywgqovyq3dmfn7l3pbpa._domainkey` | `ufsc5spsekwjywgqovyq3dmfn7l3pbpa.dkim.amazonses.com` |
+
+### 주의사항
+
+- SES SMTP 비밀번호 `.csv` 파일은 git 외부 안전한 곳에 보관
+- 메일나라 SMTP 설정은 `.env`에 주석으로 보관 (필요 시 복원 가능)
+- `APP_ENV=development` 상태에서는 이메일 전송 실패 시 로그에 OTP를 출력하는 fallback 동작
 
 ---
 
