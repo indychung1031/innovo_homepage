@@ -2,7 +2,7 @@
 
 > **작성일**: 2026-06-02  
 > **Phase**: 4 (마스터 플랜 §4-5 `/:lang/account`)  
-> **상태**: 기획 중 — 개발 착수 전 사용자 승인 필요  
+> **상태**: 기획 확정 — 개발 착수 가능  
 > **참조**: `00_master_plan.md` §7-1·§7-2, `backend/models.py`, `backend/routers/auth.py`
 
 ---
@@ -81,7 +81,7 @@
 | expired | 만료 | 빨강 |
 
 **기능**
-- 최신순 정렬, 최대 50건 표시 (페이지네이션 선택)
+- 최신순 정렬, **페이지당 20건 표시**, 페이지네이션 UI
 - **재요청 버튼**: 동일 IC 스펙으로 `/quote` 폼 자동 채워서 이동 (새 견적 요청)
 - 견적이 없을 경우: "아직 견적 요청 이력이 없습니다. [견적 요청하기]" 안내
 
@@ -100,8 +100,9 @@
 | ISO9001 인증서 (영문) | `/upload/certificate/ISO9001 (2024) Eng.pdf` |
 | ISO9001 인증서 (국문) | `/upload/certificate/ISO9001 (2024) Kor.pdf` |
 
-> 카탈로그 파일은 `upload/catalog/`에 추가되면 목록에 반영.  
-> 다운로드는 S3 presigned URL 또는 직접 `/upload/` 경로 제공 (인증회원 여부는 프론트 Access Token으로 확인).
+> **파일 목록 관리**: `frontend/content/catalogs.json` (또는 `frontend-react/src/content/catalogs.json`) 으로 관리.  
+> 파일 추가·삭제 시 JSON만 편집하면 되며 코드 수정 불필요.  
+> 다운로드는 직접 `/upload/` 경로 제공 (인증회원 여부는 프론트 Access Token으로 확인).
 
 ---
 
@@ -111,30 +112,39 @@
 |--------|------|------|------|
 | `PATCH` | `/api/auth/profile` | 이름·회사명·연락처 수정 | Access Token |
 | `POST` | `/api/auth/change-password` | 현재 비밀번호 확인 후 변경 | Access Token |
-| `GET` | `/api/account/quotes` | 내 견적 이력 조회 | Access Token |
+| `GET` | `/api/account/quotes` | 내 견적 이력 조회 (page, size=20) | Access Token |
+| `DELETE` | `/api/auth/account` | 회원 탈퇴 — 개인정보 즉시 삭제, 견적 익명화 | Access Token |
 
-> `/api/account/catalogs` — 정적 파일 목록이므로 API 불필요. 프론트에서 하드코딩 or JSON 파일로 관리.
+> `/api/account/catalogs` — 정적 JSON 파일 목록이므로 API 불필요.
 
 ---
 
 ## 5. 기존 코드 변경 사항
 
 ### 백엔드
-- `backend/routers/auth.py`: `PATCH /api/auth/profile`, `POST /api/auth/change-password` 추가
-- `backend/routers/` 신규: `account.py` — `GET /api/account/quotes`
+- `backend/routers/auth.py`: `PATCH /api/auth/profile`, `POST /api/auth/change-password`, `DELETE /api/auth/account` 추가
+- `backend/routers/` 신규: `account.py` — `GET /api/account/quotes?page=1&size=20`
 - DB 스키마 변경 없음 (기존 `users`, `quick_quote_inquiries` 테이블 그대로 사용)
+
+### 탈퇴 처리 로직 (`DELETE /api/auth/account`)
+마스터 플랜 §7-3 확정 내용 기준:
+1. `users` 레코드에서 이름·이메일·전화번호·비밀번호 즉시 삭제 (또는 `is_active=False` + 필드 익명화)
+2. `quick_quote_inquiries` 중 `contact_email = 탈퇴 이메일` → `contact_name="탈퇴회원"`, `contact_email="deleted@deleted"`, `contact_phone=NULL` 익명화
+3. 견적 기록(제품·수량·금액·날짜) 자체는 5년 보관
+4. Refresh 쿠키 삭제
 
 ### 프론트엔드 (React)
 - `frontend-react/src/pages/AccountPage.tsx` 신규
 - `frontend-react/src/api/account.ts` 신규 (API 호출)
 - `frontend-react/src/app/router.tsx`: `/{lang}/account` 라우트 추가 (ProtectedRoute 적용)
+- 탈퇴 버튼: "정말 탈퇴하시겠습니까?" 확인 다이얼로그 후 처리
 
 ---
 
-## 6. 미결 사항 (개발 전 확인 필요)
+## 6. 확정 사항
 
-| # | 질문 | 기본값 |
-|---|------|--------|
-| Q1 | 견적 이력 페이지네이션 필요 여부? 초기엔 최대 50건으로 충분한가? | 50건 단순 표시 |
-| Q2 | 카탈로그 파일 목록을 JSON으로 관리할지, 하드코딩으로 할지? | 하드코딩 (파일 수 적음) |
-| Q3 | 회원 탈퇴 기능 포함 여부? | 마스터 플랜 §7-3에 탈퇴 처리 정책 확정됨 — 1차 포함 여부 결정 필요 |
+| # | 항목 | 확정 내용 |
+|---|------|---------|
+| Q1 | 견적 이력 표시 | ✅ 페이지네이션, 페이지당 **20건** |
+| Q2 | 카탈로그 목록 관리 | ✅ **JSON 파일** 관리 (코드 수정 없이 파일 추가·삭제 가능) |
+| Q3 | 회원 탈퇴 | ✅ **포함** — 개인정보 즉시 삭제, 견적 기록 익명화 후 5년 보관 |
