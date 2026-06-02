@@ -7,6 +7,8 @@ export type UserPublic = {
   email: string;
   full_name: string;
   company_name: string;
+  phone?: string | null;
+  created_at?: string | null;
   membership_tier: string;
   email_verified: boolean;
 };

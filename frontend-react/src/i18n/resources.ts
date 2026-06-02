@@ -12,6 +12,8 @@ import contactEn from '@content/i18n/contact.en.json';
 import contactKo from '@content/i18n/contact.ko.json';
 import productsEn from '@content/i18n/products.en.json';
 import productsKo from '@content/i18n/products.ko.json';
+import accountEn from '@content/i18n/account.en.json';
+import accountKo from '@content/i18n/account.ko.json';
 import quoteEn from '@content/i18n/quote.en.json';
 import quoteKo from '@content/i18n/quote.ko.json';
 import technologyEn from '@content/i18n/technology.en.json';
@@ -28,6 +30,7 @@ export const i18nResources = {
     auth: authEn,
     wizard: wizardEn,
     quote: quoteEn,
+    account: accountEn,
   },
   ko: {
     common: commonKo,
@@ -39,5 +42,6 @@ export const i18nResources = {
     auth: authKo,
     wizard: wizardKo,
     quote: quoteKo,
+    account: accountKo,
   },
 } as const;

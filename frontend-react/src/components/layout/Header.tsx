@@ -110,13 +110,18 @@ export function Header() {
             {t('nav.contact')}
           </Link>
           {user ? (
-            <button
-              type="button"
-              className="text-charcoal hover:text-navy"
-              onClick={() => void logout()}
-            >
-              {t('nav.logout')}
-            </button>
+            <>
+              <Link to={withLang(lang, '/account')} className="text-charcoal hover:text-navy">
+                {t('nav.account')}
+              </Link>
+              <button
+                type="button"
+                className="text-charcoal hover:text-navy"
+                onClick={() => void logout()}
+              >
+                {t('nav.logout')}
+              </button>
+            </>
           ) : (
             <Link to={withLang(lang, '/login')} className="text-charcoal hover:text-navy">
               {t('nav.login')}

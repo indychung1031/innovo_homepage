@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 
 import { submitQuickQuote } from '@/api/quickQuote';
 import { useAuth } from '@/features/auth/AuthContext';
@@ -21,16 +21,17 @@ export function QuickQuotePage() {
   const { t } = useTranslation(['quote', 'common']);
   const { user } = useAuth();
   const recaptchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
+  const [searchParams] = useSearchParams();
 
-  const [icPackageType, setIcPackageType] = useState('');
-  const [icType, setIcType] = useState('');
-  const [icCode, setIcCode] = useState('');
-  const [pinCount, setPinCount] = useState('');
-  const [pitch, setPitch] = useState('');
+  const [icPackageType, setIcPackageType] = useState(searchParams.get('ic_package_type') ?? '');
+  const [icType, setIcType] = useState(searchParams.get('ic_type') ?? '');
+  const [icCode, setIcCode] = useState(searchParams.get('ic_code') ?? '');
+  const [pinCount, setPinCount] = useState(searchParams.get('pin_count') ?? '');
+  const [pitch, setPitch] = useState(searchParams.get('pitch') ?? '');
   const [pitchCustom, setPitchCustom] = useState('');
-  const [packageD, setPackageD] = useState('');
-  const [packageE, setPackageE] = useState('');
-  const [packageA, setPackageA] = useState('');
+  const [packageD, setPackageD] = useState(searchParams.get('package_d') ?? '');
+  const [packageE, setPackageE] = useState(searchParams.get('package_e') ?? '');
+  const [packageA, setPackageA] = useState(searchParams.get('package_a') ?? '');
   const [companyName, setCompanyName] = useState('');
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('');

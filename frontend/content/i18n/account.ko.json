@@ -1,0 +1,66 @@
+{
+  "meta": { "title": "마이페이지" },
+  "breadcrumb": "마이페이지",
+  "tabs": {
+    "profile": "내 정보",
+    "quotes": "견적 이력",
+    "catalogs": "카탈로그"
+  },
+  "profile": {
+    "heading": "계정 정보",
+    "email": "이메일",
+    "full_name": "이름",
+    "company_name": "회사명",
+    "phone": "연락처",
+    "created_at": "가입일",
+    "tier": "회원 등급",
+    "tier_general": "일반회원",
+    "tier_verified": "인증회원",
+    "tier_notice": "인증회원 승인 후 카탈로그 다운로드 및 기준가 견적 혜택이 제공됩니다. 담당자에게 문의해 주세요.",
+    "edit": "수정",
+    "save": "저장",
+    "cancel": "취소",
+    "save_success": "프로필이 업데이트되었습니다."
+  },
+  "password": {
+    "heading": "비밀번호 변경",
+    "current": "현재 비밀번호",
+    "new": "새 비밀번호",
+    "confirm": "새 비밀번호 확인",
+    "submit": "비밀번호 변경",
+    "success": "비밀번호가 변경되었습니다."
+  },
+  "delete_account": {
+    "heading": "회원 탈퇴",
+    "warning": "탈퇴 시 개인정보가 즉시 삭제되며 복구할 수 없습니다.",
+    "confirm_prompt": "정말 탈퇴하시겠습니까?",
+    "submit": "탈퇴하기"
+  },
+  "quotes": {
+    "heading": "견적 이력",
+    "empty": "아직 견적 요청 이력이 없습니다.",
+    "empty_cta": "견적 요청하기",
+    "reorder": "재요청",
+    "col_id": "번호",
+    "col_package": "패키지",
+    "col_size": "크기 (mm)",
+    "col_pins": "핀 수",
+    "col_qty": "수량",
+    "col_date": "접수일",
+    "col_status": "상태",
+    "status": {
+      "pending": "접수됨",
+      "reviewing": "검토중",
+      "quoted": "견적발행",
+      "completed": "완료",
+      "expired": "만료"
+    }
+  },
+  "catalogs": {
+    "heading": "카탈로그 다운로드",
+    "verified_only": "인증회원 전용 서비스입니다.",
+    "contact_prompt": "담당자에게 인증회원 신청 문의를 해 주세요.",
+    "download": "다운로드",
+    "file_type": "형식"
+  }
+}

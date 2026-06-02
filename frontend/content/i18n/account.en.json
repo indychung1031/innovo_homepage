@@ -1,0 +1,66 @@
+{
+  "meta": { "title": "My Account" },
+  "breadcrumb": "My Account",
+  "tabs": {
+    "profile": "My Info",
+    "quotes": "Quote History",
+    "catalogs": "Catalogs"
+  },
+  "profile": {
+    "heading": "Account Information",
+    "email": "Email",
+    "full_name": "Name",
+    "company_name": "Company",
+    "phone": "Phone",
+    "created_at": "Member since",
+    "tier": "Membership",
+    "tier_general": "General",
+    "tier_verified": "Verified Member",
+    "tier_notice": "Contact us to get verified member access — catalog downloads and estimated pricing.",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "save_success": "Profile updated."
+  },
+  "password": {
+    "heading": "Change Password",
+    "current": "Current Password",
+    "new": "New Password",
+    "confirm": "Confirm New Password",
+    "submit": "Change Password",
+    "success": "Password changed successfully."
+  },
+  "delete_account": {
+    "heading": "Delete Account",
+    "warning": "This action is permanent. Your personal information will be deleted immediately and cannot be recovered.",
+    "confirm_prompt": "Are you sure you want to delete your account?",
+    "submit": "Delete My Account"
+  },
+  "quotes": {
+    "heading": "Quote History",
+    "empty": "No quote requests yet.",
+    "empty_cta": "Request a Quote",
+    "reorder": "Re-request",
+    "col_id": "#",
+    "col_package": "Package",
+    "col_size": "Size (mm)",
+    "col_pins": "Pins",
+    "col_qty": "Qty",
+    "col_date": "Date",
+    "col_status": "Status",
+    "status": {
+      "pending": "Pending",
+      "reviewing": "Reviewing",
+      "quoted": "Quoted",
+      "completed": "Completed",
+      "expired": "Expired"
+    }
+  },
+  "catalogs": {
+    "heading": "Catalog Downloads",
+    "verified_only": "This section is for verified members only.",
+    "contact_prompt": "Please contact us to request verified member access.",
+    "download": "Download",
+    "file_type": "Type"
+  }
+}

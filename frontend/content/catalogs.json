@@ -1,0 +1,26 @@
+[
+  {
+    "id": "socket_list",
+    "name_ko": "소켓 목록 (250108)",
+    "name_en": "Socket List (250108)",
+    "type": "PDF"
+  },
+  {
+    "id": "probe_pin_plunger",
+    "name_ko": "Probe Pin Plunger 형상",
+    "name_en": "Probe Pin Plunger Shape",
+    "type": "PNG"
+  },
+  {
+    "id": "iso9001_en",
+    "name_ko": "ISO9001 인증서 (영문)",
+    "name_en": "ISO9001 Certificate (English)",
+    "type": "PDF"
+  },
+  {
+    "id": "iso9001_ko",
+    "name_ko": "ISO9001 인증서 (국문)",
+    "name_en": "ISO9001 Certificate (Korean)",
+    "type": "PDF"
+  }
+]
