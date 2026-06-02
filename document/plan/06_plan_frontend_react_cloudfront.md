@@ -1,10 +1,11 @@
 # 06. 프론트엔드 전용 기획서 — React + CloudFront
 
 > **작성일**: 2026-05-31  
+> **최종 업데이트**: 2026-06-02  
 > **담당 범위**: **프론트엔드만** (React SPA, S3/CloudFront 배포, UI/UX, i18n, 공개·Admin 화면)  
 > **담당 제외**: FastAPI, PostgreSQL, ERP 연동, Alembic, SMTP, 서버 Nginx — **백엔드 담당자**  
 > **참조**: `04_plan_phase2_static_frontend.md`, `00_master_plan.md` §4~§6, `05_plan_aws_erp_react_cloudfront.md` (전체 맥락)  
-> **상태**: **v1.1 확정** — 2026-05-31
+> **상태**: **v1.2** — S0~S8 구현·배포 완료, 운영 중
 
 ---
 
@@ -304,8 +305,23 @@ aws cloudfront create-invalidation --distribution-id $ID --paths "/*"
 |------|------|
 | 코드 기반 화면·JS·CSS 반영 | ✅ |
 | 백엔드 경계 분리 | ✅ |
-| S0~S2 로컬만 착수 | ✅ |
-| S0~S8 (1차) | ✅ 로컬 React 구현 완료 — 운영 연동·CloudFront는 별도 |
+| S0~S8 (1차) | ✅ 로컬 React 구현 완료 |
+| CloudFront 배포 | ✅ `EAD1YVAYMLDS7` · `www.innovosolution.co.kr` CNAME 연결 완료 (2026-05-31) |
+| Jinja2 레거시 삭제 | ✅ `frontend/templates·css·js·content` 전체 삭제 완료 (commit `c084a3c`, 2026-05-31) |
 | Wizard / ERP | ⚠️ `VITE_WIZARD_USE_MOCK` — BFF 확정 후 `false` |
 | Auth 쿠키 (access) | ⚠️ 백엔드 Set-Cookie 전환 시 프론트 메모리 제거만 |
 | Account | 2차로 분리 ✅ |
+| **@content 별칭** | ⚠️ `vite.config.ts`의 `@content` → `../frontend/content` 가 삭제된 경로를 가리킴 — **ERP 담당자에게 i18n 파일 이전 위임 (2026-06-02)** |
+
+---
+
+## 13. 운영 후 변경 이력
+
+| 날짜 | 변경 내용 | 커밋 |
+|------|----------|------|
+| 2026-05-31 | React SPA S0~S8 1차 구현 완료, CloudFront 배포 | `f6c74be` |
+| 2026-05-31 | Jinja2 레거시 전체 삭제 (templates·css·js·content) | `c084a3c` |
+| 2026-05-31 | Home hero subtitle "설계·제조" 반영, tagline "고객 사양이 우리의 출발점" 변경 | — |
+| 2026-05-31 | Home Product lines — Test Socket 카드에 mini·large30c 렌더 이미지 50:50 배치 | — |
+| 2026-05-31 | About 연혁 14개 항목 추가 (창립~현재) | `b38e83e` |
+| 2026-06-01 | `/products/test-socket` 소켓 목록 PDF 다운로드 버튼 숨김 | `6a83f24` |

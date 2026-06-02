@@ -1,6 +1,6 @@
 # Innovo_homepage — 마스터 플랜
 
-> 상태: **진행 중** — 최종 업데이트: 2026-05-21
+> 상태: **진행 중** — 최종 업데이트: 2026-06-02
 
 ---
 
@@ -865,18 +865,18 @@ Email: sbchung@innovotech.co.kr
 
 | 구분 | 기술 |
 |------|------|
-| Frontend | HTML5, CSS3, Vanilla JS (ES6+), Tailwind CSS |
-| Backend | FastAPI + Jinja2 (Python) |
+| Frontend | **React 18 + TypeScript + Vite 6 + Tailwind CSS v4** (`frontend-react/`) |
+| Backend | **FastAPI (Python)** — Jinja2 제거 완료, API 라우터만 운영 |
 | Database | PostgreSQL (SQLAlchemy + Alembic) |
 | DB 드라이버 | psycopg2 |
 | 인증 | JWT + **이메일 인증(가입)** + **Admin 2FA(TOTP/이메일 OTP)** |
 | 이메일 발송 | **Mailnara SMTP** — `SMTP_HOST=smtp.mailnara.com` / Port 465 / `SMTP_FROM_EMAIL=sbchung@innovotech.co.kr` |
-| i18n | Vanilla JS + JSON 번역 파일 (URL 분리 방식 — `/{lang}/페이지명`) |
+| i18n | `react-i18next` + JSON 번역 파일 (URL 분리 방식 — `/{lang}/페이지명`) |
 | 봇 방지 | Google reCAPTCHA v3 (문의·가입·견적 제출) |
 | 분석 | Google Analytics 4 (쿠키 동의 후 로드) |
 | 보안 | Rate limiting, Admin 2FA |
-| ERP 연동 | REST API 호출 (확인 후 결정) |
-| 배포 | AWS EC2 (앱 서버) + S3 (파일 저장) + Certificate Manager (SSL) |
+| ERP 연동 | REST API 호출 — ERP 서버 `/api/hp/*` (vite proxy 경유) |
+| 배포 | **CloudFront** (React SPA, Distribution: EAD1YVAYMLDS7) + **S3** `innovo-www-prod` + **EC2** (FastAPI API 서버) |
 
 ---
 
@@ -885,11 +885,12 @@ Email: sbchung@innovotech.co.kr
 | Phase | 내용 | 상태 |
 |-------|------|------|
 | **Phase 1** | 요구사항 확정·디자인 기획 | 🔄 진행 중 |
-| **Phase 2** | 정적 프론트엔드 구현 (전체 페이지 HTML/CSS/JS) | ✅ 구현 완료 (FAQ·stats·월드맵 placeholder) |
+| **Phase 2** | 정적 프론트엔드 구현 (전체 페이지 HTML/CSS/JS) | ✅ 구현 완료 |
 | **Phase 3** | Quick Quote + Contact + 회원·Admin | ✅ 구현 완료 (DB 마이그레이션·SMTP·seed 필요) |
+| **React 전환** | Jinja2 → React SPA (`frontend-react/`), Jinja2 레거시 전체 삭제 | ✅ 완료 (2026-05-31) |
+| **배포** | CloudFront + S3 배포, 메일나라 DNS → CloudFront CNAME 연결 | ✅ 완료 (2026-05-31) |
 | **Phase 4** | 견적 위저드 — 회원 가격 계산·히스토리·PDF + Admin 대시보드 (02 DB 이식 포함) | ⏳ 대기 |
 | **Phase 5** | ERP 연동 — **Quick Quote ERP 접수함(03 Ph2)** + ERP inquiry API | ⏳ 대기 |
-| **Phase 6** | 배포·운영 | ⏳ 대기 |
 
 ### 부속 기획서 Phase 매핑
 
@@ -949,7 +950,7 @@ Email: sbchung@innovotech.co.kr
 - [ ] **Probe Pin 3D 렌더링** — SolidWorks에서 **치수선 없는** 버전으로 내보낸 뒤 `upload/products/renders/probe_pin/` 에 저장 필요
 - [x] **특허 정보 제공** — 누적 출원 6건 확정, 등록 특허 No. 1020170104129 (특허증 PDF `upload/patents/` 저장 필요)
 - [x] `innovosolution.co.kr` 도메인 확인 — 만료일 **2029-06-02**, 상태 정상, 네임서버 ns1/ns2.sdsns.com
-- [ ] ~~회사 연혁 내용~~ → 타임라인 레이아웃만 Phase 2, 마일스톤 텍스트 추후
+- [x] **회사 연혁 내용 추가 완료** — 창립(2007) · 특허 3건(2011~2017) · ISO9001 최초취득(2012.09.04) · 양산 출하(2014.09) · 북미 진출(2014.11) · 유럽(2020) · 아시아(2020~2021) · 역대최대수출(2022) · 동아시아(2022~2024) · KITA 등록(2025.08) · 현재 성장 중 — `about.{en,ko}.json` 반영 완료
 - [x] **ERP REST API 확인 완료** — `POST /api/external/inquiry` (API Key 인증) 준비 완료, `.env`에 저장
 - [ ] **Pedestal / Pedestal EMMI 스펙 정보** — 추후 제공 예정 (대기 중)
 - [x] **견적 계산 고정 납기 테이블** — `lead_time_rules` 테이블 설계 확정 (§7-1 납기 정보 처리 참조) — 기본 20set 이하 3 Weeks, 소켓 종류 × 수량 구간별 Admin 관리
@@ -959,22 +960,28 @@ Email: sbchung@innovotech.co.kr
 
 ---
 
-## 12. 배포 아키텍처 (방향 확정, 세부 미정)
+## 12. 배포 아키텍처 (✅ 확정 완료 — 2026-05-31)
 
 ```
 [브라우저]
+    ↓ www.innovosolution.co.kr
+[메일나라 DNS — CNAME → dusftiakt754y.cloudfront.net]
     ↓
-[Route 53 — 도메인 DNS]      ← 도메인 관리 업체 확인 필요
+[AWS CloudFront — Distribution: EAD1YVAYMLDS7]
+    ↓ Origin: S3 (OAC)
+[AWS S3 — 버킷: innovo-www-prod (ap-northeast-2)]
+    └── React SPA 빌드 파일 (index.html, assets/)
+    └── /upload/ (이미지, PDF 등 미디어)
+
+API 호출 (/api/*, /admin/api/*)
     ↓
-[AWS EC2 — FastAPI 앱 서버]
-    ↓
-[AWS S3 — 파일·이미지 저장]
-    +
-[AWS Certificate Manager — HTTPS SSL 인증서 (무료)]
+[AWS EC2 — FastAPI 앱 서버 (API 라우터만)]
 ```
 
-- EC2 인스턴스 타입: t3.micro 또는 t3.small (트래픽 적은 B2B 홈페이지 기준)
-- 도메인 관리: **sdsns.com** 네임서버 (ns1/ns2.sdsns.com) — AWS Route 53 이전 불필요
-- 배포 시 도메인 관리 패널에서 A 레코드를 EC2 IP로 변경하면 연결 완료
+- **도메인 관리**: 메일나라 (네임서버 ns1/ns2.sdsns.com) — `www` CNAME → CloudFront
+- **배포 스크립트**: `frontend-react/scripts/deploy-s3.ps1` — `npm run build` → S3 sync → CloudFront invalidation
+- **SPA fallback**: CloudFront Custom Error Response 403/404 → `/index.html` (200) 설정 완료
 - `innovosolution.co.kr` 만료일: **2029-06-02** (여유 있음) ✅
 - `innovotech.co.kr` 만료일: **2026-12-14** (이메일 수신용 — **2026년 12월 갱신 필요**)
+
+> ⚠️ **재빌드 주의**: `frontend-react/vite.config.ts`의 `@content` 별칭이 삭제된 `frontend/content/`를 가리킴 — ERP 담당자가 i18n 파일 이전 작업 중 (2026-06-02 위임)
