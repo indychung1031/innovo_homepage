@@ -1,8 +1,11 @@
 """회원 계정 관련 API (마이페이지)."""
 
+import logging
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, Query
+import boto3
+from botocore.config import Config
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -10,6 +13,17 @@ from sqlalchemy.orm import Session
 from backend.database import get_db
 from backend.deps import get_current_user
 from backend.models import QuickQuoteInquiry, User
+
+logger = logging.getLogger(__name__)
+
+CATALOG_FILES: dict[str, str] = {
+    "socket_list": "private/catalog/Socket List 250108.pdf",
+    "probe_pin_plunger": "private/catalog/probe_pin_plunger_shape.png",
+    "iso9001_en": "private/certificate/ISO9001 (2024) Eng.pdf",
+    "iso9001_ko": "private/certificate/ISO9001 (2024) Kor.pdf",
+}
+
+S3_BUCKET = "innovo-www-prod"
 
 router = APIRouter(prefix="/api/account", tags=["account"])
 
@@ -60,3 +74,35 @@ def my_quotes(
         for r in rows
     ]
     return QuoteListResponse(items=items, total=total, page=page, size=size)
+
+
+class CatalogUrlResponse(BaseModel):
+    url: str
+    expires_in: int = 60
+
+
+@router.get("/catalog-url", response_model=CatalogUrlResponse)
+def get_catalog_url(
+    file: str = Query(..., description="file_id: socket_list | probe_pin_plunger | iso9001_en | iso9001_ko"),
+    user: User = Depends(get_current_user),
+) -> CatalogUrlResponse:
+    if user.membership_tier != "verified":
+        raise HTTPException(status_code=403, detail="인증 회원 전용 자료입니다.")
+    s3_key = CATALOG_FILES.get(file)
+    if not s3_key:
+        raise HTTPException(status_code=404, detail="존재하지 않는 파일입니다.")
+    try:
+        client = boto3.client(
+            "s3",
+            region_name="ap-northeast-2",
+            config=Config(signature_version="s3v4"),
+        )
+        url = client.generate_presigned_url(
+            "get_object",
+            Params={"Bucket": S3_BUCKET, "Key": s3_key},
+            ExpiresIn=60,
+        )
+    except Exception:
+        logger.exception("S3 presigned URL 생성 실패 file=%s", file)
+        raise HTTPException(status_code=500, detail="파일 URL 생성에 실패했습니다.")
+    return CatalogUrlResponse(url=url)
