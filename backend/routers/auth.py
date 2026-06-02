@@ -1,6 +1,7 @@
 """B2B 회원 Auth API."""
 
 import logging
+import secrets
 from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
@@ -12,6 +13,7 @@ from backend.database import get_db
 from backend.deps import get_current_user
 from backend.models import EmailVerificationToken, PasswordResetToken, User
 from backend.schemas.auth import (
+    ChangePasswordRequest,
     ForgotPasswordRequest,
     LoginRequest,
     LoginResponse,
@@ -19,6 +21,7 @@ from backend.schemas.auth import (
     RegisterRequest,
     ResendVerificationRequest,
     ResetPasswordRequest,
+    UpdateProfileRequest,
     UserPublic,
 )
 from backend.utils.auth_email import send_password_reset_email, send_verification_email
@@ -40,8 +43,10 @@ def _user_public(user: User) -> UserPublic:
         email=user.email,
         full_name=user.full_name,
         company_name=user.company_name,
+        phone=user.phone or None,
         membership_tier=user.membership_tier,
         email_verified=user.email_verified_at is not None,
+        created_at=user.created_at,
     )
 
 
@@ -285,3 +290,62 @@ async def reset_password(
 @router.get("/me", response_model=UserPublic)
 def me(user: User = Depends(get_current_user)) -> UserPublic:
     return _user_public(user)
+
+
+@router.patch("/profile", response_model=UserPublic)
+def update_profile(
+    payload: UpdateProfileRequest,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> UserPublic:
+    if payload.full_name is not None:
+        user.full_name = payload.full_name
+    if payload.company_name is not None:
+        user.company_name = payload.company_name
+    if payload.phone is not None:
+        user.phone = payload.phone
+    db.commit()
+    db.refresh(user)
+    return _user_public(user)
+
+
+@router.post("/change-password", response_model=MessageResponse)
+def change_password(
+    payload: ChangePasswordRequest,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> MessageResponse:
+    if not verify_password(payload.current_password, user.password_hash):
+        raise HTTPException(status_code=400, detail="현재 비밀번호가 올바르지 않습니다.")
+    user.password_hash = hash_password(payload.new_password)
+    db.commit()
+    return MessageResponse(message="비밀번호가 변경되었습니다.")
+
+
+@router.delete("/account", status_code=status.HTTP_204_NO_CONTENT)
+def delete_account(
+    response: Response,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> None:
+    anon_email = f"deleted_{user.id}@deleted"
+
+    # 견적 기록 익명화 (5년 보관)
+    from sqlalchemy import update as sql_update
+    from backend.models import QuickQuoteInquiry
+    db.execute(
+        sql_update(QuickQuoteInquiry)
+        .where(QuickQuoteInquiry.contact_email == user.email)
+        .values(contact_name="탈퇴회원", contact_email="deleted@deleted", contact_phone=None)
+    )
+
+    # 사용자 익명화
+    user.full_name = "탈퇴회원"
+    user.email = anon_email
+    user.phone = ""
+    user.password_hash = hash_password(secrets.token_urlsafe(32))
+    user.is_active = False
+    user.email_verified_at = None
+    db.commit()
+
+    response.delete_cookie(REFRESH_COOKIE, path="/")

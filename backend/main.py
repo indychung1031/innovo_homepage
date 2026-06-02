@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from backend.routers import admin, auth, contact, quick_quote
+from backend.routers import account, admin, auth, contact, quick_quote
 from backend.startup import seed_staff_if_needed
 
 load_dotenv()
@@ -29,6 +29,7 @@ app = FastAPI(
 app.include_router(quick_quote.router)
 app.include_router(contact.router)
 app.include_router(auth.router)
+app.include_router(account.router)
 app.include_router(admin.router)
 
 
