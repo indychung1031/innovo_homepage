@@ -27,7 +27,7 @@ export function ProductsIndexPage() {
         <div className="mx-auto max-w-6xl px-4">
           <Breadcrumb items={[{ label: t('common:nav.products') }]} />
           <h1 className="mb-3 text-3xl font-bold">{t('products:index.title')}</h1>
-          <p className="max-w-2xl text-lg text-gray-mid">{t('products:index.lead')}</p>
+          <p className="max-w-2xl whitespace-pre-line text-lg text-gray-mid">{t('products:index.lead')}</p>
         </div>
       </section>
 
