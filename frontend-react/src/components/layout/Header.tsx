@@ -79,23 +79,23 @@ export function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </span>
-            <div className={`${productsOpen ? 'flex flex-col' : 'hidden md:flex md:flex-col'} mt-2 border-l border-gray-light pl-4 md:absolute md:left-0 md:top-full md:mt-0 md:border-0 md:pl-0 md:pt-2 md:opacity-0 md:invisible md:transition-all md:group-hover:visible md:group-hover:opacity-100`}>
-              <div className="flex flex-col md:min-w-[11rem] md:rounded md:bg-white md:py-2 md:shadow-lg">
+            <div className={`${productsOpen ? 'block' : 'hidden'} mt-2 border-l border-gray-light pl-4 md:block md:absolute md:left-0 md:top-full md:mt-0 md:border-0 md:pl-0 md:pt-2 md:opacity-0 md:invisible md:transition-all md:group-hover:visible md:group-hover:opacity-100`}>
+              <div className="md:min-w-[11rem] md:rounded md:bg-white md:py-2 md:shadow-lg">
                 <Link
                   to={withLang(lang, '/products/test-socket')}
-                  className="rounded px-3 py-2 text-charcoal hover:bg-slate-50"
+                  className="block whitespace-nowrap rounded px-3 py-2 text-charcoal hover:bg-slate-50"
                 >
                   {t('nav.test_socket')}
                 </Link>
                 <Link
                   to={withLang(lang, '/products/probe-pin')}
-                  className="rounded px-3 py-2 text-charcoal hover:bg-slate-50"
+                  className="block whitespace-nowrap rounded px-3 py-2 text-charcoal hover:bg-slate-50"
                 >
                   {t('nav.probe_pin')}
                 </Link>
                 <Link
                   to={withLang(lang, '/products/test-jig')}
-                  className="rounded px-3 py-2 text-charcoal hover:bg-slate-50"
+                  className="block whitespace-nowrap rounded px-3 py-2 text-charcoal hover:bg-slate-50"
                 >
                   {t('nav.test_jig')}
                 </Link>
