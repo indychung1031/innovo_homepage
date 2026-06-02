@@ -47,6 +47,7 @@ export function ProductsIndexPage() {
                       src={mediaUrl(thumb)}
                       alt=""
                       className="max-h-full max-w-full object-contain p-4"
+                      loading="lazy"
                     />
                   ) : (
                     <span className="font-display text-lg text-navy/40">{catalogTitle(cat, lang)}</span>
