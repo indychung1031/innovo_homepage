@@ -16,9 +16,11 @@ export function Header() {
   const location = useLocation();
   const pathSuffix = pathWithoutLang(location.pathname, lang);
   const [navOpen, setNavOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
 
   useEffect(() => {
     setNavOpen(false);
+    setProductsOpen(false);
   }, [location.pathname]);
 
   const renewalLabel = lang === 'ko' ? '리뉴얼중' : 'Under Renewal';
@@ -63,13 +65,21 @@ export function Header() {
           </Link>
 
           <div className="group relative">
-            <span className="flex items-center gap-1 text-charcoal md:pointer-events-none">
+            <span
+              className="flex cursor-pointer items-center gap-1 text-charcoal md:cursor-auto md:pointer-events-none"
+              onClick={() => setProductsOpen((open) => !open)}
+            >
               {t('nav.products')}
-              <svg className="hidden h-4 w-4 md:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className={`h-4 w-4 transition-transform md:inline ${productsOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </span>
-            <div className="mt-2 flex flex-col border-l border-gray-light pl-4 md:absolute md:left-0 md:top-full md:mt-0 md:border-0 md:pl-0 md:pt-2 md:opacity-0 md:invisible md:transition-all md:group-hover:visible md:group-hover:opacity-100">
+            <div className={`${productsOpen ? 'flex flex-col' : 'hidden md:flex md:flex-col'} mt-2 border-l border-gray-light pl-4 md:absolute md:left-0 md:top-full md:mt-0 md:border-0 md:pl-0 md:pt-2 md:opacity-0 md:invisible md:transition-all md:group-hover:visible md:group-hover:opacity-100`}>
               <div className="flex flex-col md:min-w-[11rem] md:rounded md:bg-white md:py-2 md:shadow-lg">
                 <Link
                   to={withLang(lang, '/products/test-socket')}

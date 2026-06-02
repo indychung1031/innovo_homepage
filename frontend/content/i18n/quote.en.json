@@ -1,0 +1,28 @@
+{
+  "title": "Request a Quick Quote",
+  "subtitle": "Enter your IC specifications. Our sales team will contact you within 1-2 business days.",
+  "wizard_hint_before": "Members: use the ",
+  "wizard_link": "Quote Wizard",
+  "wizard_hint_after": " for automated preliminary pricing.",
+  "sections": {
+    "ic_spec": "IC Specifications",
+    "contact": "Contact Information",
+    "optional": "Optional"
+  },
+  "fields": {
+    "package_type": "Package Type",
+    "ic_type": "IC type",
+    "ic_type_placeholder": "e.g. Memory, Logic, Power IC",
+    "pin_count": "Pin Count",
+    "pitch_custom": "Custom",
+    "company": "Company",
+    "name": "Name",
+    "phone": "Phone",
+    "quantity": "Quantity",
+    "desired_delivery": "Desired Delivery",
+    "message": "Message"
+  },
+  "nda_before": "For NDA or classified files, email ",
+  "nda_after": " directly.",
+  "submit": "Submit Quick Quote"
+}

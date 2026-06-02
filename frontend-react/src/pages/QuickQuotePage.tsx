@@ -18,7 +18,7 @@ export function QuickQuotePage() {
   const { lang: langParam } = useParams();
   const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
   const isKo = lang === 'ko';
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['quote', 'common']);
   const { user } = useAuth();
   const recaptchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
 
@@ -47,10 +47,7 @@ export function QuickQuotePage() {
   }, [recaptchaKey]);
 
   function resolvePitch(): string {
-    if (pitch === 'custom') {
-      return pitchCustom.trim();
-    }
-    return pitch;
+    return pitch === 'custom' ? pitchCustom.trim() : pitch;
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -108,41 +105,35 @@ export function QuickQuotePage() {
     }
   }
 
-  const pageTitle = isKo ? 'IC 가견적 요청' : 'Request a Quick Quote';
-
   return (
     <>
       <Helmet>
-        <title>
-          {pageTitle} | Innovo Solution
-        </title>
+        <title>{t('quote:title')} | Innovo Solution</title>
       </Helmet>
 
       <section className="mx-auto max-w-2xl px-4 py-12">
-        <Breadcrumb items={[{ label: t('nav.quote') }]} />
-        <h1 className="mb-3 text-3xl font-bold">{pageTitle}</h1>
+        <Breadcrumb items={[{ label: t('common:nav.quote') }]} />
+        <h1 className="mb-3 text-3xl font-bold">{t('quote:title')}</h1>
         <p className={`text-gray-mid ${user ? 'mb-4' : 'mb-8'}`}>
-          {isKo
-            ? 'IC 규격을 입력하시면 영업팀이 1-2 영업일 내 연락드립니다.'
-            : 'Enter your IC specifications. Our sales team will contact you within 1-2 business days.'}
+          {t('quote:subtitle')}
         </p>
         {user ? (
           <p className="mb-8 text-sm">
-            {isKo ? '회원 가견적(4단계)은 ' : 'Members: use the '}
+            {t('quote:wizard_hint_before')}
             <Link to={withLang(lang, '/quote/wizard')} className="font-medium text-sky">
-              {isKo ? '견적 위저드' : 'Quote Wizard'}
+              {t('quote:wizard_link')}
             </Link>
-            {isKo ? '를 이용해 주세요.' : ' for automated preliminary pricing.'}
+            {t('quote:wizard_hint_after')}
           </p>
         ) : null}
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <fieldset className="rounded-lg border border-gray-light p-4">
             <legend className="px-1 font-semibold text-navy">
-              {isKo ? 'IC 규격' : 'IC Specifications'}
+              {t('quote:sections.ic_spec')}
             </legend>
             <label className="mb-1 mt-2 block text-sm font-medium" htmlFor="ic_package_type">
-              {isKo ? '패키지 타입' : 'Package Type'} *
+              {t('quote:fields.package_type')} *
             </label>
             <select
               id="ic_package_type"
@@ -159,13 +150,13 @@ export function QuickQuotePage() {
               ))}
             </select>
             <label className="mb-1 block text-sm font-medium" htmlFor="ic_type">
-              {isKo ? 'IC 종류' : 'IC type'}
+              {t('quote:fields.ic_type')}
             </label>
             <input
               id="ic_type"
               type="text"
               maxLength={50}
-              placeholder={isKo ? '예: Memory, Logic, Power IC' : 'e.g. Memory, Logic, Power IC'}
+              placeholder={t('quote:fields.ic_type_placeholder')}
               value={icType}
               onChange={(e) => setIcType(e.target.value)}
               className={`${inputClassName} mb-3`}
@@ -185,7 +176,7 @@ export function QuickQuotePage() {
             <div className="mb-3 grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-medium" htmlFor="pin_count">
-                  {isKo ? '핀 수' : 'Pin Count'} *
+                  {t('quote:fields.pin_count')} *
                 </label>
                 <input
                   id="pin_count"
@@ -211,7 +202,7 @@ export function QuickQuotePage() {
                   <option value="">—</option>
                   {PITCH_OPTIONS.map((p) => (
                     <option key={p} value={p}>
-                      {p === 'custom' ? (isKo ? '직접 입력' : 'Custom') : p}
+                      {p === 'custom' ? t('quote:fields.pitch_custom') : p}
                     </option>
                   ))}
                 </select>
@@ -279,10 +270,10 @@ export function QuickQuotePage() {
 
           <fieldset className="rounded-lg border border-gray-light p-4">
             <legend className="px-1 font-semibold text-navy">
-              {isKo ? '고객 정보' : 'Contact Information'}
+              {t('quote:sections.contact')}
             </legend>
             <label className="mb-1 mt-2 block text-sm font-medium" htmlFor="company_name">
-              {isKo ? '회사명' : 'Company'} *
+              {t('quote:fields.company')} *
             </label>
             <input
               id="company_name"
@@ -296,7 +287,7 @@ export function QuickQuotePage() {
             <div className="mb-3 grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm" htmlFor="contact_name">
-                  {isKo ? '담당자' : 'Name'} *
+                  {t('quote:fields.name')} *
                 </label>
                 <input
                   id="contact_name"
@@ -310,7 +301,7 @@ export function QuickQuotePage() {
               </div>
               <div>
                 <label className="mb-1 block text-sm" htmlFor="contact_phone">
-                  {isKo ? '연락처' : 'Phone'}
+                  {t('quote:fields.phone')}
                 </label>
                 <input
                   id="contact_phone"
@@ -338,12 +329,12 @@ export function QuickQuotePage() {
 
           <fieldset className="rounded-lg border border-gray-light p-4">
             <legend className="px-1 font-semibold text-navy">
-              {isKo ? '추가 정보 (선택)' : 'Optional'}
+              {t('quote:sections.optional')}
             </legend>
             <div className="mb-3 grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm" htmlFor="quantity">
-                  {isKo ? '수량' : 'Quantity'}
+                  {t('quote:fields.quantity')}
                 </label>
                 <input
                   id="quantity"
@@ -356,7 +347,7 @@ export function QuickQuotePage() {
               </div>
               <div>
                 <label className="mb-1 block text-sm" htmlFor="desired_delivery">
-                  {isKo ? '납기 희망' : 'Desired Delivery'}
+                  {t('quote:fields.desired_delivery')}
                 </label>
                 <input
                   id="desired_delivery"
@@ -368,7 +359,7 @@ export function QuickQuotePage() {
               </div>
             </div>
             <label className="mb-1 block text-sm" htmlFor="message">
-              {isKo ? '기타 요청' : 'Message'}
+              {t('quote:fields.message')}
             </label>
             <textarea
               id="message"
@@ -412,23 +403,11 @@ export function QuickQuotePage() {
             }
           />
           <p className="text-xs text-gray-mid">
-            {isKo ? (
-              <>
-                NDA·보안 등급 문서는{' '}
-                <a href="mailto:sbchung@innovotech.co.kr" className="text-sky">
-                  sbchung@innovotech.co.kr
-                </a>
-                로 직접 보내 주세요.
-              </>
-            ) : (
-              <>
-                For NDA or classified files, email{' '}
-                <a href="mailto:sbchung@innovotech.co.kr" className="text-sky">
-                  sbchung@innovotech.co.kr
-                </a>{' '}
-                directly.
-              </>
-            )}
+            {t('quote:nda_before')}
+            <a href="mailto:sbchung@innovotech.co.kr" className="text-sky">
+              sbchung@innovotech.co.kr
+            </a>
+            {t('quote:nda_after')}
           </p>
 
           <button
@@ -436,7 +415,7 @@ export function QuickQuotePage() {
             disabled={submitting}
             className="w-full rounded bg-sky py-3 font-medium text-white hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isKo ? '가견적 요청하기' : 'Submit Quick Quote'}
+            {t('quote:submit')}
           </button>
           {alert && <FormAlert variant={alert.variant} message={alert.message} />}
         </form>

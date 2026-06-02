@@ -1,0 +1,28 @@
+{
+  "title": "IC 가견적 요청",
+  "subtitle": "IC 규격을 입력하시면 영업팀이 1-2 영업일 내 연락드립니다.",
+  "wizard_hint_before": "회원 가견적(4단계)은 ",
+  "wizard_link": "견적 위저드",
+  "wizard_hint_after": "를 이용해 주세요.",
+  "sections": {
+    "ic_spec": "IC 규격",
+    "contact": "고객 정보",
+    "optional": "추가 정보 (선택)"
+  },
+  "fields": {
+    "package_type": "패키지 타입",
+    "ic_type": "IC 종류",
+    "ic_type_placeholder": "예: Memory, Logic, Power IC",
+    "pin_count": "핀 수",
+    "pitch_custom": "직접 입력",
+    "company": "회사명",
+    "name": "담당자",
+    "phone": "연락처",
+    "quantity": "수량",
+    "desired_delivery": "납기 희망",
+    "message": "기타 요청"
+  },
+  "nda_before": "NDA·보안 등급 문서는 ",
+  "nda_after": "로 직접 보내 주세요.",
+  "submit": "가견적 요청하기"
+}
