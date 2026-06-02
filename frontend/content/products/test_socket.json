@@ -2,8 +2,8 @@
   "slug": "test-socket",
   "title_en": "Test Socket",
   "title_ko": "Test Socket",
-  "description_en": "Clamshell, bottle-cap, and handler-compatible sockets from Tiny to Large series.",
-  "description_ko": "Tiny부터 Large 시리즈까지 Clamshell·Bottle Cap·Handler 호환 소켓.",
+  "description_en": "From ultra-compact Tiny to large form factors — full coverage.\nClamshell and Bottle Cap types for R&D testing, Handler-compatible sockets for production lines. A full line-up solution for every inspection environment.",
+  "description_ko": "초소형(Tiny) 칩부터 대형(Large) 폼팩터까지 완벽한 대응.\nR&D 테스트를 위한 Clamshell 및 Bottle Cap 타입부터 양산 라인의 Handler 호환 소켓까지, 모든 검사 환경을 아우르는 풀 라인업(Full Line-up) 솔루션을 제공합니다.",
   "socket_list_pdf": "/upload/catalog/Socket List 250108.pdf",
   "families": [
     {

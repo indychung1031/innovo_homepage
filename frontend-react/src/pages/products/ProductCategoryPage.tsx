@@ -41,7 +41,7 @@ export function ProductCategoryPage() {
             ]}
           />
           <h1 className="mb-3 text-3xl font-bold">{title}</h1>
-          <p className="max-w-2xl text-gray-mid">{catalogDescription(catalog, lang)}</p>
+          <p className="max-w-2xl whitespace-pre-line text-gray-mid">{catalogDescription(catalog, lang)}</p>
         </div>
       </section>
 
