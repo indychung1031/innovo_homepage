@@ -19,6 +19,19 @@
     "spec_operating_temp": "Operating Temp.",
     "spec_humidity": "Humidity",
     "spec_cover_type": "Cover type",
-    "spec_material": "Material"
+    "spec_material": "Material",
+    "filter_toggle": "Filter",
+    "filter_reset": "Reset",
+    "filter_test_type": "Test Type",
+    "filter_package_size": "Package Size",
+    "filter_cover_type": "Cover Type",
+    "filter_name": "Product Name",
+    "filter_name_placeholder": "Search by name...",
+    "filter_all": "All",
+    "filter_show_undefined": "Show TBD products",
+    "filter_no_results": "No products found. Try adjusting your filters.",
+    "section_manual_only": "Manual Only",
+    "section_both": "Manual + Handler",
+    "section_handler_only": "Handler Only"
   }
 }

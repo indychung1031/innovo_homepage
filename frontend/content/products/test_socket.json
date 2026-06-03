@@ -736,7 +736,7 @@
       "id": "pedestal",
       "name": "Pedestal",
       "max_package": "TBD",
-      "mode": "both",
+      "mode": "manual_only",
       "image": null,
       "coming_soon": true,
       "specs": null
@@ -745,7 +745,7 @@
       "id": "pedestal_emmi",
       "name": "Pedestal EMMI",
       "max_package": "TBD",
-      "mode": "both",
+      "mode": "manual_only",
       "image": null,
       "coming_soon": true,
       "specs": null

@@ -92,6 +92,9 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+# Python lib/ 규칙이 frontend-react/src/lib/ 까지 차단하는 것을 방지
+!frontend-react/src/lib/
+
 # SSH & AWS 보안 키 파일
 *.pem
 *.key

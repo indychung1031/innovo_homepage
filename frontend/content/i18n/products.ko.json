@@ -19,6 +19,19 @@
     "spec_operating_temp": "동작 온도",
     "spec_humidity": "습도",
     "spec_cover_type": "커버 타입",
-    "spec_material": "소재"
+    "spec_material": "소재",
+    "filter_toggle": "필터",
+    "filter_reset": "초기화",
+    "filter_test_type": "테스트 타입",
+    "filter_package_size": "패키지 사이즈",
+    "filter_cover_type": "커버 타입",
+    "filter_name": "제품명",
+    "filter_name_placeholder": "제품명 검색...",
+    "filter_all": "전체",
+    "filter_show_undefined": "TBD 제품 포함",
+    "filter_no_results": "제품을 찾을 수 없습니다. 조건을 변경해 보세요.",
+    "section_manual_only": "Manual 전용",
+    "section_both": "Manual + Handler",
+    "section_handler_only": "Handler 전용"
   }
 }
