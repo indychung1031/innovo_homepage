@@ -56,18 +56,14 @@ function matchesCoverType(coverType: string | null, filter: CoverTypeFilter): bo
   }
 }
 
-/** 4종 필터를 AND 조건으로 적용한다. null/TBD 제품은 필터 활성 시 제외(showUndefined가 true이면 강제 포함). */
+/**
+ * 4종 필터를 AND 조건으로 적용한다.
+ * - 이름/Test Type: 모든 제품에 적용 (TBD 포함)
+ * - Package Size/Cover Type: 데이터 미정(TBD/null) 제품은 해당 조건에서 제외.
+ *   showUndefined=true이면 미정 제품을 강제 포함.
+ */
 export function applyFilters(families: ProductFamily[], filters: FilterState): ProductFamily[] {
-  const active = isFiltersActive(filters);
-
   return families.filter((family) => {
-    // ── null/TBD 제품 전역 제외 ──────────────────────────────
-    // 필터가 하나라도 활성이면 max_package=TBD 또는 specs=null 제품을 제외한다.
-    // showUndefined(전체보기)가 true이면 이 제외를 건너뛴다.
-    if (active && !filters.showUndefined) {
-      if (family.max_package === 'TBD' || family.specs === null) return false;
-    }
-
     // ── 이름 검색 ────────────────────────────────
     if (filters.nameQuery.trim() !== '') {
       const q = filters.nameQuery.trim().toLowerCase();
@@ -80,21 +76,21 @@ export function applyFilters(families: ProductFamily[], filters: FilterState): P
     }
 
     // ── Package Size ──────────────────────────────
+    // 크기 미정(TBD) 제품은 비교 불가 → showUndefined=true이면 통과, false이면 제외
     if (filters.packageSizeMm !== '') {
       const parsed = parseMaxPackage(family.max_package);
       if (parsed === null) {
-        // TBD/null은 전역 제외에서 이미 처리됨. showUndefined=true일 때만 여기 도달.
-        // → 패키지 크기 비교 불가이므로 통과 처리.
+        if (!filters.showUndefined) return false;
       } else {
         if (parsed < filters.packageSizeMm) return false;
       }
     }
 
     // ── Cover Type ────────────────────────────────
+    // specs=null 제품은 커버 타입 비교 불가 → showUndefined=true이면 통과, false이면 제외
     if (filters.coverType !== '') {
       const coverType = family.specs?.en?.cover_type ?? null;
       if (coverType === null) {
-        // specs=null 제품: showUndefined=true이면 강제 포함, false이면 전역 제외에서 이미 처리됨
         if (!filters.showUndefined) return false;
       } else {
         if (!matchesCoverType(coverType, filters.coverType)) return false;
