@@ -93,7 +93,12 @@ export function applyFilters(families: ProductFamily[], filters: FilterState): P
     // ── Cover Type ────────────────────────────────
     if (filters.coverType !== '') {
       const coverType = family.specs?.en?.cover_type ?? null;
-      if (!matchesCoverType(coverType, filters.coverType)) return false;
+      if (coverType === null) {
+        // specs=null 제품: showUndefined=true이면 강제 포함, false이면 전역 제외에서 이미 처리됨
+        if (!filters.showUndefined) return false;
+      } else {
+        if (!matchesCoverType(coverType, filters.coverType)) return false;
+      }
     }
 
     return true;
