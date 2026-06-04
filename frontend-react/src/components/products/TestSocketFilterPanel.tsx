@@ -7,6 +7,12 @@ type Props = {
   onReset: () => void;
 };
 
+const IC_TYPE_OPTIONS = [
+  'BGA / QFN / DFN / QFP / SOP / LGA',
+  'BGA / QFN / DFN / LGA',
+  'WLP / WLCSP',
+];
+
 export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
   const { t } = useTranslation('products');
 
@@ -14,12 +20,16 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
     onChange({ ...filters, [key]: value });
   }
 
+  function parseSizeInput(val: string): number | '' {
+    return val === '' ? '' : parseFloat(val);
+  }
+
   return (
     <div className="mb-8 rounded-lg border border-gray-light bg-white p-5 shadow-sm">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
 
         {/* F1: Test Type */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-mid">
             {t('category.filter_test_type')}
           </label>
@@ -35,29 +45,59 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
           </select>
         </div>
 
-        {/* F2: Package Size */}
-        <div className="flex flex-col gap-1">
+        {/* F2: IC Type */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-semibold uppercase tracking-wide text-gray-mid">
+            {t('category.filter_ic_type')}
+          </label>
+          <select
+            className="rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+            value={filters.icType}
+            onChange={(e) => set('icType', e.target.value)}
+          >
+            <option value="">{t('category.filter_all')}</option>
+            {IC_TYPE_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>{opt}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* F3: Package Size X / Y */}
+        <div className="flex flex-col gap-1.5">
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-mid">
             {t('category.filter_package_size')}
           </label>
           <div className="flex items-center gap-2">
-            <input
-              type="number"
-              min="0"
-              step="0.1"
-              placeholder="e.g. 6.3"
-              className="w-full rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
-              value={filters.packageSizeMm === '' ? '' : filters.packageSizeMm}
-              onChange={(e) =>
-                set('packageSizeMm', e.target.value === '' ? '' : parseFloat(e.target.value))
-              }
-            />
-            <span className="shrink-0 text-sm text-gray-mid">mm</span>
+            <div className="flex flex-1 items-center gap-1">
+              <span className="shrink-0 text-xs text-gray-mid">X</span>
+              <input
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="mm"
+                className="w-full rounded border border-gray-light px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+                value={filters.packageSizeX === '' ? '' : filters.packageSizeX}
+                onChange={(e) => set('packageSizeX', parseSizeInput(e.target.value))}
+              />
+            </div>
+            <span className="text-gray-mid">×</span>
+            <div className="flex flex-1 items-center gap-1">
+              <span className="shrink-0 text-xs text-gray-mid">Y</span>
+              <input
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="mm"
+                className="w-full rounded border border-gray-light px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+                value={filters.packageSizeY === '' ? '' : filters.packageSizeY}
+                onChange={(e) => set('packageSizeY', parseSizeInput(e.target.value))}
+              />
+            </div>
           </div>
         </div>
 
-        {/* F3: Cover Type */}
-        <div className="flex flex-col gap-1">
+        {/* F4: Cover Type */}
+        <div className="flex flex-col gap-1.5">
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-mid">
             {t('category.filter_cover_type')}
           </label>
@@ -75,33 +115,10 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
           </select>
         </div>
 
-        {/* F4: 제품명 검색 */}
-        <div className="flex flex-col gap-1">
-          <label className="text-xs font-semibold uppercase tracking-wide text-gray-mid">
-            {t('category.filter_name')}
-          </label>
-          <input
-            type="text"
-            placeholder={t('category.filter_name_placeholder')}
-            className="rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
-            value={filters.nameQuery}
-            onChange={(e) => set('nameQuery', e.target.value)}
-          />
-        </div>
       </div>
 
-      {/* 하단 행: 전체보기 + 초기화 */}
-      <div className="mt-4 flex items-center justify-between">
-        <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-mid">
-          <input
-            type="checkbox"
-            className="h-4 w-4 accent-sky"
-            checked={filters.showUndefined}
-            onChange={(e) => set('showUndefined', e.target.checked)}
-          />
-          {t('category.filter_show_undefined')}
-        </label>
-
+      {/* 초기화 버튼 */}
+      <div className="mt-4 flex justify-end">
         <button
           type="button"
           onClick={onReset}

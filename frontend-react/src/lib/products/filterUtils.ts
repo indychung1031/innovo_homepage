@@ -4,44 +4,45 @@ export type CoverTypeFilter = 'clamshell' | 'bottle_cap' | 'handle' | 'bolt_join
 
 export type FilterState = {
   testType: FamilyMode | '';
-  packageSizeMm: number | '';
+  icType: string;
+  packageSizeX: number | '';
+  packageSizeY: number | '';
   coverType: CoverTypeFilter;
-  nameQuery: string;
-  showUndefined: boolean; // true = null/TBD 제품 강제 포함
 };
 
 export const DEFAULT_FILTERS: FilterState = {
   testType: '',
-  packageSizeMm: '',
+  icType: '',
+  packageSizeX: '',
+  packageSizeY: '',
   coverType: '',
-  nameQuery: '',
-  showUndefined: false,
 };
 
 export function isFiltersActive(filters: FilterState): boolean {
   return (
     filters.testType !== '' ||
-    filters.packageSizeMm !== '' ||
-    filters.coverType !== '' ||
-    filters.nameQuery.trim() !== ''
+    filters.icType !== '' ||
+    filters.packageSizeX !== '' ||
+    filters.packageSizeY !== '' ||
+    filters.coverType !== ''
   );
 }
 
 /**
- * max_package 문자열에서 크기(mm)를 추출한다.
- * "6.3×6.3 mm" → 6.3, "10.0×14.0 mm" (비대칭) → 14.0 (더 큰 값)
- * "All IC sizes" → Infinity
+ * max_package 문자열에서 X, Y 크기(mm)를 각각 추출한다.
+ * "6.3×6.3 mm" → { x: 6.3, y: 6.3 }
+ * "10.0×14.0 mm" (비대칭) → { x: 10.0, y: 14.0 }
+ * "All IC sizes" → { x: Infinity, y: Infinity }
  * "TBD" | null → null
  */
-export function parseMaxPackage(raw: string | null): number | null {
+export function parsePackageDimensions(raw: string | null): { x: number; y: number } | null {
   if (!raw) return null;
-  if (raw === 'All IC sizes') return Infinity;
+  if (raw === 'All IC sizes') return { x: Infinity, y: Infinity };
   if (raw === 'TBD') return null;
 
   const parts = raw.split('×').map((s) => parseFloat(s));
-  const valid = parts.filter((n) => !isNaN(n));
-  if (valid.length === 0) return null;
-  return Math.max(...valid);
+  if (parts.length < 2 || isNaN(parts[0]) || isNaN(parts[1])) return null;
+  return { x: parts[0], y: parts[1] };
 }
 
 function matchesCoverType(coverType: string | null, filter: CoverTypeFilter): boolean {
@@ -58,43 +59,39 @@ function matchesCoverType(coverType: string | null, filter: CoverTypeFilter): bo
 
 /**
  * 4종 필터를 AND 조건으로 적용한다.
- * - 이름/Test Type: 모든 제품에 적용 (TBD 포함)
- * - Package Size/Cover Type: 데이터 미정(TBD/null) 제품은 해당 조건에서 제외.
- *   showUndefined=true이면 미정 제품을 강제 포함.
+ * - Test Type / IC Type: 이름이나 타입이 있는 필드 → TBD 제품에도 적용
+ * - Package Size / Cover Type: 데이터 미정(TBD/null) 제품은 해당 조건에서 제외
  */
 export function applyFilters(families: ProductFamily[], filters: FilterState): ProductFamily[] {
   return families.filter((family) => {
-    // ── 이름 검색 ────────────────────────────────
-    if (filters.nameQuery.trim() !== '') {
-      const q = filters.nameQuery.trim().toLowerCase();
-      if (!family.name.toLowerCase().includes(q)) return false;
-    }
-
     // ── Test Type ─────────────────────────────────
     if (filters.testType !== '') {
       if (family.mode !== filters.testType) return false;
     }
 
-    // ── Package Size ──────────────────────────────
-    // 크기 미정(TBD) 제품은 비교 불가 → showUndefined=true이면 통과, false이면 제외
-    if (filters.packageSizeMm !== '') {
-      const parsed = parseMaxPackage(family.max_package);
-      if (parsed === null) {
-        if (!filters.showUndefined) return false;
-      } else {
-        if (parsed < filters.packageSizeMm) return false;
+    // ── IC Type ───────────────────────────────────
+    if (filters.icType !== '') {
+      const icType = family.specs?.en?.ic_type ?? null;
+      if (!icType || icType !== filters.icType) return false;
+    }
+
+    // ── Package Size X ────────────────────────────
+    // ── Package Size Y ────────────────────────────
+    if (filters.packageSizeX !== '' || filters.packageSizeY !== '') {
+      const dims = parsePackageDimensions(family.max_package);
+      if (dims === null) {
+        // 크기 미정(TBD) 제품: 비교 불가이므로 제외
+        return false;
       }
+      if (filters.packageSizeX !== '' && dims.x < filters.packageSizeX) return false;
+      if (filters.packageSizeY !== '' && dims.y < filters.packageSizeY) return false;
     }
 
     // ── Cover Type ────────────────────────────────
-    // specs=null 제품은 커버 타입 비교 불가 → showUndefined=true이면 통과, false이면 제외
     if (filters.coverType !== '') {
       const coverType = family.specs?.en?.cover_type ?? null;
-      if (coverType === null) {
-        if (!filters.showUndefined) return false;
-      } else {
-        if (!matchesCoverType(coverType, filters.coverType)) return false;
-      }
+      if (coverType === null) return false; // 커버 타입 미정 제품 제외
+      if (!matchesCoverType(coverType, filters.coverType)) return false;
     }
 
     return true;
