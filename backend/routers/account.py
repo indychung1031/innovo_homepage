@@ -17,10 +17,10 @@ from backend.models import QuickQuoteInquiry, User
 logger = logging.getLogger(__name__)
 
 CATALOG_FILES: dict[str, str] = {
-    "socket_list": "private/catalog/Socket List 250108.pdf",
-    "probe_pin_plunger": "private/catalog/probe_pin_plunger_shape.png",
-    "iso9001_en": "private/certificate/ISO9001 (2024) Eng.pdf",
-    "iso9001_ko": "private/certificate/ISO9001 (2024) Kor.pdf",
+    "socket_list": "upload/catalog/Socket List 250108.pdf",
+    "probe_pin_plunger": "upload/catalog/probe_pin_plunger_shape.png",
+    "iso9001_en": "upload/certificate/ISO9001 (2024) Eng.pdf",
+    "iso9001_ko": "upload/certificate/ISO9001 (2024) Kor.pdf",
 }
 
 S3_BUCKET = "innovo-www-prod"
@@ -31,9 +31,12 @@ router = APIRouter(prefix="/api/account", tags=["account"])
 class QuoteItem(BaseModel):
     id: int
     ic_package_type: str
+    ic_type: str | None
+    ic_code: str | None
     package_d: float
     package_e: float
     pin_count: int
+    pitch: str
     quantity: int | None
     created_at: datetime
     status: str
@@ -64,9 +67,12 @@ def my_quotes(
         QuoteItem(
             id=r.id,
             ic_package_type=r.ic_package_type,
+            ic_type=r.ic_type,
+            ic_code=r.ic_code,
             package_d=float(r.package_d),
             package_e=float(r.package_e),
             pin_count=r.pin_count,
+            pitch=r.pitch,
             quantity=r.quantity,
             created_at=r.created_at,
             status=r.status,
