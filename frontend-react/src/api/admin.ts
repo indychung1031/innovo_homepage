@@ -162,6 +162,34 @@ export async function patchUserMembership(userId: number, membershipTier: string
   }
 }
 
+export async function patchContact(
+  id: number,
+  body: { status?: string; admin_note?: string },
+): Promise<void> {
+  const res = await adminFetch(`/contacts/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = (await res.json()) as { detail?: unknown };
+    throw new Error(parseApiError(data.detail, 'Update failed'));
+  }
+}
+
+export async function patchQuickQuote(
+  id: number,
+  body: { status?: string; admin_note?: string },
+): Promise<void> {
+  const res = await adminFetch(`/quick-quotes/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = (await res.json()) as { detail?: unknown };
+    throw new Error(parseApiError(data.detail, 'Update failed'));
+  }
+}
+
 export async function deleteUser(userId: number): Promise<void> {
   const res = await adminFetch(`/users/${userId}`, { method: 'DELETE' });
   if (!res.ok) {
