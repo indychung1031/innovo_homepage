@@ -29,6 +29,22 @@ const SECTION_LABEL_KEY: Record<FamilyMode, string> = {
   handler_only: 'category.section_handler_only',
 };
 
+function FilterChip({ label, onRemove }: { label: string; onRemove: () => void }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-sky/30 bg-sky/10 px-3 py-1 text-xs text-sky">
+      {label}
+      <button
+        type="button"
+        onClick={onRemove}
+        className="leading-none hover:text-navy"
+        aria-label="Remove filter"
+      >
+        ✕
+      </button>
+    </span>
+  );
+}
+
 export function ProductCategoryPage() {
   const { lang: langParam, categorySlug } = useParams();
   const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
@@ -49,6 +65,21 @@ export function ProductCategoryPage() {
   const grouped = isTestSocket ? groupByMode(filtered) : null;
   const active = isTestSocket && isFiltersActive(filters);
 
+  // 활성 필터 개수 계산 (뱃지용)
+  const activeCount = isTestSocket
+    ? [
+        filters.testType !== '',
+        filters.icType !== '',
+        filters.packageSizeX !== '',
+        filters.packageSizeY !== '',
+        filters.coverType !== '',
+      ].filter(Boolean).length
+    : 0;
+
+  function removeFilter(key: keyof FilterState) {
+    setFilters({ ...filters, [key]: DEFAULT_FILTERS[key] });
+  }
+
   return (
     <>
       <Helmet>
@@ -57,6 +88,7 @@ export function ProductCategoryPage() {
         </title>
       </Helmet>
 
+      {/* 헤더 섹션 */}
       <section className="border-b border-gray-light bg-white py-12">
         <div className="mx-auto max-w-6xl px-4">
           <Breadcrumb
@@ -80,26 +112,75 @@ export function ProductCategoryPage() {
                     : 'border-gray-light text-gray-mid hover:border-navy hover:text-navy'
                 }`}
               >
-                {filterOpen ? '✕ ' : ''}{t('products:category.filter_toggle')}
+                {filterOpen ? '✕ ' : ''}
+                {t('products:category.filter_toggle')}
+                {!filterOpen && activeCount > 0 && (
+                  <span className="ml-1.5 font-normal text-sky">· {activeCount}</span>
+                )}
               </button>
             )}
           </div>
         </div>
+
+        {/* 활성 필터 칩 — 패널 닫힌 상태에서만 표시 */}
+        {isTestSocket && !filterOpen && activeCount > 0 && (
+          <div className="mt-4 border-t border-sky/20 bg-sky/5 py-2.5">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4">
+              {filters.testType !== '' && (
+                <FilterChip
+                  label={`${t('products:category.filter_test_type')}: ${t(`products:category.${filters.testType}`)}`}
+                  onRemove={() => removeFilter('testType')}
+                />
+              )}
+              {filters.icType !== '' && (
+                <FilterChip
+                  label={`${t('products:category.filter_ic_type')}: ${filters.icType}`}
+                  onRemove={() => removeFilter('icType')}
+                />
+              )}
+              {filters.packageSizeX !== '' && (
+                <FilterChip
+                  label={`X ≥ ${filters.packageSizeX} mm`}
+                  onRemove={() => removeFilter('packageSizeX')}
+                />
+              )}
+              {filters.packageSizeY !== '' && (
+                <FilterChip
+                  label={`Y ≥ ${filters.packageSizeY} mm`}
+                  onRemove={() => removeFilter('packageSizeY')}
+                />
+              )}
+              {filters.coverType !== '' && (
+                <FilterChip
+                  label={`${t('products:category.filter_cover_type')}: ${filters.coverType}`}
+                  onRemove={() => removeFilter('coverType')}
+                />
+              )}
+            </div>
+          </div>
+        )}
       </section>
 
+      {/* 제품 그리드 섹션 */}
       <section className="bg-slate-50 py-14">
         <div className="mx-auto max-w-6xl px-4">
 
-          {/* 필터 패널 — test-socket 전용 */}
-          {isTestSocket && filterOpen && (
-            <TestSocketFilterPanel
-              filters={filters}
-              onChange={setFilters}
-              onReset={() => setFilters(DEFAULT_FILTERS)}
-            />
+          {/* 필터 패널 — 슬라이드 애니메이션 */}
+          {isTestSocket && (
+            <div
+              className={`overflow-hidden transition-all duration-200 ease-in-out ${
+                filterOpen ? 'mb-8 max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <TestSocketFilterPanel
+                filters={filters}
+                onChange={setFilters}
+                onReset={() => setFilters(DEFAULT_FILTERS)}
+              />
+            </div>
           )}
 
-          {/* test-socket: 그룹핑 섹션 렌더링 */}
+          {/* test-socket: 그룹핑 섹션 */}
           {isTestSocket && grouped && (
             <>
               {MODE_ORDER.every((mode) => grouped[mode].length === 0) ? (
@@ -132,7 +213,7 @@ export function ProductCategoryPage() {
             </>
           )}
 
-          {/* 다른 카테고리: 기존 flat grid */}
+          {/* 다른 카테고리: flat grid */}
           {!isTestSocket && (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {catalog.families.map((family) => (

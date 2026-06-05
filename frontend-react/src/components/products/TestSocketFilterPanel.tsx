@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import type { CoverTypeFilter, FilterState } from '@/lib/products/filterUtils';
+import { isFiltersActive } from '@/lib/products/filterUtils';
 
 type Props = {
   filters: FilterState;
@@ -13,6 +14,18 @@ const IC_TYPE_OPTIONS = [
   'WLP / WLCSP',
 ];
 
+function selectClass(active: boolean) {
+  return `rounded border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky transition-colors ${
+    active ? 'border-sky bg-sky/5 ring-1 ring-sky/30' : 'border-gray-light'
+  }`;
+}
+
+function inputClass(active: boolean) {
+  return `w-full rounded border px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky transition-colors ${
+    active ? 'border-sky bg-sky/5 ring-1 ring-sky/30' : 'border-gray-light'
+  }`;
+}
+
 export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
   const { t } = useTranslation('products');
 
@@ -25,7 +38,7 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
   }
 
   return (
-    <div className="mb-8 rounded-lg border border-gray-light bg-white p-5 shadow-sm">
+    <div className="rounded-lg border border-gray-light bg-white p-5 shadow-sm">
       <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
 
         {/* F1: Test Type */}
@@ -34,7 +47,7 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
             {t('category.filter_test_type')}
           </label>
           <select
-            className="rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+            className={selectClass(filters.testType !== '')}
             value={filters.testType}
             onChange={(e) => set('testType', e.target.value as FilterState['testType'])}
           >
@@ -51,7 +64,7 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
             {t('category.filter_ic_type')}
           </label>
           <select
-            className="rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+            className={selectClass(filters.icType !== '')}
             value={filters.icType}
             onChange={(e) => set('icType', e.target.value)}
           >
@@ -65,7 +78,7 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
         {/* F3: Package Size X / Y */}
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-mid">
-            {t('category.filter_package_size')}
+            {t('category.filter_package_size')} (mm)
           </label>
           <div className="flex items-center gap-2">
             <div className="flex flex-1 items-center gap-1">
@@ -75,7 +88,7 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
                 min="0"
                 step="0.1"
                 placeholder="mm"
-                className="w-full rounded border border-gray-light px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+                className={inputClass(filters.packageSizeX !== '')}
                 value={filters.packageSizeX === '' ? '' : filters.packageSizeX}
                 onChange={(e) => set('packageSizeX', parseSizeInput(e.target.value))}
               />
@@ -88,7 +101,7 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
                 min="0"
                 step="0.1"
                 placeholder="mm"
-                className="w-full rounded border border-gray-light px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+                className={inputClass(filters.packageSizeY !== '')}
                 value={filters.packageSizeY === '' ? '' : filters.packageSizeY}
                 onChange={(e) => set('packageSizeY', parseSizeInput(e.target.value))}
               />
@@ -102,7 +115,7 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
             {t('category.filter_cover_type')}
           </label>
           <select
-            className="rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky"
+            className={selectClass(filters.coverType !== '')}
             value={filters.coverType}
             onChange={(e) => set('coverType', e.target.value as CoverTypeFilter)}
           >
@@ -117,15 +130,17 @@ export function TestSocketFilterPanel({ filters, onChange, onReset }: Props) {
 
       </div>
 
-      {/* 초기화 버튼 */}
+      {/* Reset 버튼 — 활성 필터가 있을 때만 표시 */}
       <div className="mt-4 flex justify-end">
-        <button
-          type="button"
-          onClick={onReset}
-          className="rounded border border-gray-light px-4 py-1.5 text-sm text-gray-mid transition hover:border-navy hover:text-navy"
-        >
-          {t('category.filter_reset')}
-        </button>
+        {isFiltersActive(filters) && (
+          <button
+            type="button"
+            onClick={onReset}
+            className="rounded border border-sky px-4 py-1.5 text-sm text-sky transition hover:bg-sky hover:text-white"
+          >
+            {t('category.filter_reset')}
+          </button>
+        )}
       </div>
     </div>
   );
