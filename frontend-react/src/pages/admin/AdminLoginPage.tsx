@@ -89,26 +89,26 @@ export function AdminLoginPage() {
             </button>
           </form>
         ) : (
-          <div>
-            <p className="mb-3 text-sm text-gray-mid">Enter the 6-digit code sent to your email.</p>
-            <p className="mb-2 text-xs text-gray-mid">Dev: use 000000 if SMTP is unavailable.</p>
+          <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); void handleVerify(); }}>
+            <p className="text-sm text-gray-mid">Enter the 6-digit code sent to your email.</p>
+            <p className="text-xs text-gray-mid">Dev: use 000000 if SMTP is unavailable.</p>
             <input
               type="text"
               maxLength={6}
               placeholder="000000"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              className={`${inputClassName} mb-3`}
+              className={inputClassName}
+              autoFocus
             />
             <button
-              type="button"
+              type="submit"
               disabled={submitting}
               className="w-full rounded bg-sky py-2 text-white disabled:opacity-60"
-              onClick={() => void handleVerify()}
             >
               Verify
             </button>
-          </div>
+          </form>
         )}
 
         {error ? <FormAlert variant="error" message={error} /> : null}

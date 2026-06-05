@@ -5,6 +5,8 @@ import { listContacts, type ContactRow } from '@/api/admin';
 
 const inputCls = 'rounded border border-gray-light px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-sky';
 
+const CONTACT_STATUSES = ['new', 'in_progress', 'resolved', 'closed'] as const;
+
 export function AdminContactsPage() {
   const [items, setItems] = useState<ContactRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +26,6 @@ export function AdminContactsPage() {
   }, []);
 
   const categories = useMemo(() => [...new Set(items.map((r) => r.category).filter(Boolean))], [items]);
-  const statuses = useMemo(() => [...new Set(items.map((r) => r.status).filter(Boolean))], [items]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -59,7 +60,7 @@ export function AdminContactsPage() {
         </select>
         <select value={status} onChange={(e) => setStatus(e.target.value)} className={inputCls}>
           <option value="">전체 상태</option>
-          {statuses.map((s) => (
+          {CONTACT_STATUSES.map((s) => (
             <option key={s} value={s}>{s}</option>
           ))}
         </select>
