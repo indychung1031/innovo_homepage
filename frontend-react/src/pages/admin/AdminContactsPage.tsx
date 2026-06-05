@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { listContacts, type ContactRow } from '@/api/admin';
 
+const inputCls = 'rounded border border-gray-light px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-sky';
+
 export function AdminContactsPage() {
   const [items, setItems] = useState<ContactRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('');
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     void (async () => {
@@ -18,9 +23,57 @@ export function AdminContactsPage() {
     })();
   }, []);
 
+  const categories = useMemo(() => [...new Set(items.map((r) => r.category).filter(Boolean))], [items]);
+  const statuses = useMemo(() => [...new Set(items.map((r) => r.status).filter(Boolean))], [items]);
+
+  const filtered = useMemo(() => {
+    const q = query.toLowerCase();
+    return items.filter((r) => {
+      const matchQuery =
+        !q ||
+        r.company_name.toLowerCase().includes(q) ||
+        r.contact_name.toLowerCase().includes(q) ||
+        r.contact_email.toLowerCase().includes(q);
+      const matchCategory = !category || r.category === category;
+      const matchStatus = !status || r.status === status;
+      return matchQuery && matchCategory && matchStatus;
+    });
+  }, [items, query, category, status]);
+
   return (
     <>
       <h1 className="mb-4 text-xl font-bold">Contact Inquiries</h1>
+      <div className="mb-3 flex flex-wrap gap-2">
+        <input
+          type="text"
+          placeholder="회사명 / 이름 / 이메일"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className={`${inputCls} w-64`}
+        />
+        <select value={category} onChange={(e) => setCategory(e.target.value)} className={inputCls}>
+          <option value="">전체 카테고리</option>
+          {categories.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+        <select value={status} onChange={(e) => setStatus(e.target.value)} className={inputCls}>
+          <option value="">전체 상태</option>
+          {statuses.map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+        {(query || category || status) && (
+          <button
+            type="button"
+            onClick={() => { setQuery(''); setCategory(''); setStatus(''); }}
+            className="text-sm text-gray-mid hover:text-charcoal"
+          >
+            초기화
+          </button>
+        )}
+        <span className="ml-auto self-center text-sm text-gray-mid">{filtered.length}건</span>
+      </div>
       {loading ? <p className="text-gray-mid">Loading…</p> : null}
       <div className="overflow-x-auto rounded border border-gray-light bg-white">
         <table className="w-full text-sm">
@@ -34,7 +87,7 @@ export function AdminContactsPage() {
             </tr>
           </thead>
           <tbody>
-            {items.map((r) => {
+            {filtered.map((r) => {
               const msg = r.message
                 ? r.message.length > 40
                   ? `${r.message.slice(0, 40)}…`
@@ -64,6 +117,11 @@ export function AdminContactsPage() {
                 </tr>
               );
             })}
+            {!loading && filtered.length === 0 && (
+              <tr>
+                <td colSpan={8} className="p-4 text-center text-gray-mid">검색 결과가 없습니다.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
