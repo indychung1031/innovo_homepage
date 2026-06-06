@@ -2,6 +2,7 @@
 
 import logging
 from datetime import datetime
+from urllib.parse import quote, urlparse, urlunparse
 
 import boto3
 from botocore.config import Config
@@ -103,11 +104,15 @@ def get_catalog_url(
             region_name="ap-northeast-2",
             config=Config(signature_version="s3v4"),
         )
-        url = client.generate_presigned_url(
+        raw_url = client.generate_presigned_url(
             "get_object",
             Params={"Bucket": S3_BUCKET, "Key": s3_key},
             ExpiresIn=60,
         )
+        # boto3가 path에 공백·괄호를 그대로 두는 경우가 있어 path만 별도 인코딩
+        # query string(AWS 서명 파라미터)은 절대 건드리지 않음
+        parsed = urlparse(raw_url)
+        url = urlunparse(parsed._replace(path=quote(parsed.path, safe="/")))
     except Exception:
         logger.exception("S3 presigned URL 생성 실패 file=%s", file)
         raise HTTPException(status_code=500, detail="파일 URL 생성에 실패했습니다.")
