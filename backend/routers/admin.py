@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 from backend.config import get_settings
 from backend.database import get_db
 from backend.deps import get_current_staff, require_staff_roles
-from backend.models import ContactInquiry, QuickQuoteInquiry, StaffAccount, StaffLoginOtp, User
+from backend.models import ContactInquiry, QuickQuoteInquiry, StaffAccount, StaffLoginOtp, User, WizardQuote
 from backend.schemas.admin import (
     AdminLoginChallengeResponse,
     AdminLoginRequest,
@@ -21,6 +21,7 @@ from backend.schemas.admin import (
     AdminVerify2FARequest,
     MembershipPatch,
     StatusPatch,
+    WizardStatusPatch,
 )
 from backend.utils.auth_email import send_membership_verified_email, send_staff_otp_email
 from backend.utils.jwt_utils import create_admin_2fa_challenge, create_admin_access_token, decode_token
@@ -463,3 +464,118 @@ def patch_membership(
         db.commit()
 
     return {"success": True, "membership_tier": user.membership_tier}
+
+
+# ── Wizard Quotes 관리 ───────────────────────────────────────────────────────
+
+@router.get("/wizard-quotes")
+def list_wizard_quotes(
+    page: int = Query(1, ge=1),
+    size: int = Query(20, ge=1, le=100),
+    status_filter: str | None = Query(None, alias="status"),
+    q: str | None = None,
+    db: Session = Depends(get_db),
+    _staff: StaffAccount = Depends(require_staff_roles("admin", "sales_admin")),
+):
+    query = select(WizardQuote).order_by(WizardQuote.created_at.desc())
+    count_q = select(func.count()).select_from(WizardQuote)
+    if status_filter:
+        query = query.where(WizardQuote.status == status_filter)
+        count_q = count_q.where(WizardQuote.status == status_filter)
+    if q:
+        like = f"%{q}%"
+        cond = or_(
+            WizardQuote.contact_email.ilike(like),
+            WizardQuote.contact_company.ilike(like),
+            WizardQuote.ic_code.ilike(like),
+        )
+        query = query.where(cond)
+        count_q = count_q.where(cond)
+    total = db.scalar(count_q) or 0
+    rows = db.scalars(query.offset((page - 1) * size).limit(size)).all()
+    return {
+        "total": total,
+        "page": page,
+        "items": [
+            {
+                "id": r.id,
+                "series": r.series,
+                "ic_code": r.ic_code,
+                "socket_type_name": r.socket_type_name,
+                "pin_count": r.pin_count,
+                "quantity": r.quantity,
+                "matched": r.matched,
+                "total_price": r.total_price,
+                "currency": r.currency,
+                "status": r.status,
+                "membership_tier": r.membership_tier,
+                "contact_email": r.contact_email,
+                "contact_company": r.contact_company,
+                "contact_name": r.contact_name,
+                "created_at": r.created_at.isoformat(),
+            }
+            for r in rows
+        ],
+    }
+
+
+@router.get("/wizard-quotes/{item_id}")
+def get_wizard_quote(
+    item_id: int,
+    db: Session = Depends(get_db),
+    _staff: StaffAccount = Depends(require_staff_roles("admin", "sales_admin")),
+):
+    r = db.get(WizardQuote, item_id)
+    if not r:
+        raise HTTPException(status_code=404, detail="Not found")
+    return {
+        "id": r.id,
+        "lang": r.lang,
+        "series": r.series,
+        "ic_type": r.ic_type,
+        "ic_code": r.ic_code,
+        "ic_package_code": r.ic_package_code,
+        "dimension_d": float(r.dimension_d) if r.dimension_d is not None else None,
+        "dimension_e": float(r.dimension_e) if r.dimension_e is not None else None,
+        "dimension_a": float(r.dimension_a) if r.dimension_a is not None else None,
+        "pitch": r.pitch,
+        "pin_count": r.pin_count,
+        "socket_type_id": r.socket_type_id,
+        "socket_type_name": r.socket_type_name,
+        "quantity": r.quantity,
+        "cover_type_id": r.cover_type_id,
+        "material_type_id": r.material_type_id,
+        "spec_notes": r.spec_notes,
+        "attachment_name": r.attachment_name,
+        "matched": r.matched,
+        "unit_price": r.unit_price,
+        "currency": r.currency,
+        "total_price": r.total_price,
+        "lead_time_label": r.lead_time_label,
+        "contact_name": r.contact_name,
+        "contact_company": r.contact_company,
+        "contact_email": r.contact_email,
+        "contact_phone": r.contact_phone,
+        "membership_tier": r.membership_tier,
+        "status": r.status,
+        "admin_note": r.admin_note,
+        "created_at": r.created_at.isoformat(),
+    }
+
+
+@router.patch("/wizard-quotes/{item_id}")
+def patch_wizard_quote(
+    item_id: int,
+    body: WizardStatusPatch,
+    db: Session = Depends(get_db),
+    _staff: StaffAccount = Depends(require_staff_roles("admin", "sales_admin")),
+):
+    row = db.get(WizardQuote, item_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="Not found")
+    if body.status is not None:
+        row.status = body.status
+    if body.admin_note is not None:
+        row.admin_note = body.admin_note
+    db.commit()
+    return {"success": True}

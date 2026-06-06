@@ -11,6 +11,8 @@ import { AdminLoginPage } from '@/pages/admin/AdminLoginPage';
 import { AdminQuoteDetailPage } from '@/pages/admin/AdminQuoteDetailPage';
 import { AdminQuotesPage } from '@/pages/admin/AdminQuotesPage';
 import { AdminUsersPage } from '@/pages/admin/AdminUsersPage';
+import { AdminWizardQuoteDetailPage } from '@/pages/admin/AdminWizardQuoteDetailPage';
+import { AdminWizardQuotesPage } from '@/pages/admin/AdminWizardQuotesPage';
 import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage';
 import { LoginPage } from '@/pages/auth/LoginPage';
 import { RegisterPage } from '@/pages/auth/RegisterPage';
@@ -86,6 +88,8 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="quotes" replace /> },
       { path: 'quotes', element: <AdminQuotesPage /> },
       { path: 'quotes/:id', element: <AdminQuoteDetailPage /> },
+      { path: 'wizard-quotes', element: <AdminWizardQuotesPage /> },
+      { path: 'wizard-quotes/:id', element: <AdminWizardQuoteDetailPage /> },
       { path: 'contacts', element: <AdminContactsPage /> },
       { path: 'contacts/:id', element: <AdminContactDetailPage /> },
       { path: 'users', element: <AdminUsersPage /> },

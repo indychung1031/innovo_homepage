@@ -124,6 +124,7 @@ export type WizardSubmitPayload = {
   cover_type_id: number | null;
   material_type_id: number | null;
   spec_notes: string;
+  attachment_name: string;
   estimate: QuoteEstimateResult;
   contact_name: string;
   contact_company: string;

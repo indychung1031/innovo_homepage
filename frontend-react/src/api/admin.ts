@@ -198,6 +198,67 @@ export async function deleteUser(userId: number): Promise<void> {
   }
 }
 
+export type WizardQuoteRow = {
+  id: number;
+  series: string;
+  ic_code: string;
+  socket_type_name: string | null;
+  pin_count: number | null;
+  quantity: number;
+  matched: boolean;
+  total_price: number | null;
+  currency: string | null;
+  status: string;
+  membership_tier: string;
+  contact_email: string;
+  contact_company: string;
+  contact_name: string;
+  created_at: string;
+};
+
+export type WizardQuoteDetail = WizardQuoteRow & {
+  lang: string;
+  ic_type: string;
+  ic_package_code: string;
+  dimension_d: number | null;
+  dimension_e: number | null;
+  dimension_a: number | null;
+  pitch: string | null;
+  socket_type_id: number | null;
+  cover_type_id: number | null;
+  material_type_id: number | null;
+  spec_notes: string | null;
+  attachment_name: string | null;
+  unit_price: number | null;
+  lead_time_label: string | null;
+  contact_phone: string | null;
+  admin_note: string | null;
+};
+
+export async function listWizardQuotes(page = 1, size = 50): Promise<Paginated<WizardQuoteRow>> {
+  const res = await adminFetch(`/wizard-quotes?page=${page}&size=${size}`);
+  return parseAdminJson(res);
+}
+
+export async function getWizardQuote(id: number): Promise<WizardQuoteDetail> {
+  const res = await adminFetch(`/wizard-quotes/${id}`);
+  return parseAdminJson(res);
+}
+
+export async function patchWizardQuote(
+  id: number,
+  body: { status?: string; admin_note?: string },
+): Promise<void> {
+  const res = await adminFetch(`/wizard-quotes/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = (await res.json()) as { detail?: unknown };
+    throw new Error(parseApiError(data.detail, 'Update failed'));
+  }
+}
+
 async function parseAdminJson<T>(res: Response): Promise<T> {
   if (res.status === 401) {
     setAdminToken(null);

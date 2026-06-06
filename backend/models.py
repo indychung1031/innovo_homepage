@@ -164,3 +164,62 @@ class StaffLoginOtp(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
+
+
+class LeadTimeRule(Base):
+    """납기 규칙 — 소켓 종류 × 수량 구간별 납기 라벨."""
+
+    __tablename__ = "lead_time_rules"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    socket_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    qty_min: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    qty_max: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    lead_time_label: Mapped[str] = mapped_column(String(100), nullable=False)
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+
+class WizardQuote(Base):
+    """견적 위저드 제출 기록."""
+
+    __tablename__ = "wizard_quotes"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int | None] = mapped_column(
+        Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True
+    )
+    status: Mapped[str] = mapped_column(String(20), nullable=False, default="pending")
+    lang: Mapped[str] = mapped_column(String(2), nullable=False, default="en")
+    series: Mapped[str] = mapped_column(String(20), nullable=False)
+    ic_type: Mapped[str] = mapped_column(String(100), nullable=False)
+    ic_code: Mapped[str] = mapped_column(String(100), nullable=False)
+    ic_package_code: Mapped[str] = mapped_column(String(20), nullable=False)
+    dimension_d: Mapped[float | None] = mapped_column(Numeric(8, 3), nullable=True)
+    dimension_e: Mapped[float | None] = mapped_column(Numeric(8, 3), nullable=True)
+    dimension_a: Mapped[float | None] = mapped_column(Numeric(8, 3), nullable=True)
+    pitch: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    pin_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    socket_type_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    socket_type_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    quantity: Mapped[int] = mapped_column(Integer, nullable=False)
+    cover_type_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    material_type_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    spec_notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    attachment_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    matched: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    unit_price: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    currency: Mapped[str | None] = mapped_column(String(10), nullable=True, default="KRW")
+    total_price: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    lead_time_label: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    contact_name: Mapped[str] = mapped_column(String(50), nullable=False)
+    contact_company: Mapped[str] = mapped_column(String(100), nullable=False)
+    contact_email: Mapped[str] = mapped_column(String(254), nullable=False)
+    contact_phone: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    membership_tier: Mapped[str] = mapped_column(String(20), nullable=False, default="general")
+    admin_note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
+    )

@@ -60,8 +60,9 @@ class Settings(BaseSettings):
     admin_seed_display_name: str = "Sales Manager"
     admin_seed_roles: str = "sales_admin"
 
-    # ERP (Phase 5)
+    # ERP API
     erp_api_base_url: str = ""
+    erp_api_key: str = ""
 
     @property
     def database_url(self) -> str:

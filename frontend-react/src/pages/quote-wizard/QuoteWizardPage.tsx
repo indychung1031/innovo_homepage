@@ -226,6 +226,7 @@ export function QuoteWizardPage() {
         cover_type_id: draft.cover_type_id,
         material_type_id: draft.material_type_id,
         spec_notes: draft.spec_notes.trim(),
+        attachment_name: draft.attachment_name.trim(),
         estimate: draft.estimate,
         contact_name: draft.contact_name.trim(),
         contact_company: draft.contact_company.trim(),

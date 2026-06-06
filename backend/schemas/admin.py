@@ -39,3 +39,8 @@ class StatusPatch(BaseModel):
 
 class MembershipPatch(BaseModel):
     membership_tier: MembershipTier
+
+
+class WizardStatusPatch(BaseModel):
+    status: str | None = None
+    admin_note: str | None = None

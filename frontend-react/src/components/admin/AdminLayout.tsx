@@ -14,6 +14,9 @@ export function AdminLayout() {
         <NavLink to="/admin/quotes" className={navClass}>
           Quotes
         </NavLink>
+        <NavLink to="/admin/wizard-quotes" className={navClass}>
+          Wizard Quotes
+        </NavLink>
         <NavLink to="/admin/contacts" className={navClass}>
           Contacts
         </NavLink>

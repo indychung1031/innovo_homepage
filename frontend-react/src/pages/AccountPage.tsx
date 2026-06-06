@@ -8,10 +8,12 @@ import {
   deleteAccount,
   getCatalogDownloadUrl,
   getMyQuotes,
+  getWizardQuoteHistory,
   updateProfile,
   type QuoteItem,
   type QuoteStatus,
   type QuotesPage,
+  type WizardQuoteHistoryItem,
 } from '@/api/account';
 import { FormAlert } from '@/components/forms/FormAlert';
 import { inputClassName } from '@/components/forms/PrivacyConsent';
@@ -346,21 +348,24 @@ function QuotesTab() {
     return <p className="text-sm text-red-600">{error}</p>;
   }
 
+  const totalPages = data ? Math.ceil(data.total / data.size) : 0;
+
   if (!data || data.items.length === 0) {
     return (
-      <div className="py-16 text-center">
-        <p className="mb-4 text-gray-mid">{t('account:quotes.empty')}</p>
-        <Link
-          to={withLang(lang, '/quote')}
-          className="inline-flex rounded bg-sky px-5 py-2 text-sm font-medium text-white hover:opacity-95"
-        >
-          {t('account:quotes.empty_cta')}
-        </Link>
+      <div>
+        <div className="py-10 text-center">
+          <p className="mb-4 text-gray-mid">{t('account:quotes.empty')}</p>
+          <Link
+            to={withLang(lang, '/quote')}
+            className="inline-flex rounded bg-sky px-5 py-2 text-sm font-medium text-white hover:opacity-95"
+          >
+            {t('account:quotes.empty_cta')}
+          </Link>
+        </div>
+        <WizardQuotesSection />
       </div>
     );
   }
-
-  const totalPages = Math.ceil(data.total / data.size);
 
   return (
     <div>
@@ -434,6 +439,95 @@ function QuotesTab() {
           >
             ›
           </button>
+        </div>
+      )}
+
+      <WizardQuotesSection />
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────────────────
+// Wizard Quotes Section (QuotesTab 하단)
+// ────────────────────────────────────────────────────────────
+function WizardQuotesSection() {
+  const { lang: langParam } = useParams();
+  const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
+  const [items, setItems] = useState<WizardQuoteHistoryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    void (async () => {
+      try {
+        const data = await getWizardQuoteHistory();
+        setItems(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Error');
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  if (loading) {
+    return <div className="h-10 animate-pulse rounded bg-slate-100" />;
+  }
+
+  if (error) {
+    return <p className="text-sm text-red-600">{error}</p>;
+  }
+
+  return (
+    <div className="mt-8">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="font-semibold text-navy">Wizard Quote 견적 이력</h3>
+        <Link
+          to={withLang(lang, '/quote/wizard')}
+          className="text-sm font-medium text-sky hover:underline"
+        >
+          새 견적 요청 →
+        </Link>
+      </div>
+      {items.length === 0 ? (
+        <p className="py-6 text-center text-sm text-gray-mid">견적 위저드 제출 이력이 없습니다.</p>
+      ) : (
+        <div className="overflow-x-auto rounded-lg border border-gray-light">
+          <table className="w-full text-sm">
+            <thead className="bg-slate-50 text-left text-xs text-gray-mid">
+              <tr>
+                <th className="px-4 py-3">ID</th>
+                <th className="px-4 py-3">IC Code</th>
+                <th className="px-4 py-3">Socket</th>
+                <th className="px-4 py-3">Qty</th>
+                <th className="px-4 py-3">Price</th>
+                <th className="px-4 py-3">Date</th>
+                <th className="px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-light">
+              {items.map((item) => (
+                <tr key={item.id} className="hover:bg-slate-50">
+                  <td className="px-4 py-3 text-gray-mid">{item.id}</td>
+                  <td className="px-4 py-3 font-medium">{item.ic_code}</td>
+                  <td className="px-4 py-3">{item.socket_type_name ?? '—'}</td>
+                  <td className="px-4 py-3">{item.quantity} pcs</td>
+                  <td className="px-4 py-3">
+                    {item.matched && item.total_price
+                      ? `${item.total_price.toLocaleString()} ${item.currency ?? 'KRW'}`
+                      : <span className="text-gray-mid">담당자 확인 후 안내</span>}
+                  </td>
+                  <td className="px-4 py-3">{formatDate(item.created_at)}</td>
+                  <td className="px-4 py-3">
+                    <span className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status]}`}>
+                      {item.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

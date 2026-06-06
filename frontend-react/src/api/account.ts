@@ -68,6 +68,26 @@ export async function deleteAccount(): Promise<void> {
   }
 }
 
+export type WizardQuoteHistoryItem = {
+  id: number;
+  series: string;
+  ic_code: string;
+  socket_type_name: string | null;
+  quantity: number;
+  matched: boolean;
+  total_price: number | null;
+  currency: string | null;
+  status: QuoteStatus;
+  created_at: string;
+};
+
+export async function getWizardQuoteHistory(): Promise<WizardQuoteHistoryItem[]> {
+  const res = await authFetch('/api/quote/history');
+  const data = (await res.json()) as WizardQuoteHistoryItem[] | { detail?: unknown };
+  if (!res.ok) throw new Error(parseApiError((data as { detail?: unknown }).detail, 'Failed to load wizard quotes'));
+  return data as WizardQuoteHistoryItem[];
+}
+
 export async function getCatalogDownloadUrl(fileId: string): Promise<string> {
   const res = await authFetch(`/api/hp/account/catalog-url?file=${encodeURIComponent(fileId)}`);
   const data = (await res.json()) as { url?: string; detail?: unknown };
