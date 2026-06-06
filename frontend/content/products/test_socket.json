@@ -301,7 +301,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "40.00 × 30.00 × TBD mm",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -309,7 +309,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "40.00 × 30.00 × 미정 mm",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -327,7 +327,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -335,7 +335,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -353,7 +353,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -361,7 +361,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -379,7 +379,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -387,7 +387,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -405,7 +405,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "46.00 × 36.00 × TBD mm",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -413,7 +413,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "46.00 × 36.00 × 미정 mm",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -431,7 +431,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -439,7 +439,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -457,7 +457,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -465,7 +465,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -483,7 +483,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -491,7 +491,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -509,7 +509,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "46.00 × 36.00 × TBD mm",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -517,7 +517,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "46.00 × 36.00 × 미정 mm",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -535,7 +535,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -543,7 +543,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -561,7 +561,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -569,7 +569,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -587,7 +587,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -595,7 +595,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -613,7 +613,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "46.00 × 36.00 × TBD mm",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -621,7 +621,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "46.00 × 36.00 × 미정 mm",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -639,7 +639,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -647,7 +647,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -665,7 +665,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -673,7 +673,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
@@ -691,7 +691,7 @@
       "coming_soon": false,
       "specs": {
         "en": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "TBD",
           "operating_temp": "-40~125°C (extendable to -55~185°C)",
           "humidity": "0~99%",
@@ -699,7 +699,7 @@
           "material": "AL / SUS / SEP (Super engineering plastic) / Etc."
         },
         "ko": {
-          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA",
+          "ic_type": "BGA / QFN / DFN / QFP / SOP / LGA / WLP / WLCSP",
           "socket_size": "미정",
           "operating_temp": "-40~125°C (-55~185°C 확장 가능)",
           "humidity": "0~99%",
