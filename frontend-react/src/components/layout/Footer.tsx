@@ -22,7 +22,7 @@ export function Footer() {
         <p className="mb-1 font-semibold text-navy">{t('footer.company')}</p>
         <p className="mb-2 text-gray-mid">{t('footer.address')}</p>
         <p className="mb-4 text-gray-mid">
-          Tel: 031-735-6141~2 · Fax: 031-735-6145 ·{' '}
+          Tel: +82-31-735-6141 · Fax: +82-31-735-6145 ·{' '}
           <a href="mailto:sbchung@innovotech.co.kr" className="text-sky hover:underline">
             sbchung@innovotech.co.kr
           </a>
