@@ -37,8 +37,12 @@ export function HomePage() {
         <title>{t('home:meta.title')}</title>
       </Helmet>
 
-      <section className="bg-navy py-16 text-white md:py-24">
-        <div className="mx-auto max-w-6xl px-4">
+      <section
+        className="relative bg-navy py-16 text-white md:py-24"
+        style={{ backgroundImage: `url(${mediaUrl('/upload/images/hero_bg.png')})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="absolute inset-0 bg-navy/70" />
+        <div className="relative mx-auto max-w-6xl px-4">
           <p className="mb-2 font-medium text-sky">{t('home:hero.tagline')}</p>
           <h1 className="mb-4 max-w-3xl text-3xl font-bold text-white md:text-5xl">{t('home:hero.title')}</h1>
           <p className="mb-8 max-w-2xl text-lg text-slate-300">{t('home:hero.subtitle')}</p>
