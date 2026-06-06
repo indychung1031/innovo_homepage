@@ -8,11 +8,7 @@ type Props = {
   onReset: () => void;
 };
 
-const IC_TYPE_OPTIONS = [
-  'BGA / QFN / DFN / QFP / SOP / LGA',
-  'BGA / QFN / DFN / LGA',
-  'WLP / WLCSP',
-];
+const IC_TYPE_OPTIONS = ['BGA', 'QFN', 'DFN', 'QFP', 'SOP', 'LGA', 'WLP', 'WLCSP'];
 
 function selectClass(active: boolean) {
   return `rounded border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky transition-colors ${

@@ -70,9 +70,12 @@ export function applyFilters(families: ProductFamily[], filters: FilterState): P
     }
 
     // ── IC Type ───────────────────────────────────
+    // ic_type은 "BGA / QFN / DFN / LGA" 처럼 묶여 저장되므로 개별 타입 포함 여부로 비교
     if (filters.icType !== '') {
       const icType = family.specs?.en?.ic_type ?? null;
-      if (!icType || icType !== filters.icType) return false;
+      if (!icType) return false;
+      const types = icType.split(' / ').map((s) => s.trim());
+      if (!types.includes(filters.icType)) return false;
     }
 
     // ── Package Size X ────────────────────────────
