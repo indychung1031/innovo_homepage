@@ -889,8 +889,9 @@ Email: sbchung@innovotech.co.kr
 | **Phase 3** | Quick Quote + Contact + 회원·Admin | ✅ 구현 완료 (DB 마이그레이션·SMTP·seed 필요) |
 | **React 전환** | Jinja2 → React SPA (`frontend-react/`), Jinja2 레거시 전체 삭제 | ✅ 완료 (2026-05-31) |
 | **배포** | CloudFront + S3 배포, 메일나라 DNS → CloudFront CNAME 연결 | ✅ 완료 (2026-05-31) |
-| **Phase 4** | 견적 위저드 — 회원 가격 계산·히스토리·PDF + Admin 대시보드 (02 DB 이식 포함) | ⏳ 대기 |
-| **Phase 5** | ERP 연동 — **Quick Quote ERP 접수함(03 Ph2)** + ERP inquiry API | ⏳ 대기 |
+| **Phase 4** | 견적 위저드 — ERP 연동·가격 계산·제출·히스토리·Admin 위저드 관리 | ✅ 완료 (2026-06-06) |
+| **Phase 4-B** | Admin 대시보드 (`/admin/dashboard`) — 통계 요약·미처리 현황 | ✅ 완료 (2026-06-11) |
+| **Phase 5** | ERP 연동 — **Quick Quote ERP 접수함(03 Ph2)** + ERP inquiry API | ⏳ 대기 (ERP 팀 선행 필요) |
 
 ### 부속 기획서 Phase 매핑
 
