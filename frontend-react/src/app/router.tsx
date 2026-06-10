@@ -11,6 +11,7 @@ import { AdminLoginPage } from '@/pages/admin/AdminLoginPage';
 import { AdminQuoteDetailPage } from '@/pages/admin/AdminQuoteDetailPage';
 import { AdminQuotesPage } from '@/pages/admin/AdminQuotesPage';
 import { AdminUsersPage } from '@/pages/admin/AdminUsersPage';
+import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage';
 import { AdminWizardQuoteDetailPage } from '@/pages/admin/AdminWizardQuoteDetailPage';
 import { AdminWizardQuotesPage } from '@/pages/admin/AdminWizardQuotesPage';
 import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage';
@@ -85,7 +86,8 @@ export const router = createBrowserRouter([
       </AdminProtectedRoute>
     ),
     children: [
-      { index: true, element: <Navigate to="quotes" replace /> },
+      { index: true, element: <Navigate to="dashboard" replace /> },
+      { path: 'dashboard', element: <AdminDashboardPage /> },
       { path: 'quotes', element: <AdminQuotesPage /> },
       { path: 'quotes/:id', element: <AdminQuoteDetailPage /> },
       { path: 'wizard-quotes', element: <AdminWizardQuotesPage /> },

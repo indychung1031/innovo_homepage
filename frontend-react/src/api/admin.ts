@@ -259,6 +259,39 @@ export async function patchWizardQuote(
   }
 }
 
+export type DashboardThisMonth = {
+  wizard_quotes: number;
+  quick_quotes: number;
+  new_users: number;
+  contacts: number;
+};
+
+export type DashboardPending = {
+  wizard_quotes: number;
+  quick_quotes: number;
+  contacts: number;
+  verified_users: number;
+};
+
+export type ExpiringSoonItem = {
+  id: number;
+  ic_code: string;
+  contact_company: string;
+  created_at: string;
+  days_until_expiry: number;
+};
+
+export type DashboardData = {
+  this_month: DashboardThisMonth;
+  pending: DashboardPending;
+  expiring_soon: ExpiringSoonItem[];
+};
+
+export async function getDashboard(): Promise<DashboardData> {
+  const res = await adminFetch('/dashboard');
+  return parseAdminJson(res);
+}
+
 async function parseAdminJson<T>(res: Response): Promise<T> {
   if (res.status === 401) {
     setAdminToken(null);

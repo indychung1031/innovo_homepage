@@ -11,6 +11,9 @@ export function AdminLayout() {
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="flex gap-4 bg-navy px-4 py-3 text-sm text-white">
+        <NavLink to="/admin/dashboard" className={navClass}>
+          Dashboard
+        </NavLink>
         <NavLink to="/admin/quotes" className={navClass}>
           Quotes
         </NavLink>

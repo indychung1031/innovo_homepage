@@ -44,3 +44,31 @@ class MembershipPatch(BaseModel):
 class WizardStatusPatch(BaseModel):
     status: str | None = None
     admin_note: str | None = None
+
+
+class DashboardThisMonth(BaseModel):
+    wizard_quotes: int
+    quick_quotes: int
+    new_users: int
+    contacts: int
+
+
+class DashboardPending(BaseModel):
+    wizard_quotes: int
+    quick_quotes: int
+    contacts: int
+    verified_users: int
+
+
+class ExpiringSoonItem(BaseModel):
+    id: int
+    ic_code: str
+    contact_company: str
+    created_at: str
+    days_until_expiry: int
+
+
+class DashboardResponse(BaseModel):
+    this_month: DashboardThisMonth
+    pending: DashboardPending
+    expiring_soon: list[ExpiringSoonItem]

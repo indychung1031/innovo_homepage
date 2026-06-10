@@ -19,6 +19,7 @@ from backend.schemas.admin import (
     AdminLoginRequest,
     AdminLoginSuccessResponse,
     AdminVerify2FARequest,
+    DashboardResponse,
     MembershipPatch,
     StatusPatch,
     WizardStatusPatch,
@@ -579,3 +580,65 @@ def patch_wizard_quote(
         row.admin_note = body.admin_note
     db.commit()
     return {"success": True}
+
+
+@router.get("/dashboard", response_model=DashboardResponse)
+def get_dashboard(
+    db: Session = Depends(get_db),
+    _staff: StaffAccount = Depends(require_staff_roles("admin", "sales_admin")),
+):
+    KST = timezone(timedelta(hours=9))
+    now = datetime.now(KST)
+    month_start = datetime(now.year, now.month, 1, tzinfo=KST)
+
+    # 이번 달 통계
+    wq_month = db.scalar(select(func.count()).select_from(WizardQuote).where(WizardQuote.created_at >= month_start)) or 0
+    qq_month = db.scalar(select(func.count()).select_from(QuickQuoteInquiry).where(QuickQuoteInquiry.created_at >= month_start)) or 0
+    # 신규 회원: 이번 달 이메일 인증 완료 기준
+    users_month = db.scalar(select(func.count()).select_from(User).where(User.email_verified_at >= month_start)) or 0
+    contacts_month = db.scalar(select(func.count()).select_from(ContactInquiry).where(ContactInquiry.created_at >= month_start)) or 0
+
+    # 미처리 현황
+    wq_pending = db.scalar(select(func.count()).select_from(WizardQuote).where(WizardQuote.status == "pending")) or 0
+    # Quick Quote: closed가 아닌 것 전부 (pending + sent_to_erp)
+    qq_pending = db.scalar(select(func.count()).select_from(QuickQuoteInquiry).where(QuickQuoteInquiry.status != "closed")) or 0
+    contacts_pending = db.scalar(select(func.count()).select_from(ContactInquiry).where(ContactInquiry.status == "new")) or 0
+    verified_users = db.scalar(select(func.count()).select_from(User).where(User.membership_tier == "verified", User.is_active.is_(True))) or 0
+
+    # 만료 임박 견적: pending 상태이며 접수 5일 이상 경과
+    cutoff = now - timedelta(days=5)
+    expiring_rows = db.execute(
+        select(WizardQuote.id, WizardQuote.ic_code, WizardQuote.contact_company, WizardQuote.created_at)
+        .where(WizardQuote.status == "pending", WizardQuote.created_at < cutoff)
+        .order_by(WizardQuote.created_at.asc())
+        .limit(10)
+    ).all()
+
+    expiring_soon = []
+    for row in expiring_rows:
+        created_kst = row.created_at.astimezone(KST) if row.created_at.tzinfo else row.created_at.replace(tzinfo=KST)
+        expiry_dt = created_kst + timedelta(days=7)
+        days_left = (expiry_dt.date() - now.date()).days
+        expiring_soon.append({
+            "id": row.id,
+            "ic_code": row.ic_code,
+            "contact_company": row.contact_company,
+            "created_at": row.created_at.isoformat(),
+            "days_until_expiry": max(days_left, 0),
+        })
+
+    return {
+        "this_month": {
+            "wizard_quotes": wq_month,
+            "quick_quotes": qq_month,
+            "new_users": users_month,
+            "contacts": contacts_month,
+        },
+        "pending": {
+            "wizard_quotes": wq_pending,
+            "quick_quotes": qq_pending,
+            "contacts": contacts_pending,
+            "verified_users": verified_users,
+        },
+        "expiring_soon": expiring_soon,
+    }
