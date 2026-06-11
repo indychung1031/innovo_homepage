@@ -30,6 +30,8 @@ import { ProbePinSpecialPage } from '@/pages/products/ProbePinSpecialPage';
 import { ProductCategoryPage } from '@/pages/products/ProductCategoryPage';
 import { ProductsIndexPage } from '@/pages/products/ProductsIndexPage';
 import { AccountPage } from '@/pages/AccountPage';
+import { CareersPage } from '@/pages/CareersPage';
+import { DownloadsPage } from '@/pages/DownloadsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { RootRedirect } from '@/pages/RootRedirect';
 import { TechnologyPage } from '@/pages/TechnologyPage';
@@ -71,6 +73,8 @@ export const router = createBrowserRouter([
       { path: 'forgot-password', element: <ForgotPasswordPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
       { path: 'verify-email', element: <VerifyEmailPage /> },
+      { path: 'downloads', element: <DownloadsPage /> },
+      { path: 'careers', element: <CareersPage /> },
       { path: 'privacy', element: <LegalDocumentPage kind="privacy" /> },
       { path: 'terms', element: <LegalDocumentPage kind="terms" /> },
       { path: '*', element: <NotFoundPage /> },

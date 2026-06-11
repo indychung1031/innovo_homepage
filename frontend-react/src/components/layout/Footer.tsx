@@ -28,6 +28,12 @@ export function Footer() {
           </a>
         </p>
         <nav className="mb-4 flex flex-wrap gap-4" aria-label={t('a11y.legal_nav')}>
+          <Link to={withLang(lang, '/downloads')} className="text-sky hover:underline">
+            {t('footer.downloads')}
+          </Link>
+          <Link to={withLang(lang, '/careers')} className="text-sky hover:underline">
+            {t('footer.careers')}
+          </Link>
           <Link to={withLang(lang, '/privacy')} className="text-sky hover:underline">
             {t('footer.privacy')}
           </Link>

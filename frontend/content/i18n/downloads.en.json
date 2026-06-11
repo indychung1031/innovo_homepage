@@ -1,0 +1,17 @@
+{
+  "title": "Downloads",
+  "subtitle": "Technical documents and certificates",
+  "public_badge": "Public",
+  "members_only_badge": "Verified Members",
+  "download": "Download",
+  "login_required": "Login required",
+  "not_verified": "Verified members only",
+  "sign_up": "Sign up",
+  "learn_more": "Learn more",
+  "files": {
+    "iso9001_en": { "name": "ISO 9001:2015 Certificate (English)", "format": "PDF" },
+    "iso9001_ko": { "name": "ISO 9001:2015 Certificate (Korean)", "format": "PDF" },
+    "socket_list": { "name": "Socket List", "format": "PDF" },
+    "probe_pin_plunger": { "name": "Probe Pin Plunger Shape Guide", "format": "PNG" }
+  }
+}

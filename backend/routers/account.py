@@ -24,6 +24,12 @@ CATALOG_FILES: dict[str, str] = {
     "iso9001_ko": "upload/certificate/ISO9001 (2024) Kor.pdf",
 }
 
+# 인증 없이 공개 허용하는 파일 (ISO 인증서만)
+PUBLIC_FILES: dict[str, str] = {
+    "iso9001_en": "upload/certificate/ISO9001 (2024) Eng.pdf",
+    "iso9001_ko": "upload/certificate/ISO9001 (2024) Kor.pdf",
+}
+
 S3_BUCKET = "innovo-www-prod"
 
 router = APIRouter(prefix="/api/account", tags=["account"])
@@ -86,6 +92,32 @@ def my_quotes(
 class CatalogUrlResponse(BaseModel):
     url: str
     expires_in: int = 60
+
+
+@router.get("/public-download-url", response_model=CatalogUrlResponse)
+def get_public_download_url(
+    file: str = Query(..., description="iso9001_en | iso9001_ko"),
+) -> CatalogUrlResponse:
+    s3_key = PUBLIC_FILES.get(file)
+    if not s3_key:
+        raise HTTPException(status_code=404, detail="존재하지 않는 파일입니다.")
+    try:
+        client = boto3.client(
+            "s3",
+            region_name="ap-northeast-2",
+            config=Config(signature_version="s3v4"),
+        )
+        raw_url = client.generate_presigned_url(
+            "get_object",
+            Params={"Bucket": S3_BUCKET, "Key": s3_key},
+            ExpiresIn=60,
+        )
+        parsed = urlparse(raw_url)
+        url = urlunparse(parsed._replace(path=quote(parsed.path, safe="/")))
+    except Exception:
+        logger.exception("S3 presigned URL 생성 실패 file=%s", file)
+        raise HTTPException(status_code=500, detail="파일 URL 생성에 실패했습니다.")
+    return CatalogUrlResponse(url=url)
 
 
 @router.get("/catalog-url", response_model=CatalogUrlResponse)

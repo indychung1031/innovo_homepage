@@ -94,3 +94,10 @@ export async function getCatalogDownloadUrl(fileId: string): Promise<string> {
   if (!res.ok) throw new Error(parseApiError(data.detail, 'Failed to get download URL'));
   return data.url ?? '';
 }
+
+export async function getPublicDownloadUrl(fileId: string): Promise<string> {
+  const res = await fetch(`/api/account/public-download-url?file=${encodeURIComponent(fileId)}`);
+  const data = (await res.json()) as { url?: string; detail?: unknown };
+  if (!res.ok) throw new Error(parseApiError(data.detail, 'Failed to get download URL'));
+  return data.url ?? '';
+}

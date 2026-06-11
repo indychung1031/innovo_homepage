@@ -1,0 +1,17 @@
+{
+  "title": "자료실",
+  "subtitle": "기술 문서 및 인증서",
+  "public_badge": "공개",
+  "members_only_badge": "인증회원",
+  "download": "다운로드",
+  "login_required": "로그인 필요",
+  "not_verified": "인증회원 전용",
+  "sign_up": "회원가입",
+  "learn_more": "자세히",
+  "files": {
+    "iso9001_en": { "name": "ISO 9001:2015 인증서 (영문)", "format": "PDF" },
+    "iso9001_ko": { "name": "ISO 9001:2015 인증서 (국문)", "format": "PDF" },
+    "socket_list": { "name": "소켓 목록", "format": "PDF" },
+    "probe_pin_plunger": { "name": "프로브 핀 플런저 형상 가이드", "format": "PNG" }
+  }
+}

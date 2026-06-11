@@ -18,6 +18,10 @@ import quoteEn from '@content/i18n/quote.en.json';
 import quoteKo from '@content/i18n/quote.ko.json';
 import technologyEn from '@content/i18n/technology.en.json';
 import technologyKo from '@content/i18n/technology.ko.json';
+import downloadsEn from '@content/i18n/downloads.en.json';
+import downloadsKo from '@content/i18n/downloads.ko.json';
+import careersEn from '@content/i18n/careers.en.json';
+import careersKo from '@content/i18n/careers.ko.json';
 
 export const i18nResources = {
   en: {
@@ -31,6 +35,8 @@ export const i18nResources = {
     wizard: wizardEn,
     quote: quoteEn,
     account: accountEn,
+    downloads: downloadsEn,
+    careers: careersEn,
   },
   ko: {
     common: commonKo,
@@ -43,5 +49,7 @@ export const i18nResources = {
     wizard: wizardKo,
     quote: quoteKo,
     account: accountKo,
+    downloads: downloadsKo,
+    careers: careersKo,
   },
 } as const;

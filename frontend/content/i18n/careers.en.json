@@ -1,0 +1,15 @@
+{
+  "title": "Careers",
+  "hero_heading": "Join Innovo Solution",
+  "hero_body": "We are a precision test socket and probe pin manufacturer with over 19 years of expertise in semiconductor testing solutions, delivering to 12 countries worldwide.",
+  "positions_heading": "Open Positions",
+  "no_positions_heading": "Positions Coming Soon",
+  "no_positions_body": "We are always looking for talented engineers and professionals. If you are interested in joining our team, please send your resume to",
+  "contact_label": "Contact HR",
+  "values_heading": "Why Innovo Solution",
+  "values": [
+    { "title": "19+ Years of Expertise", "body": "Established in 2007, we specialize in precision semiconductor test solutions." },
+    { "title": "Global Reach", "body": "Our products are shipped to 12 countries including the US, Europe, and Asia." },
+    { "title": "Innovation Culture", "body": "We hold 6 cumulative patents and invest continuously in R&D." }
+  ]
+}
