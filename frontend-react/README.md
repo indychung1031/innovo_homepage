@@ -26,7 +26,9 @@ uvicorn backend.main:app --reload
 |------|------|
 | `VITE_RECAPTCHA_SITE_KEY` | reCAPTCHA v3 (없으면 `dev-skip-token`) |
 | `VITE_USE_HP_API=false` | 로컬 FastAPI `/api/contact`, `/api/quick-quote` |
-| `VITE_USE_HP_API=true` | ERP `/api/hp/*` — `VITE_HP_PROXY_TARGET` 으로 Vite 프록시 |
+| `VITE_USE_HP_API=true` | ERP `/api/hp/*` — [hp_api_reference.md](../document/hp_api_reference.md) |
+| `VITE_HP_API_BASE_URL` | 운영 빌드: `http://54.116.87.172` (CORS 직접 호출) |
+| (비움) + dev | 상대 `/api/hp` → Vite `VITE_HP_PROXY_TARGET` 프록시 |
 
 폼 제출 전 **백엔드 또는 ERP** 중 하나가 떠 있어야 합니다.
 

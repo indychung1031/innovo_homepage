@@ -1,4 +1,5 @@
-import { parseApiError } from '@/api/errors';
+import { HP_MAX_ATTACHMENT_BYTES, postHpFormData } from '@/api/hpFetch';
+import { isHpApiEnabled, resolveFormApiUrl } from '@/lib/hpApi';
 
 export type ContactCategory = 'test_socket' | 'probe_pin' | 'test_jig' | 'other';
 
@@ -20,15 +21,21 @@ export type ContactResult = {
   message: string;
 };
 
-const useHpApi = import.meta.env.VITE_USE_HP_API === 'true';
+export { HP_MAX_ATTACHMENT_BYTES };
 
 export async function submitContact(
   payload: ContactPayload,
   file?: File | null,
 ): Promise<ContactResult> {
+  if (file && file.size > HP_MAX_ATTACHMENT_BYTES) {
+    throw new Error(
+      payload.lang === 'ko' ? '파일 크기는 10MB 이하여야 합니다.' : 'File must be 10MB or less.',
+    );
+  }
+
   const fd = new FormData();
 
-  if (useHpApi) {
+  if (isHpApiEnabled()) {
     fd.append(
       'data',
       JSON.stringify({
@@ -52,21 +59,11 @@ export async function submitContact(
     fd.append('file', file);
   }
 
-  const path = useHpApi ? '/api/hp/contact' : '/api/contact';
-  const res = await fetch(path, {
-    method: 'POST',
-    body: fd,
-    credentials: 'include',
-  });
-
-  const data = (await res.json()) as { detail?: unknown; message?: string; inquiry_id?: number };
-
-  if (!res.ok) {
-    throw new Error(parseApiError(data.detail, 'Submit failed'));
-  }
-
-  return {
-    inquiry_id: data.inquiry_id ?? 0,
-    message: data.message ?? '',
-  };
+  const url = resolveFormApiUrl('/api/hp/contact', '/api/contact');
+  return postHpFormData(
+    url,
+    fd,
+    payload.lang,
+    payload.lang === 'ko' ? '제출에 실패했습니다.' : 'Submit failed',
+  );
 }

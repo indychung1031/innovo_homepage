@@ -1,8 +1,10 @@
-import { parseApiError } from '@/api/errors';
+import { postHpJson } from '@/api/hpFetch';
+import { isHpApiEnabled, normalizePitch, resolveFormApiUrl } from '@/lib/hpApi';
 
 export type QuickQuotePayload = {
   ic_package_type: string;
   ic_code: string | null;
+  ic_type: string | null;
   pin_count: number;
   pitch: string;
   package_d: number;
@@ -25,25 +27,16 @@ export type QuickQuoteResult = {
   message: string;
 };
 
-const useHpApi = import.meta.env.VITE_USE_HP_API === 'true';
-
 export async function submitQuickQuote(payload: QuickQuotePayload): Promise<QuickQuoteResult> {
-  const path = useHpApi ? '/api/hp/quick-quote' : '/api/quick-quote';
-  const res = await fetch(path, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-    credentials: 'include',
-  });
+  const url = resolveFormApiUrl('/api/hp/quick-quote', '/api/quick-quote');
 
-  const data = (await res.json()) as { detail?: unknown; message?: string; inquiry_id?: number };
+  const body = isHpApiEnabled()
+    ? {
+        ...payload,
+        pitch: normalizePitch(payload.pitch),
+        ic_type: payload.ic_type?.trim() || null,
+      }
+    : payload;
 
-  if (!res.ok) {
-    throw new Error(parseApiError(data.detail, 'Submit failed'));
-  }
-
-  return {
-    inquiry_id: data.inquiry_id ?? 0,
-    message: data.message ?? '',
-  };
+  return postHpJson(url, body, payload.lang, payload.lang === 'ko' ? '제출에 실패했습니다.' : 'Submit failed');
 }
