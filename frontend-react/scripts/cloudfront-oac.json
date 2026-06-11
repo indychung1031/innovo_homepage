@@ -1,0 +1,7 @@
+{
+  "Name": "innovo-www-prod-oac",
+  "Description": "Innovo homepage S3 OAC",
+  "SigningProtocol": "sigv4",
+  "SigningBehavior": "always",
+  "OriginAccessControlOriginType": "s3"
+}
