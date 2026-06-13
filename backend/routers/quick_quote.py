@@ -3,9 +3,11 @@
 import logging
 from datetime import datetime, timezone
 
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 
+from backend.config import get_settings
 from backend.database import get_db
 from backend.models import QuickQuoteInquiry
 from backend.schemas.quick_quote import QuickQuoteCreate, QuickQuoteResponse
@@ -23,6 +25,50 @@ SUCCESS_MESSAGES = {
 }
 
 
+async def _send_to_erp(inquiry: QuickQuoteInquiry) -> int | None:
+    """ERP POST /api/external/inquiry 호출 — 실패 시 None 반환 (사용자 응답 차단 안 함)."""
+    settings = get_settings()
+    if not settings.erp_api_base_url or not settings.erp_api_key:
+        return None
+
+    payload: dict = {
+        "ic_package_type_code": inquiry.ic_package_type,
+        "pin_count": inquiry.pin_count,
+        "pitch": inquiry.pitch,
+        "package_d": float(inquiry.package_d),
+        "package_e": float(inquiry.package_e),
+        "company_name": inquiry.company_name,
+        "contact_name": inquiry.contact_name,
+        "contact_email": inquiry.contact_email,
+        "source": "homepage",
+    }
+    if inquiry.ic_code:
+        payload["ic_code"] = inquiry.ic_code
+    if inquiry.package_a is not None:
+        payload["package_a"] = float(inquiry.package_a)
+    if inquiry.contact_phone:
+        payload["contact_phone"] = inquiry.contact_phone
+    if inquiry.quantity:
+        payload["quantity"] = inquiry.quantity
+    if inquiry.desired_delivery:
+        payload["desired_delivery"] = inquiry.desired_delivery.isoformat()
+    if inquiry.message:
+        payload["message"] = inquiry.message
+
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.post(
+                f"{settings.erp_api_base_url}/api/external/inquiry",
+                json=payload,
+                headers={"X-API-Key": settings.erp_api_key},
+            )
+            resp.raise_for_status()
+            return resp.json().get("inquiry_id")
+    except Exception:
+        logger.exception("ERP inquiry 전송 실패 (quick_quote_id=%s)", inquiry.id)
+        return None
+
+
 @router.post(
     "/quick-quote",
     response_model=QuickQuoteResponse,
@@ -33,7 +79,7 @@ async def create_quick_quote(
     request: Request,
     db: Session = Depends(get_db),
 ) -> QuickQuoteResponse:
-    """비회원 IC 가견적 접수 — DB 저장 후 영업팀·고객 이메일 발송."""
+    """비회원 IC 가견적 접수 — DB 저장 + 이메일 발송 + ERP 전송."""
     check_rate_limit(request)
 
     client_ip = request.client.host if request.client else None
@@ -68,12 +114,20 @@ async def create_quick_quote(
     db.commit()
     db.refresh(inquiry)
 
+    # 이메일 발송 (실패해도 DB 저장 유지)
     try:
         send_sales_notification(inquiry)
         send_customer_confirmation(inquiry, lang=payload.lang)
     except Exception:
-        # DB 저장은 유지 — 메일 실패는 로그만 남김
         logger.exception("Quick Quote 이메일 발송 실패 (inquiry_id=%s)", inquiry.id)
+
+    # ERP 전송 (실패해도 사용자 응답 차단 안 함)
+    erp_inquiry_id = await _send_to_erp(inquiry)
+    if erp_inquiry_id:
+        inquiry.erp_inquiry_id = erp_inquiry_id
+        inquiry.status = "sent_to_erp"
+        db.commit()
+        logger.info("ERP inquiry 전송 완료 (quick_quote_id=%s, erp_id=%s)", inquiry.id, erp_inquiry_id)
 
     return QuickQuoteResponse(
         inquiry_id=inquiry.id,
