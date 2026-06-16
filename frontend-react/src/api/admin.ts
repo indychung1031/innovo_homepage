@@ -68,6 +68,7 @@ export type QuickQuoteRow = {
   pin_count: number;
   pitch: string;
   status: string;
+  erp_inquiry_id: number | null;
   created_at: string;
 };
 

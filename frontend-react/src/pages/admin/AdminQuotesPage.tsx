@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { listQuickQuotes, type QuickQuoteRow } from '@/api/admin';
 
-const STATUSES = ['pending', 'reviewing', 'quoted', 'completed', 'expired'] as const;
+const STATUSES = ['pending', 'sent_to_erp', 'reviewing', 'quoted', 'completed', 'expired'] as const;
 
 const inputCls = 'rounded border border-gray-light px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-sky';
 

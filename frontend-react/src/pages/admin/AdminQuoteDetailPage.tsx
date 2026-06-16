@@ -152,6 +152,18 @@ export function AdminQuoteDetailPage() {
           </div>
         </div>
 
+        {/* ERP Inquiry ID */}
+        <div className="flex items-center gap-4 border-t border-slate-100 px-3 py-3">
+          <span className="w-40 shrink-0 font-medium text-slate-600">ERP Inquiry ID</span>
+          {row.erp_inquiry_id ? (
+            <span className="rounded bg-green-50 px-2 py-0.5 text-sm font-mono text-green-700">
+              #{row.erp_inquiry_id}
+            </span>
+          ) : (
+            <span className="text-gray-mid text-sm">미전송</span>
+          )}
+        </div>
+
         {/* Received */}
         <div className="flex items-center gap-4 border-t border-slate-100 px-3 py-3">
           <span className="w-40 shrink-0 font-medium text-slate-600">Received</span>
