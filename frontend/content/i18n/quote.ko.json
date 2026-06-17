@@ -1,6 +1,6 @@
 {
-  "title": "IC 가견적 요청",
-  "subtitle": "IC 규격을 입력하시면 영업팀이 1-2 영업일 내 연락드립니다.",
+  "title": "빠른 견적요청",
+  "subtitle": "기본 정보를 입력하시면 영업팀이 1-2 영업일 내 연락드립니다.",
   "wizard_hint_before": "회원 가견적(4단계)은 ",
   "wizard_link": "견적 위저드",
   "wizard_hint_after": "를 이용해 주세요.",

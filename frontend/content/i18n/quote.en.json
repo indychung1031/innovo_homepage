@@ -1,6 +1,6 @@
 {
-  "title": "Request a Quick Quote",
-  "subtitle": "Enter your IC specifications. Our sales team will contact you within 1-2 business days.",
+  "title": "Quick Quote Request",
+  "subtitle": "Enter your basic information. Our sales team will contact you within 1-2 business days.",
   "wizard_hint_before": "Members: use the ",
   "wizard_link": "Quote Wizard",
   "wizard_hint_after": " for automated preliminary pricing.",

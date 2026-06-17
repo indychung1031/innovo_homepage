@@ -18,7 +18,7 @@ export function QuickQuotePage() {
   const { lang: langParam } = useParams();
   const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
   const isKo = lang === 'ko';
-  const { t } = useTranslation(['quote', 'common']);
+  const { t } = useTranslation(['quote', 'common', 'contact']);
   const { user } = useAuth();
   const recaptchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
   const [searchParams] = useSearchParams();
@@ -39,6 +39,7 @@ export function QuickQuotePage() {
   const [quantity, setQuantity] = useState('');
   const [desiredDelivery, setDesiredDelivery] = useState('');
   const [message, setMessage] = useState('');
+  const [productCategory, setProductCategory] = useState('');
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [alert, setAlert] = useState<{ variant: 'success' | 'error'; message: string } | null>(null);
@@ -58,6 +59,14 @@ export function QuickQuotePage() {
 
     try {
       const token = await getRecaptchaToken(recaptchaKey, 'quick_quote');
+      const categoryLabel = productCategory
+        ? t(`contact:form.categories.${productCategory}`)
+        : '';
+      const messageBody = message.trim();
+      const fullMessage = categoryLabel
+        ? `[${categoryLabel}]${messageBody ? '\n\n' + messageBody : ''}`
+        : messageBody || null;
+
       const result = await submitQuickQuote({
         ic_package_type: icPackageType,
         ic_type: icType.trim() || null,
@@ -73,7 +82,7 @@ export function QuickQuotePage() {
         contact_phone: contactPhone.trim() || null,
         quantity: quantity ? parseInt(quantity, 10) : null,
         desired_delivery: desiredDelivery || null,
-        message: message.trim() || null,
+        message: fullMessage,
         privacy_agreed: privacyAgreed,
         recaptcha_token: token,
         lang,
@@ -95,6 +104,7 @@ export function QuickQuotePage() {
       setQuantity('');
       setDesiredDelivery('');
       setMessage('');
+      setProductCategory('');
       setPrivacyAgreed(false);
     } catch (err) {
       setAlert({
@@ -129,6 +139,25 @@ export function QuickQuotePage() {
         ) : null}
 
         <form className="space-y-6" onSubmit={handleSubmit}>
+          <div>
+            <label className="mb-1 block text-sm font-medium" htmlFor="product_category">
+              {t('contact:form.category')} *
+            </label>
+            <select
+              id="product_category"
+              required
+              value={productCategory}
+              onChange={(e) => setProductCategory(e.target.value)}
+              className={inputClassName}
+            >
+              <option value="">—</option>
+              <option value="test_socket">{t('contact:form.categories.test_socket')}</option>
+              <option value="probe_pin">{t('contact:form.categories.probe_pin')}</option>
+              <option value="test_jig">{t('contact:form.categories.test_jig')}</option>
+              <option value="other">{t('contact:form.categories.other')}</option>
+            </select>
+          </div>
+
           <fieldset className="rounded-lg border border-gray-light p-4">
             <legend className="px-1 font-semibold text-navy">
               {t('quote:sections.ic_spec')}
