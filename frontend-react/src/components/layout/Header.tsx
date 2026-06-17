@@ -106,9 +106,6 @@ export function Header() {
           <Link to={withLang(lang, '/technology')} className="text-charcoal hover:text-navy">
             {t('nav.technology')}
           </Link>
-          <Link to={withLang(lang, '/contact')} className="text-charcoal hover:text-navy">
-            {t('nav.contact')}
-          </Link>
           {user ? (
             <>
               <Link to={withLang(lang, '/account')} className="text-charcoal hover:text-navy">
@@ -128,6 +125,12 @@ export function Header() {
             </Link>
           )}
 
+          <Link
+            to={withLang(lang, '/contact')}
+            className="inline-flex items-center justify-center rounded bg-navy px-4 py-2 font-medium text-white transition-opacity hover:opacity-90"
+          >
+            {t('nav.contact')}
+          </Link>
           <Link
             to={withLang(lang, '/quote')}
             className="inline-flex items-center justify-center rounded bg-sky px-4 py-2 font-medium text-white transition-opacity hover:opacity-95"
