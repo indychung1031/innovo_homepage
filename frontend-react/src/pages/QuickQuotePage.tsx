@@ -353,6 +353,7 @@ export function QuickQuotePage() {
                 <input
                   id="desired_delivery"
                   type="date"
+                  lang={lang}
                   value={desiredDelivery}
                   onChange={(e) => setDesiredDelivery(e.target.value)}
                   className={inputClassName}
