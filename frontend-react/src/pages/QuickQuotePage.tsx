@@ -11,7 +11,7 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { isLangCode, type LangCode, withLang } from '@/lib/lang';
 import { getRecaptchaToken, loadRecaptchaScript } from '@/lib/recaptcha';
 
-const PACKAGE_TYPES = ['WLP', 'BGA', 'QFN', 'QFP', 'SOP'] as const;
+const PACKAGE_TYPES = ['BGA', 'QFN', 'DFN', 'LGA', 'QFP', 'SOP', 'WLP', 'WLCSP'] as const;
 const PITCH_OPTIONS = ['0.4mm', '0.5mm', '0.65mm', '0.8mm', '1.0mm', 'custom'] as const;
 
 export function QuickQuotePage() {
