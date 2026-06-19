@@ -23,8 +23,6 @@ export function Header() {
     setProductsOpen(false);
   }, [location.pathname]);
 
-  const renewalLabel = lang === 'ko' ? '리뉴얼중' : 'Under Renewal';
-
   return (
     <header className="site-header sticky top-0 z-50 border-b border-gray-light bg-white text-charcoal shadow-sm">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
@@ -56,10 +54,6 @@ export function Header() {
           className={`site-nav text-sm ${navOpen ? 'flex flex-col gap-3 border-t border-gray-light pt-4 md:border-0 md:pt-0' : 'hidden md:flex md:flex-wrap md:items-center md:gap-5'}`}
           aria-label={t('a11y.main_nav')}
         >
-          <span className="whitespace-nowrap rounded-full border border-amber-300 bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-700">
-            {renewalLabel}
-          </span>
-
           <Link to={withLang(lang, '/about')} className="text-charcoal hover:text-navy">
             {t('nav.about')}
           </Link>

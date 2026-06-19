@@ -2,6 +2,7 @@ import { postHpJson } from '@/api/hpFetch';
 import { isHpApiEnabled, normalizePitch, resolveFormApiUrl } from '@/lib/hpApi';
 
 export type QuickQuotePayload = {
+  product_category: string | null;
   ic_package_type: string;
   ic_code: string | null;
   ic_type: string | null;

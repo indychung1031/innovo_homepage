@@ -59,30 +59,25 @@ export function QuickQuotePage() {
 
     try {
       const token = await getRecaptchaToken(recaptchaKey, 'quick_quote');
-      const categoryLabel = productCategory
-        ? t(`contact:form.categories.${productCategory}`)
-        : '';
-      const messageBody = message.trim();
-      const fullMessage = categoryLabel
-        ? `[${categoryLabel}]${messageBody ? '\n\n' + messageBody : ''}`
-        : messageBody || null;
+      const isTestSocket = productCategory === 'test_socket';
 
       const result = await submitQuickQuote({
-        ic_package_type: icPackageType,
+        product_category: productCategory || null,
+        ic_package_type: isTestSocket ? icPackageType : 'ETC',
         ic_type: icType.trim() || null,
         ic_code: icCode.trim() || null,
-        pin_count: parseInt(pinCount, 10),
-        pitch: resolvePitch(),
-        package_d: parseFloat(packageD),
-        package_e: parseFloat(packageE),
-        package_a: packageA ? parseFloat(packageA) : null,
+        pin_count: pinCount ? parseInt(pinCount, 10) : 1,
+        pitch: resolvePitch() || 'N/A',
+        package_d: isTestSocket && packageD ? parseFloat(packageD) : 0.001,
+        package_e: isTestSocket && packageE ? parseFloat(packageE) : 0.001,
+        package_a: isTestSocket && packageA ? parseFloat(packageA) : null,
         company_name: companyName.trim(),
         contact_name: contactName.trim(),
         contact_email: contactEmail.trim(),
         contact_phone: contactPhone.trim() || null,
         quantity: quantity ? parseInt(quantity, 10) : null,
         desired_delivery: desiredDelivery || null,
-        message: fullMessage,
+        message: message.trim() || null,
         privacy_agreed: privacyAgreed,
         recaptcha_token: token,
         lang,
@@ -158,145 +153,219 @@ export function QuickQuotePage() {
             </select>
           </div>
 
-          <fieldset className="rounded-lg border border-gray-light p-4">
-            <legend className="px-1 font-semibold text-navy">
-              {t('quote:sections.ic_spec')}
-            </legend>
-            <label className="mb-1 mt-2 block text-sm font-medium" htmlFor="ic_package_type">
-              {t('quote:fields.package_type')} *
-            </label>
-            <select
-              id="ic_package_type"
-              required
-              value={icPackageType}
-              onChange={(e) => setIcPackageType(e.target.value)}
-              className={`${inputClassName} mb-3`}
-            >
-              <option value="">—</option>
-              {PACKAGE_TYPES.map((pkg) => (
-                <option key={pkg} value={pkg}>
-                  {pkg}
-                </option>
-              ))}
-            </select>
-            <label className="mb-1 block text-sm font-medium" htmlFor="ic_type">
-              {t('quote:fields.ic_type')}
-            </label>
-            <input
-              id="ic_type"
-              type="text"
-              maxLength={50}
-              placeholder={t('quote:fields.ic_type_placeholder')}
-              value={icType}
-              onChange={(e) => setIcType(e.target.value)}
-              className={`${inputClassName} mb-3`}
-            />
-            <label className="mb-1 block text-sm font-medium" htmlFor="ic_code">
-              IC Code
-            </label>
-            <input
-              id="ic_code"
-              type="text"
-              maxLength={100}
-              placeholder="STM32F103C8T6"
-              value={icCode}
-              onChange={(e) => setIcCode(e.target.value)}
-              className={`${inputClassName} mb-3`}
-            />
-            <div className="mb-3 grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="mb-1 block text-sm font-medium" htmlFor="pin_count">
-                  {t('quote:fields.pin_count')} *
-                </label>
-                <input
-                  id="pin_count"
-                  type="number"
-                  min={1}
-                  required
-                  value={pinCount}
-                  onChange={(e) => setPinCount(e.target.value)}
-                  className={inputClassName}
-                />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-medium" htmlFor="pitch">
-                  Pitch (mm) *
-                </label>
-                <select
-                  id="pitch"
-                  required
-                  value={pitch}
-                  onChange={(e) => setPitch(e.target.value)}
-                  className={inputClassName}
-                >
-                  <option value="">—</option>
-                  {PITCH_OPTIONS.map((p) => (
-                    <option key={p} value={p}>
-                      {p === 'custom' ? t('quote:fields.pitch_custom') : p}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            {pitch === 'custom' && (
-              <input
-                id="pitch_custom"
-                type="text"
-                placeholder="0.35"
+          {/* Test Socket: 전체 IC 규격 입력 */}
+          {productCategory === 'test_socket' && (
+            <fieldset className="rounded-lg border border-gray-light p-4">
+              <legend className="px-1 font-semibold text-navy">
+                {t('quote:sections.ic_spec')}
+              </legend>
+              <label className="mb-1 mt-2 block text-sm font-medium" htmlFor="ic_package_type">
+                {t('quote:fields.package_type')} *
+              </label>
+              <select
+                id="ic_package_type"
                 required
-                value={pitchCustom}
-                onChange={(e) => setPitchCustom(e.target.value)}
+                value={icPackageType}
+                onChange={(e) => setIcPackageType(e.target.value)}
+                className={`${inputClassName} mb-3`}
+              >
+                <option value="">—</option>
+                {PACKAGE_TYPES.map((pkg) => (
+                  <option key={pkg} value={pkg}>{pkg}</option>
+                ))}
+              </select>
+              <label className="mb-1 block text-sm font-medium" htmlFor="ic_type">
+                {t('quote:fields.ic_type')}
+              </label>
+              <input
+                id="ic_type"
+                type="text"
+                maxLength={50}
+                placeholder={t('quote:fields.ic_type_placeholder')}
+                value={icType}
+                onChange={(e) => setIcType(e.target.value)}
                 className={`${inputClassName} mb-3`}
               />
-            )}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="mb-1 block text-sm" htmlFor="package_d">
-                  D (mm) *
-                </label>
-                <input
-                  id="package_d"
-                  type="number"
-                  step="0.001"
-                  min="0.001"
-                  max="100"
-                  required
-                  value={packageD}
-                  onChange={(e) => setPackageD(e.target.value)}
-                  className={inputClassName}
-                />
+              <label className="mb-1 block text-sm font-medium" htmlFor="ic_code">
+                IC Code
+              </label>
+              <input
+                id="ic_code"
+                type="text"
+                maxLength={100}
+                placeholder="STM32F103C8T6"
+                value={icCode}
+                onChange={(e) => setIcCode(e.target.value)}
+                className={`${inputClassName} mb-3`}
+              />
+              <div className="mb-3 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-sm font-medium" htmlFor="pin_count">
+                    {t('quote:fields.pin_count')} *
+                  </label>
+                  <input
+                    id="pin_count"
+                    type="number"
+                    min={1}
+                    required
+                    value={pinCount}
+                    onChange={(e) => setPinCount(e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-sm font-medium" htmlFor="pitch">
+                    Pitch (mm) *
+                  </label>
+                  <select
+                    id="pitch"
+                    required
+                    value={pitch}
+                    onChange={(e) => setPitch(e.target.value)}
+                    className={inputClassName}
+                  >
+                    <option value="">—</option>
+                    {PITCH_OPTIONS.map((p) => (
+                      <option key={p} value={p}>
+                        {p === 'custom' ? t('quote:fields.pitch_custom') : p}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div>
-                <label className="mb-1 block text-sm" htmlFor="package_e">
-                  E (mm) *
-                </label>
+              {pitch === 'custom' && (
                 <input
-                  id="package_e"
-                  type="number"
-                  step="0.001"
-                  min="0.001"
-                  max="100"
+                  id="pitch_custom"
+                  type="text"
+                  placeholder="0.35"
                   required
-                  value={packageE}
-                  onChange={(e) => setPackageE(e.target.value)}
-                  className={inputClassName}
+                  value={pitchCustom}
+                  onChange={(e) => setPitchCustom(e.target.value)}
+                  className={`${inputClassName} mb-3`}
                 />
+              )}
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-sm" htmlFor="package_d">
+                    D (mm) *
+                  </label>
+                  <input
+                    id="package_d"
+                    type="number"
+                    step="0.001"
+                    min="0.001"
+                    max="100"
+                    required
+                    value={packageD}
+                    onChange={(e) => setPackageD(e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-sm" htmlFor="package_e">
+                    E (mm) *
+                  </label>
+                  <input
+                    id="package_e"
+                    type="number"
+                    step="0.001"
+                    min="0.001"
+                    max="100"
+                    required
+                    value={packageE}
+                    onChange={(e) => setPackageE(e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
               </div>
+              <label className="mb-1 mt-3 block text-sm" htmlFor="package_a">
+                A / Height (mm)
+              </label>
+              <input
+                id="package_a"
+                type="number"
+                step="0.001"
+                min="0.001"
+                max="50"
+                value={packageA}
+                onChange={(e) => setPackageA(e.target.value)}
+                className={inputClassName}
+              />
+            </fieldset>
+          )}
+
+          {/* Probe Pin: 핀수 + 피치만 표시 */}
+          {productCategory === 'probe_pin' && (
+            <fieldset className="rounded-lg border border-gray-light p-4">
+              <legend className="px-1 font-semibold text-navy">
+                {t('quote:sections.spec_probe')}
+              </legend>
+              <label className="mb-1 mt-2 block text-sm font-medium" htmlFor="ic_code">
+                IC Code / Project Code
+              </label>
+              <input
+                id="ic_code"
+                type="text"
+                maxLength={100}
+                value={icCode}
+                onChange={(e) => setIcCode(e.target.value)}
+                className={`${inputClassName} mb-3`}
+              />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-sm font-medium" htmlFor="pin_count">
+                    {t('quote:fields.pin_count')} *
+                  </label>
+                  <input
+                    id="pin_count"
+                    type="number"
+                    min={1}
+                    required
+                    value={pinCount}
+                    onChange={(e) => setPinCount(e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-sm font-medium" htmlFor="pitch">
+                    Pitch (mm) *
+                  </label>
+                  <select
+                    id="pitch"
+                    required
+                    value={pitch}
+                    onChange={(e) => setPitch(e.target.value)}
+                    className={inputClassName}
+                  >
+                    <option value="">—</option>
+                    {PITCH_OPTIONS.map((p) => (
+                      <option key={p} value={p}>
+                        {p === 'custom' ? t('quote:fields.pitch_custom') : p}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              {pitch === 'custom' && (
+                <input
+                  id="pitch_custom"
+                  type="text"
+                  placeholder="0.35"
+                  required
+                  value={pitchCustom}
+                  onChange={(e) => setPitchCustom(e.target.value)}
+                  className={`${inputClassName} mt-3`}
+                />
+              )}
+            </fieldset>
+          )}
+
+          {/* Test JIG / 기타: 자유 기입 안내만 표시 */}
+          {(productCategory === 'test_jig' || productCategory === 'other') && (
+            <div className="rounded-lg border border-gray-light bg-slate-50 p-4 text-sm text-gray-mid">
+              {t('quote:spec_freeform_hint')}
             </div>
-            <label className="mb-1 mt-3 block text-sm" htmlFor="package_a">
-              A / Height (mm)
-            </label>
-            <input
-              id="package_a"
-              type="number"
-              step="0.001"
-              min="0.001"
-              max="50"
-              value={packageA}
-              onChange={(e) => setPackageA(e.target.value)}
-              className={inputClassName}
-            />
-          </fieldset>
+          )}
 
           <fieldset className="rounded-lg border border-gray-light p-4">
             <legend className="px-1 font-semibold text-navy">

@@ -39,6 +39,7 @@ class QuickQuoteInquiry(Base):
     contact_phone: Mapped[str | None] = mapped_column(String(30), nullable=True)
     quantity: Mapped[int | None] = mapped_column(Integer, nullable=True)
     desired_delivery: Mapped[date | None] = mapped_column(Date, nullable=True)
+    product_category: Mapped[str | None] = mapped_column(String(30), nullable=True)
     message: Mapped[str | None] = mapped_column(Text, nullable=True)
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="pending")
     admin_note: Mapped[str | None] = mapped_column(Text, nullable=True)

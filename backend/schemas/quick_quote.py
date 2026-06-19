@@ -6,7 +6,7 @@ from typing import Literal
 
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
-IC_PACKAGE_TYPES = frozenset({"WLP", "BGA", "QFN", "QFP", "SOP"})
+IC_PACKAGE_TYPES = frozenset({"WLP", "BGA", "QFN", "DFN", "LGA", "QFP", "SOP", "WLCSP", "ETC"})
 PITCH_PRESETS = frozenset({"0.4mm", "0.5mm", "0.65mm", "0.8mm", "1.0mm"})
 
 
@@ -39,6 +39,7 @@ class QuickQuoteCreate(BaseModel):
     privacy_agreed: bool
     lang: Literal["en", "ko"] = "en"
     ic_type: str | None = Field(None, max_length=50)
+    product_category: str | None = Field(None, max_length=30)
 
     @field_validator("ic_package_type")
     @classmethod
@@ -53,7 +54,7 @@ class QuickQuoteCreate(BaseModel):
     @classmethod
     def validate_pitch(cls, value: str) -> str:
         stripped = value.strip()
-        if stripped in PITCH_PRESETS:
+        if stripped in PITCH_PRESETS or stripped == "N/A":
             return stripped
         return normalize_pitch(stripped)
 

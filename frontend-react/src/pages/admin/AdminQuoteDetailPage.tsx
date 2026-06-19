@@ -152,6 +152,12 @@ export function AdminQuoteDetailPage() {
           </div>
         </div>
 
+        {/* Product Category */}
+        <div className="flex items-center gap-4 border-t border-slate-100 px-3 py-3">
+          <span className="w-40 shrink-0 font-medium text-slate-600">Product Category</span>
+          <span className="text-slate-800">{row.product_category ?? '—'}</span>
+        </div>
+
         {/* ERP Inquiry ID */}
         <div className="flex items-center gap-4 border-t border-slate-100 px-3 py-3">
           <span className="w-40 shrink-0 font-medium text-slate-600">ERP Inquiry ID</span>

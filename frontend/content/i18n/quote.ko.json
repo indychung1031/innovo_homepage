@@ -6,9 +6,11 @@
   "wizard_hint_after": "를 이용해 주세요.",
   "sections": {
     "ic_spec": "IC 규격",
+    "spec_probe": "제품 규격",
     "contact": "고객 정보",
     "optional": "추가 정보 (선택)"
   },
+  "spec_freeform_hint": "요구사항 및 제품 상세 정보를 아래 '기타 요청' 란에 자유롭게 입력해 주세요. 담당자가 연락 후 상세 규격을 협의드립니다.",
   "fields": {
     "package_type": "패키지 타입",
     "ic_type": "IC 종류",

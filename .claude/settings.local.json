@@ -106,7 +106,13 @@
       "PowerShell(aws s3 ls *)",
       "PowerShell(& \"C:\\\\Program Files\\\\Amazon\\\\AWSCLIV2\\\\aws.exe\" s3 ls \"s3://innovo-www-prod/upload/\" 2>&1)",
       "PowerShell(Get-Command aws 2>&1)",
-      "PowerShell(C:\\\\Users\\\\indyc\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\Scripts\\\\aws.cmd s3 ls \"s3://innovo-www-prod/upload/\" 2>&1)"
+      "PowerShell(C:\\\\Users\\\\indyc\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\Scripts\\\\aws.cmd s3 ls \"s3://innovo-www-prod/upload/\" 2>&1)",
+      "Bash(aws ec2 describe-instances *)",
+      "Bash(aws ssm describe-instance-information *)",
+      "PowerShell(session-manager-plugin *)",
+      "PowerShell(ssh-keygen -t rsa -b 2048 -f \"$env:TEMP\\\\ec2_temp_key\" -N \"\" -q 2>&1; if \\($?\\) { \"KEY GENERATED\" })",
+      "Bash(claude --version)",
+      "Bash(npm update *)"
     ]
   }
 }

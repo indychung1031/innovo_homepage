@@ -6,9 +6,11 @@
   "wizard_hint_after": " for automated preliminary pricing.",
   "sections": {
     "ic_spec": "IC Specifications",
+    "spec_probe": "Product Specifications",
     "contact": "Contact Information",
     "optional": "Optional"
   },
+  "spec_freeform_hint": "Please describe your requirements and product details in the 'Message' field below. Our team will contact you to discuss specifications in detail.",
   "fields": {
     "package_type": "Package Type",
     "ic_type": "IC type",

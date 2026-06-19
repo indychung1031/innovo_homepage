@@ -91,6 +91,7 @@ async def create_quick_quote(
 
     now = datetime.now(timezone.utc)
     inquiry = QuickQuoteInquiry(
+        product_category=payload.product_category,
         ic_type=payload.ic_type,
         ic_package_type=payload.ic_package_type,
         ic_code=payload.ic_code,

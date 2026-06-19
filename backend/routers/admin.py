@@ -202,6 +202,7 @@ def list_quick_quotes(
                 "pin_count": r.pin_count,
                 "pitch": r.pitch,
                 "status": r.status,
+                "product_category": r.product_category,
                 "erp_inquiry_id": r.erp_inquiry_id,
                 "created_at": r.created_at.isoformat(),
             }
@@ -235,6 +236,7 @@ def get_quick_quote(
         "contact_phone": r.contact_phone,
         "quantity": r.quantity,
         "desired_delivery": r.desired_delivery.isoformat() if r.desired_delivery else None,
+        "product_category": r.product_category,
         "message": r.message,
         "status": r.status,
         "erp_inquiry_id": r.erp_inquiry_id,

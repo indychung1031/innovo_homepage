@@ -71,7 +71,7 @@ export function AdminQuotesPage() {
         <table className="w-full text-sm">
           <thead className="bg-slate-100">
             <tr>
-              {['ID', 'Company', 'Name', 'Email', 'IC Code', 'Package', 'Pins', 'Pitch', 'Status', 'Created'].map(
+              {['ID', 'Category', 'Company', 'Name', 'Email', 'IC Code', 'Package', 'Pins', 'Pitch', 'Status', 'Created'].map(
                 (h) => (
                   <th key={h} className="p-2 text-left">
                     {h}
@@ -88,6 +88,7 @@ export function AdminQuotesPage() {
                     {r.id}
                   </Link>
                 </td>
+                <td className="p-2">{r.product_category || '—'}</td>
                 <td className="p-2">{r.company_name}</td>
                 <td className="p-2">{r.contact_name}</td>
                 <td className="p-2">{r.contact_email}</td>
@@ -101,7 +102,7 @@ export function AdminQuotesPage() {
             ))}
             {!loading && filtered.length === 0 && (
               <tr>
-                <td colSpan={10} className="p-4 text-center text-gray-mid">검색 결과가 없습니다.</td>
+                <td colSpan={11} className="p-4 text-center text-gray-mid">검색 결과가 없습니다.</td>
               </tr>
             )}
           </tbody>
