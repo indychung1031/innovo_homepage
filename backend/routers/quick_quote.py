@@ -26,13 +26,24 @@ SUCCESS_MESSAGES = {
 
 
 async def _send_to_erp(inquiry: QuickQuoteInquiry) -> int | None:
-    """ERP POST /api/external/inquiry 호출 — 실패 시 None 반환 (사용자 응답 차단 안 함)."""
+    """ERP POST /api/external/inquiry 호출 — 실패 시 None 반환 (사용자 응답 차단 안 함).
+
+    테스트 소켓(test_socket) 또는 카테고리 미지정(레거시) 문의만 전송한다.
+    ERP가 허용하지 않는 WLCSP는 ETC로 변환한다.
+    """
+    # probe_pin / test_jig / other 카테고리는 IC 규격이 없으므로 ERP 전송 생략
+    if inquiry.product_category not in (None, "test_socket"):
+        return None
+
     settings = get_settings()
     if not settings.erp_api_base_url or not settings.erp_api_key:
         return None
 
+    # ERP 허용 타입: WLP, BGA, QFN, DFN, SOP, QFP, LGA, ETC (WLCSP 미허용)
+    erp_package_type = "ETC" if inquiry.ic_package_type == "WLCSP" else inquiry.ic_package_type
+
     payload: dict = {
-        "ic_package_type_code": inquiry.ic_package_type,
+        "ic_package_type_code": erp_package_type,
         "pin_count": inquiry.pin_count,
         "pitch": inquiry.pitch,
         "package_d": float(inquiry.package_d),

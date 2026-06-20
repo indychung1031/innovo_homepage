@@ -112,6 +112,12 @@ export function AdminQuoteDetailPage() {
           Admin
         </div>
 
+        {/* Product Category */}
+        <div className="flex items-center gap-4 border-t border-slate-100 px-3 py-3">
+          <span className="w-40 shrink-0 font-medium text-slate-600">Product Category</span>
+          <span className="text-slate-800">{row.product_category ?? '—'}</span>
+        </div>
+
         {/* Status */}
         <div className="flex items-center gap-4 border-t border-slate-100 px-3 py-3">
           <span className="w-40 shrink-0 font-medium text-slate-600">Status</span>
@@ -150,12 +156,6 @@ export function AdminQuoteDetailPage() {
               {noteMsg === 'error' && <span className="text-sm text-red-600">저장 실패</span>}
             </div>
           </div>
-        </div>
-
-        {/* Product Category */}
-        <div className="flex items-center gap-4 border-t border-slate-100 px-3 py-3">
-          <span className="w-40 shrink-0 font-medium text-slate-600">Product Category</span>
-          <span className="text-slate-800">{row.product_category ?? '—'}</span>
         </div>
 
         {/* ERP Inquiry ID */}
