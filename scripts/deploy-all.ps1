@@ -1,4 +1,4 @@
-# Innovo Homepage — 전체 배포 스크립트 (프론트엔드 + 백엔드)
+﻿# Innovo Homepage — 전체 배포 스크립트 (프론트엔드 + 백엔드)
 # 사용법:
 #   .\scripts\deploy-all.ps1              # 둘 다
 #   .\scripts\deploy-all.ps1 -Frontend   # 프론트엔드만
