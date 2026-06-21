@@ -74,16 +74,6 @@ def get_material_types() -> Any:
     return _erp_get("/material-types")
 
 
-@router.get("/api/erp/pins")
-def get_pins() -> Any:
-    return _erp_get("/pins")
-
-
-@router.get("/api/erp/pins/{pin_name}")
-def get_pin(pin_name: str) -> Any:
-    return _erp_get(f"/pins/{pin_name}")
-
-
 # ── POST 가 견적 계산 (인증 필수) ────────────────────────────────────────────
 
 class EstimateRequest(BaseModel):
