@@ -12,46 +12,50 @@ const OPTION_BLOCKS = [
     titleKo: '팁 형상',
     itemsEn: ['Crown', 'Round', 'Flat', 'Spear', 'Chisel', 'Custom'],
     itemsKo: ['Crown', 'Round', 'Flat', 'Spear', 'Chisel', 'Custom'],
+    toggle: true,
   },
   {
     titleEn: 'Pitch & Diameter',
     titleKo: '피치 및 외경',
     itemsEn: ['Pitch: 0.3 mm and above', 'O.D.: Customer specified', 'Barrel length: Customizable'],
     itemsKo: ['피치: 0.3 mm 이상', '외경: 고객 사양에 따름', '배럴 길이: 맞춤 제작'],
+    toggle: false,
   },
   {
     titleEn: 'Current Rating',
     titleKo: '전류 용량',
-    itemsEn: ['Standard: up to 3 A', 'High current: up to 30 A+', 'Custom current path design'],
-    itemsKo: ['표준: 3 A 이하', '고전류: 30 A 이상', '전류 경로 맞춤 설계'],
+    itemsEn: ['1 A or less', '3 A or less', '3 A or more'],
+    itemsKo: ['1A 이하', '3A 이하', '3A 이상'],
+    toggle: true,
   },
   {
     titleEn: 'Spring Force',
     titleKo: '스프링 하중',
     itemsEn: ['Light / Medium / Heavy', 'Custom spring specification'],
     itemsKo: ['경·중·강 하중', '스프링 사양 맞춤 적용'],
+    toggle: false,
   },
   {
     titleEn: 'Plating',
     titleKo: '도금',
     itemsEn: ['Gold (Au)', 'Nickel (Ni)', 'Palladium-Nickel (PdNi)', 'Custom alloy on request'],
     itemsKo: ['금 (Au)', '니켈 (Ni)', '팔라듐-니켈 (PdNi)', '고객 요청 합금'],
+    toggle: false,
   },
   {
     titleEn: 'Operating Temperature',
     titleKo: '동작 온도',
     itemsEn: ['Standard: -40 ~ 125 °C', 'Extended: -55 ~ 185 °C'],
     itemsKo: ['표준: -40 ~ 125 °C', '확장: -55 ~ 185 °C'],
+    toggle: false,
   },
 ] as const;
-
-const TIP_SHAPE_BLOCK_TITLE_EN = 'Tip Shape';
 
 export function ProbePinCustomPage() {
   const { lang: langParam } = useParams();
   const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
   const isKo = lang === 'ko';
-  const [selectedTipShape, setSelectedTipShape] = useState<string | null>(null);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
 
   const title = isKo ? '맞춤형 프로브 핀' : 'Customized Probe Pin';
   const pageTitle = isKo ? `${title} | 이노보솔루션` : `${title} | Innovo Solution`;
@@ -101,23 +105,33 @@ export function ProbePinCustomPage() {
           </h2>
           <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {OPTION_BLOCKS.map((block) => {
-              const isTipShape = block.titleEn === TIP_SHAPE_BLOCK_TITLE_EN;
+              const selected = selectedOptions[block.titleEn];
               return (
                 <div key={block.titleEn} className="rounded-lg border border-gray-light bg-white p-5">
                   <h3 className="mb-3 font-semibold">{isKo ? block.titleKo : block.titleEn}</h3>
-                  {isTipShape ? (
+                  {block.toggle ? (
                     <div className="flex flex-wrap gap-2">
                       {block.itemsEn.map((itemEn, idx) => {
                         const label = isKo ? block.itemsKo[idx] : itemEn;
-                        const selected = selectedTipShape === itemEn;
+                        const isSelected = selected === itemEn;
                         return (
                           <button
                             key={itemEn}
                             type="button"
-                            aria-pressed={selected}
-                            onClick={() => setSelectedTipShape(selected ? null : itemEn)}
+                            aria-pressed={isSelected}
+                            onClick={() =>
+                              setSelectedOptions((prev) => {
+                                const next = { ...prev };
+                                if (isSelected) {
+                                  delete next[block.titleEn];
+                                } else {
+                                  next[block.titleEn] = itemEn;
+                                }
+                                return next;
+                              })
+                            }
                             className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-                              selected
+                              isSelected
                                 ? 'border-navy bg-navy text-white'
                                 : 'border-gray-light bg-white text-gray-mid hover:border-navy hover:text-navy'
                             }`}
