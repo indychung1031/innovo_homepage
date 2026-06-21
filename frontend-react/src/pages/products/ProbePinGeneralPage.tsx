@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
 
@@ -12,6 +12,11 @@ function formatSpec(value: string | number | null): string {
   }
   // ERP 부동소수점 저장값이 5.699999999999999처럼 나오는 경우가 있어 소수점 2자리로 정리
   return typeof value === 'number' ? value.toFixed(2) : value;
+}
+
+// ERP 데이터에 모델명 구분자가 "_"/"-"로 혼재되어 있어 표시용으로는 "-"로 통일
+function displayPinName(pinName: string): string {
+  return pinName.replace(/_/g, '-');
 }
 
 function SpecRow({ label, value }: { label: string; value: string }) {
@@ -31,6 +36,7 @@ export function ProbePinGeneralPage() {
   const [pins, setPins] = useState<PinSpec[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     void (async () => {
@@ -44,6 +50,14 @@ export function ProbePinGeneralPage() {
       }
     })();
   }, []);
+
+  const filteredPins = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      return pins;
+    }
+    return pins.filter((pin) => displayPinName(pin.pin_name).toLowerCase().includes(q));
+  }, [pins, query]);
 
   const title = 'General POGO Pin';
   const pageTitle = isKo ? `${title} | 이노보솔루션` : `${title} | Innovo Solution`;
@@ -89,8 +103,29 @@ export function ProbePinGeneralPage() {
           )}
 
           {!loading && !error && (
+            <div className="mb-6">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={isKo ? '모델명으로 검색 (예: IVB-SAR-440)' : 'Search by model name (e.g. IVB-SAR-440)'}
+                className="w-full max-w-sm rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky"
+              />
+              <span className="ml-3 text-xs text-gray-mid">
+                {filteredPins.length} / {pins.length}
+              </span>
+            </div>
+          )}
+
+          {!loading && !error && filteredPins.length === 0 && (
+            <p className="py-8 text-center text-sm text-gray-mid">
+              {isKo ? '검색 결과가 없습니다.' : 'No matching models.'}
+            </p>
+          )}
+
+          {!loading && !error && filteredPins.length > 0 && (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {pins.map((pin) => (
+              {filteredPins.map((pin) => (
                 <div
                   key={pin.pin_id}
                   className="flex flex-col rounded-lg border border-gray-light bg-white p-4"
@@ -110,8 +145,8 @@ export function ProbePinGeneralPage() {
                     </span>
                   </div>
 
-                  <p className="mb-2 truncate text-sm font-semibold text-navy" title={pin.pin_name}>
-                    {pin.pin_name}
+                  <p className="mb-2 truncate text-sm font-semibold text-navy" title={displayPinName(pin.pin_name)}>
+                    {displayPinName(pin.pin_name)}
                   </p>
 
                   <div className="mb-3 flex-1 text-xs">
