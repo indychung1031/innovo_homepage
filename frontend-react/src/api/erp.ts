@@ -70,6 +70,24 @@ export async function fetchMaterialTypes(): Promise<MasterOption[]> {
   }
 }
 
+export type PinSpec = {
+  pin_id: number;
+  pin_name: string;
+  total_length: number | null;
+  full_stroke: number | null;
+  recommended_stroke: number | null;
+  top_plunger_shape: string | null;
+  bottom_plunger_shape: string | null;
+  spring_force: string | null;
+  current_continuous: string | null;
+  resistance: string | null;
+  bandwidth3db: string | null;
+};
+
+export async function fetchPins(): Promise<PinSpec[]> {
+  return fetchJson<PinSpec[]>('/api/erp/pins');
+}
+
 export type EstimateRequest = {
   socket_type_id: number;
   material_type_id: number;
