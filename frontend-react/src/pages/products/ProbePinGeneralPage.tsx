@@ -7,7 +7,11 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { isLangCode, type LangCode, withLang } from '@/lib/lang';
 
 function formatSpec(value: string | number | null): string {
-  return value === null || value === undefined || value === '' ? '-' : String(value);
+  if (value === null || value === undefined || value === '') {
+    return '-';
+  }
+  // ERP 부동소수점 저장값이 5.699999999999999처럼 나오는 경우가 있어 소수점 2자리로 정리
+  return typeof value === 'number' ? value.toFixed(2) : value;
 }
 
 function SpecRow({ label, value }: { label: string; value: string }) {
@@ -125,7 +129,7 @@ export function ProbePinGeneralPage() {
                       label={isKo ? '하부 팁 형상' : 'Bottom Plunger Shape'}
                       value={formatSpec(pin.bottom_plunger_shape)}
                     />
-                    <SpecRow label={isKo ? '접촉력' : 'Spring Force'} value={formatSpec(pin.spring_force)} />
+                    <SpecRow label={isKo ? '하중' : 'Spring Force'} value={formatSpec(pin.spring_force)} />
                     <SpecRow
                       label={isKo ? '정격전류 (A)' : 'Max Current (A)'}
                       value={formatSpec(pin.current_continuous)}
