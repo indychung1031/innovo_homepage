@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
 
@@ -9,8 +10,8 @@ const OPTION_BLOCKS = [
   {
     titleEn: 'Tip Shape',
     titleKo: '팁 형상',
-    itemsEn: ['Flat', 'Round', 'Crown', 'Spear', 'Chisel', 'Serrated', 'Custom (drawing required)'],
-    itemsKo: ['Flat', 'Round', 'Crown', 'Spear', 'Chisel', 'Serrated', '고객 도면 기준'],
+    itemsEn: ['Crown', 'Round', 'Flat', 'Spear', 'Chisel', 'Custom'],
+    itemsKo: ['Crown', 'Round', 'Flat', 'Spear', 'Chisel', 'Custom'],
   },
   {
     titleEn: 'Pitch & Diameter',
@@ -44,10 +45,13 @@ const OPTION_BLOCKS = [
   },
 ] as const;
 
+const TIP_SHAPE_BLOCK_TITLE_EN = 'Tip Shape';
+
 export function ProbePinCustomPage() {
   const { lang: langParam } = useParams();
   const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
   const isKo = lang === 'ko';
+  const [selectedTipShape, setSelectedTipShape] = useState<string | null>(null);
 
   const title = isKo ? '맞춤형 프로브 핀' : 'Customized Probe Pin';
   const pageTitle = isKo ? `${title} | 이노보솔루션` : `${title} | Innovo Solution`;
@@ -96,16 +100,43 @@ export function ProbePinCustomPage() {
             {isKo ? '커스터마이징 옵션' : 'Customization Options'}
           </h2>
           <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {OPTION_BLOCKS.map((block) => (
-              <div key={block.titleEn} className="rounded-lg border border-gray-light bg-white p-5">
-                <h3 className="mb-3 font-semibold">{isKo ? block.titleKo : block.titleEn}</h3>
-                <ul className="space-y-1 text-sm text-gray-mid">
-                  {(isKo ? block.itemsKo : block.itemsEn).map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {OPTION_BLOCKS.map((block) => {
+              const isTipShape = block.titleEn === TIP_SHAPE_BLOCK_TITLE_EN;
+              return (
+                <div key={block.titleEn} className="rounded-lg border border-gray-light bg-white p-5">
+                  <h3 className="mb-3 font-semibold">{isKo ? block.titleKo : block.titleEn}</h3>
+                  {isTipShape ? (
+                    <div className="flex flex-wrap gap-2">
+                      {block.itemsEn.map((itemEn, idx) => {
+                        const label = isKo ? block.itemsKo[idx] : itemEn;
+                        const selected = selectedTipShape === itemEn;
+                        return (
+                          <button
+                            key={itemEn}
+                            type="button"
+                            aria-pressed={selected}
+                            onClick={() => setSelectedTipShape(selected ? null : itemEn)}
+                            className={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                              selected
+                                ? 'border-navy bg-navy text-white'
+                                : 'border-gray-light bg-white text-gray-mid hover:border-navy hover:text-navy'
+                            }`}
+                          >
+                            {label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <ul className="space-y-1 text-sm text-gray-mid">
+                      {(isKo ? block.itemsKo : block.itemsEn).map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </div>
           <Link
             to={withLang(lang, '/products/probe-pin')}
