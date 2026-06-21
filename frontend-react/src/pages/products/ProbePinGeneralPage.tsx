@@ -129,7 +129,7 @@ export function ProbePinGeneralPage() {
                       label={isKo ? '하부 팁 형상' : 'Bottom Plunger Shape'}
                       value={formatSpec(pin.bottom_plunger_shape)}
                     />
-                    <SpecRow label={isKo ? '하중' : 'Spring Force'} value={formatSpec(pin.spring_force)} />
+                    <SpecRow label={isKo ? '하중 (g)' : 'Spring Force (g)'} value={formatSpec(pin.spring_force)} />
                     <SpecRow
                       label={isKo ? '정격전류 (A)' : 'Max Current (A)'}
                       value={formatSpec(pin.current_continuous)}
