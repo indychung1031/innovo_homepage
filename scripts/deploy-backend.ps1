@@ -50,7 +50,7 @@ systemctl restart innovo-homepage-api
 systemctl is-active innovo-homepage-api
 
 for i in 1 2 3 4 5 6 7 8 9 10; do
-    code=`$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/health)
+    code=`$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/health || echo 000)
     if [ "`$code" = "200" ]; then
         echo "Health: `$code"
         break
