@@ -38,9 +38,9 @@ const OPTION_BLOCKS = [
   {
     titleEn: 'Plating',
     titleKo: '도금',
-    itemsEn: ['Gold (Au)', 'Nickel (Ni)', 'Palladium-Nickel (PdNi)', 'Custom alloy on request'],
-    itemsKo: ['금 (Au)', '니켈 (Ni)', '팔라듐-니켈 (PdNi)', '고객 요청 합금'],
-    toggle: false,
+    itemsEn: ['Gold Plating (Ni + Au)', 'Palladium Alloy (Pd alloy)', 'Custom Alloy on Request'],
+    itemsKo: ['금도금 (Ni + Au)', '팔라듐 합금 (Pd alloy)', '고객 요청 합금'],
+    toggle: true,
   },
   {
     titleEn: 'Operating Temperature',
