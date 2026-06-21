@@ -47,7 +47,7 @@ const OPTION_BLOCKS = [
     titleKo: '동작 온도',
     itemsEn: ['Standard: -40 ~ 125 °C', 'Extended: -55 ~ 185 °C'],
     itemsKo: ['표준: -40 ~ 125 °C', '확장: -55 ~ 185 °C'],
-    toggle: false,
+    toggle: true,
   },
 ] as const;
 
