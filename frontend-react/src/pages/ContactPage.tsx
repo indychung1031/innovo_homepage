@@ -8,11 +8,13 @@ import {
   submitContact,
   type ContactCategory,
 } from '@/api/contact';
+import { fetchPins } from '@/api/erp';
 import { FormAlert } from '@/components/forms/FormAlert';
 import { inputClassName, PrivacyConsent } from '@/components/forms/PrivacyConsent';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { isLangCode, type LangCode } from '@/lib/lang';
 import { mediaUrl } from '@/lib/media';
+import { buildPinInquiryMessage } from '@/lib/products/pinSpecFormat';
 import { getRecaptchaToken, loadRecaptchaScript } from '@/lib/recaptcha';
 
 const CATEGORY_KEYS: ContactCategory[] = ['test_socket', 'probe_pin', 'test_jig', 'other'];
@@ -57,6 +59,34 @@ export function ContactPage() {
   useEffect(() => {
     setCategory(initialCategory);
   }, [initialCategory]);
+
+  useEffect(() => {
+    const modelsParam = searchParams.get('model');
+    if (!modelsParam) {
+      return;
+    }
+    const models = modelsParam
+      .split(',')
+      .map((m) => m.trim())
+      .filter(Boolean);
+    if (models.length === 0) {
+      return;
+    }
+    void (async () => {
+      try {
+        const pins = await fetchPins();
+        const matched = pins.filter((pin) => models.includes(pin.pin_name));
+        if (matched.length > 0) {
+          setMessage(buildPinInquiryMessage(matched, lang === 'ko'));
+        } else {
+          setMessage(models.join(', '));
+        }
+      } catch {
+        setMessage(models.join(', '));
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const categories = t('contact:form.categories', { returnObjects: true }) as Record<string, string>;
   const mapsUrl = MAPS_URL[lang];
