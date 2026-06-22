@@ -3,9 +3,11 @@
   "subtitle": "Technical documents and certificates",
   "public_badge": "Public",
   "members_only_badge": "Verified Members",
+  "request_only_badge": "Available on Request",
   "download": "Download",
   "login_required": "Login required",
   "not_verified": "Verified members only",
+  "request_action": "Request",
   "sign_up": "Sign up",
   "learn_more": "Learn more",
   "files": {

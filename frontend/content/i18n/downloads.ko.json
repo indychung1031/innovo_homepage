@@ -3,9 +3,11 @@
   "subtitle": "기술 문서 및 인증서",
   "public_badge": "공개",
   "members_only_badge": "인증회원",
+  "request_only_badge": "문의 후 제공",
   "download": "다운로드",
   "login_required": "로그인 필요",
   "not_verified": "인증회원 전용",
+  "request_action": "문의하기",
   "sign_up": "회원가입",
   "learn_more": "자세히",
   "files": {

@@ -10,16 +10,18 @@ import { isLangCode, type LangCode, withLang } from '@/lib/lang';
 
 type FileId = 'iso9001_en' | 'iso9001_ko' | 'socket_list' | 'probe_pin_plunger';
 
+type AccessMode = 'public' | 'members' | 'request';
+
 type FileDef = {
   id: FileId;
-  isPublic: boolean;
+  accessMode: AccessMode;
 };
 
 const FILES: FileDef[] = [
-  { id: 'iso9001_en', isPublic: true },
-  { id: 'iso9001_ko', isPublic: true },
-  { id: 'socket_list', isPublic: false },
-  { id: 'probe_pin_plunger', isPublic: false },
+  { id: 'iso9001_en', accessMode: 'request' },
+  { id: 'iso9001_ko', accessMode: 'request' },
+  { id: 'socket_list', accessMode: 'members' },
+  { id: 'probe_pin_plunger', accessMode: 'members' },
 ];
 
 async function triggerDownload(fileId: FileId, isPublic: boolean): Promise<void> {
@@ -45,7 +47,7 @@ export function DownloadsPage() {
     setLoadingId(file.id);
     setErrorId(null);
     try {
-      await triggerDownload(file.id, file.isPublic);
+      await triggerDownload(file.id, file.accessMode === 'public');
     } catch {
       setErrorId(file.id);
     } finally {
@@ -71,7 +73,16 @@ export function DownloadsPage() {
 
           let action: React.ReactNode;
 
-          if (file.isPublic) {
+          if (file.accessMode === 'request') {
+            action = (
+              <Link
+                to={withLang(lang, '/contact')}
+                className="rounded border border-gray-light px-4 py-1.5 text-sm text-gray-mid hover:border-navy hover:text-navy"
+              >
+                {t('request_action')}
+              </Link>
+            );
+          } else if (file.accessMode === 'public') {
             action = (
               <button
                 type="button"
@@ -121,13 +132,19 @@ export function DownloadsPage() {
                 <p className="font-medium text-charcoal truncate">{name}</p>
                 <div className="mt-1 flex items-center gap-2 text-xs">
                   <span className="text-gray-mid">{format}</span>
-                  {file.isPublic ? (
+                  {file.accessMode === 'public' && (
                     <span className="rounded-full bg-green-100 px-2 py-0.5 text-green-700">
                       {t('public_badge')}
                     </span>
-                  ) : (
+                  )}
+                  {file.accessMode === 'members' && (
                     <span className="rounded-full bg-sky/10 px-2 py-0.5 text-sky">
                       {t('members_only_badge')}
+                    </span>
+                  )}
+                  {file.accessMode === 'request' && (
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-gray-mid">
+                      {t('request_only_badge')}
                     </span>
                   )}
                 </div>
