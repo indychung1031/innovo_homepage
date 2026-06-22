@@ -187,7 +187,7 @@ export function QuickQuotePage() {
                 className={`${inputClassName} mb-3`}
               />
               <label className="mb-1 block text-sm font-medium" htmlFor="ic_code">
-                IC Code
+                {isKo ? 'IC Code' : 'IC Code (Project name)'}
               </label>
               <input
                 id="ic_code"

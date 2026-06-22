@@ -309,7 +309,7 @@ export function ContactPage() {
                 id="attachment"
                 type="file"
                 accept=".pdf,.dxf,.step,.stp"
-                className="w-full text-sm text-charcoal"
+                className="block w-full text-sm text-charcoal file:mr-3 file:cursor-pointer file:rounded file:border-0 file:bg-navy file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:opacity-90"
                 onChange={(e) => {
                   const file = e.target.files?.[0] ?? null;
                   if (file && file.size > HP_MAX_ATTACHMENT_BYTES) {
