@@ -64,7 +64,10 @@
       {
         "slug": "probe-pin",
         "title": "Probe Pin",
-        "body": "General and special POGO pins for high current and fine pitch."
+        "body": "General and special POGO pins for high current and fine pitch.",
+        "images": [
+          "/upload/products/renders/probe_pin/IVB-SCR-250-065-A177-00.png"
+        ]
       },
       {
         "slug": "test-jig",
