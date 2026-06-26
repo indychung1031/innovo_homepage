@@ -31,7 +31,7 @@ export async function fetchSocketTypes(): Promise<SocketTypeOption[]> {
     return MOCK_SOCKET_TYPES;
   }
   try {
-    return await fetchJson<SocketTypeOption[]>('/api/erp/socket-types');
+    return await fetchJson<SocketTypeOption[]>('/api/hp/wizard/socket-types');
   } catch {
     return MOCK_SOCKET_TYPES;
   }
@@ -42,7 +42,7 @@ export async function fetchIcPackageTypes(): Promise<MasterOption[]> {
     return MOCK_IC_PACKAGES;
   }
   try {
-    return await fetchJson<MasterOption[]>('/api/erp/ic-package-types');
+    return await fetchJson<MasterOption[]>('/api/hp/wizard/ic-package-types');
   } catch {
     return MOCK_IC_PACKAGES;
   }
@@ -53,7 +53,7 @@ export async function fetchCoverTypes(): Promise<MasterOption[]> {
     return MOCK_COVER_TYPES;
   }
   try {
-    return await fetchJson<MasterOption[]>('/api/erp/cover-types');
+    return await fetchJson<MasterOption[]>('/api/hp/wizard/cover-types');
   } catch {
     return MOCK_COVER_TYPES;
   }
@@ -64,7 +64,7 @@ export async function fetchMaterialTypes(): Promise<MasterOption[]> {
     return MOCK_MATERIAL_TYPES;
   }
   try {
-    return await fetchJson<MasterOption[]>('/api/erp/material-types');
+    return await fetchJson<MasterOption[]>('/api/hp/wizard/material-types');
   } catch {
     return MOCK_MATERIAL_TYPES;
   }
@@ -108,7 +108,7 @@ export async function postQuoteEstimate(
   }
 
   try {
-    const res = await authFetch('/api/erp/quote-estimate', {
+    const res = await authFetch('/api/hp/wizard/quote-estimate', {
       method: 'POST',
       body: JSON.stringify(body),
     });
@@ -116,10 +116,7 @@ export async function postQuoteEstimate(
     if (!res.ok) {
       throw new Error(parseApiError(data.detail, 'Estimate failed'));
     }
-    return {
-      ...data,
-      lead_time_label: data.lead_time_label ?? (draft.quantity && parseInt(draft.quantity, 10) <= 20 ? '3 Weeks' : undefined),
-    };
+    return data;
   } catch {
     return mockQuoteEstimate(draft, membershipTier);
   }
@@ -156,11 +153,20 @@ export async function submitWizardQuote(payload: WizardSubmitPayload): Promise<{
     return { message: result.message };
   }
 
-  const res = await authFetch('/api/quote/wizard', {
+  const { estimate, ...rest } = payload;
+  const erpBody = {
+    ...rest,
+    matched: estimate.matched,
+    unit_price: estimate.unit_price,
+    currency: estimate.currency,
+    total_price: estimate.total_price,
+    lead_time_label: estimate.lead_time_label,
+  };
+  const res = await authFetch('/api/hp/wizard/submit', {
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: JSON.stringify(erpBody),
   });
-  const data = (await res.json()) as { message?: string; detail?: unknown };
+  const data = (await res.json()) as { message?: string; id?: number; detail?: unknown };
   if (!res.ok) {
     throw new Error(parseApiError(data.detail, 'Submit failed'));
   }

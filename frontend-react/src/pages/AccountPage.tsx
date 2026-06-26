@@ -13,7 +13,6 @@ import {
   type QuoteItem,
   type QuoteStatus,
   type QuotesPage,
-  type WizardQuoteHistoryItem,
 } from '@/api/account';
 import { FormAlert } from '@/components/forms/FormAlert';
 import { inputClassName } from '@/components/forms/PrivacyConsent';
@@ -37,10 +36,10 @@ const STATUS_STYLES: Record<QuoteStatus, string> = {
 function buildReorderUrl(lang: LangCode, item: QuoteItem): string {
   const params = new URLSearchParams({
     ic_package_type: item.ic_package_type,
-    pin_count: String(item.pin_count),
-    pitch: item.pitch,
-    package_d: String(item.package_d),
-    package_e: String(item.package_e),
+    pin_count: String(item.pin_count ?? ''),
+    pitch: item.pitch ?? '',
+    package_d: String(item.package_d ?? ''),
+    package_e: String(item.package_e ?? ''),
   });
   if (item.ic_type) params.set('ic_type', item.ic_type);
   if (item.ic_code) params.set('ic_code', item.ic_code);
@@ -348,9 +347,10 @@ function QuotesTab() {
     return <p className="text-sm text-red-600">{error}</p>;
   }
 
+  const quickQuoteItems = data ? data.items.filter((item) => !item.source || item.source === 'quick_quote') : [];
   const totalPages = data ? Math.ceil(data.total / data.size) : 0;
 
-  if (!data || data.items.length === 0) {
+  if (!data || quickQuoteItems.length === 0) {
     return (
       <div>
         <div className="py-10 text-center">
@@ -384,12 +384,12 @@ function QuotesTab() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-light">
-            {data.items.map((item) => (
+            {quickQuoteItems.map((item) => (
               <tr key={item.id} className="hover:bg-slate-50">
                 <td className="px-4 py-3 text-gray-mid">{item.id}</td>
                 <td className="px-4 py-3 font-medium">{item.ic_package_type}</td>
-                <td className="px-4 py-3">{item.package_d} × {item.package_e}</td>
-                <td className="px-4 py-3">{item.pin_count}</td>
+                <td className="px-4 py-3">{item.package_d ?? '—'} × {item.package_e ?? '—'}</td>
+                <td className="px-4 py-3">{item.pin_count ?? '—'}</td>
                 <td className="px-4 py-3">{item.quantity ?? '—'}</td>
                 <td className="px-4 py-3">{formatDate(item.created_at)}</td>
                 <td className="px-4 py-3">
@@ -453,7 +453,7 @@ function QuotesTab() {
 function WizardQuotesSection() {
   const { lang: langParam } = useParams();
   const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
-  const [items, setItems] = useState<WizardQuoteHistoryItem[]>([]);
+  const [items, setItems] = useState<QuoteItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -499,7 +499,7 @@ function WizardQuotesSection() {
               <tr>
                 <th className="px-4 py-3">ID</th>
                 <th className="px-4 py-3">IC Code</th>
-                <th className="px-4 py-3">Socket</th>
+                <th className="px-4 py-3">Package</th>
                 <th className="px-4 py-3">Qty</th>
                 <th className="px-4 py-3">Price</th>
                 <th className="px-4 py-3">Date</th>
@@ -510,11 +510,11 @@ function WizardQuotesSection() {
               {items.map((item) => (
                 <tr key={item.id} className="hover:bg-slate-50">
                   <td className="px-4 py-3 text-gray-mid">{item.id}</td>
-                  <td className="px-4 py-3 font-medium">{item.ic_code}</td>
-                  <td className="px-4 py-3">{item.socket_type_name ?? '—'}</td>
-                  <td className="px-4 py-3">{item.quantity} pcs</td>
+                  <td className="px-4 py-3 font-medium">{item.ic_code ?? '—'}</td>
+                  <td className="px-4 py-3">{item.ic_package_type ?? '—'}</td>
+                  <td className="px-4 py-3">{item.quantity ?? '—'} pcs</td>
                   <td className="px-4 py-3">
-                    {item.matched && item.total_price
+                    {item.total_price
                       ? `${item.total_price.toLocaleString()} ${item.currency ?? 'KRW'}`
                       : <span className="text-gray-mid">담당자 확인 후 안내</span>}
                   </td>

@@ -6,16 +6,20 @@ export type QuoteStatus = 'pending' | 'reviewing' | 'quoted' | 'completed' | 'ex
 
 export type QuoteItem = {
   id: number;
+  source?: 'quick_quote' | 'wizard';
   ic_package_type: string;
   ic_type: string | null;
   ic_code: string | null;
-  package_d: number;
-  package_e: number;
-  pin_count: number;
-  pitch: string;
+  package_d: number | null;
+  package_e: number | null;
+  pin_count: number | null;
+  pitch: string | null;
   quantity: number | null;
   created_at: string;
   status: QuoteStatus;
+  unit_price?: number | null;
+  total_price?: number | null;
+  currency?: string | null;
 };
 
 export type QuotesPage = {
@@ -68,24 +72,11 @@ export async function deleteAccount(): Promise<void> {
   }
 }
 
-export type WizardQuoteHistoryItem = {
-  id: number;
-  series: string;
-  ic_code: string;
-  socket_type_name: string | null;
-  quantity: number;
-  matched: boolean;
-  total_price: number | null;
-  currency: string | null;
-  status: QuoteStatus;
-  created_at: string;
-};
-
-export async function getWizardQuoteHistory(): Promise<WizardQuoteHistoryItem[]> {
-  const res = await authFetch('/api/quote/history');
-  const data = (await res.json()) as WizardQuoteHistoryItem[] | { detail?: unknown };
-  if (!res.ok) throw new Error(parseApiError((data as { detail?: unknown }).detail, 'Failed to load wizard quotes'));
-  return data as WizardQuoteHistoryItem[];
+export async function getWizardQuoteHistory(): Promise<QuoteItem[]> {
+  const res = await authFetch('/api/hp/account/quotes?page=1&size=100');
+  const data = (await res.json()) as QuotesPage & { detail?: unknown };
+  if (!res.ok) throw new Error(parseApiError(data.detail, 'Failed to load wizard quotes'));
+  return data.items.filter((item) => item.source === 'wizard');
 }
 
 export async function getCatalogDownloadUrl(fileId: string): Promise<string> {
