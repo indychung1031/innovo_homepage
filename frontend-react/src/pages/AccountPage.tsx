@@ -385,7 +385,7 @@ function QuotesTab() {
           </thead>
           <tbody className="divide-y divide-gray-light">
             {quickQuoteItems.map((item) => (
-              <tr key={item.id} className="hover:bg-slate-50">
+              <tr key={`${item.source ?? 'quick_quote'}_${item.id}`} className="hover:bg-slate-50">
                 <td className="px-4 py-3 text-gray-mid">{item.id}</td>
                 <td className="px-4 py-3 font-medium">{item.ic_package_type}</td>
                 <td className="px-4 py-3">{item.package_d ?? '—'} × {item.package_e ?? '—'}</td>
@@ -508,7 +508,7 @@ function WizardQuotesSection() {
             </thead>
             <tbody className="divide-y divide-gray-light">
               {items.map((item) => (
-                <tr key={item.id} className="hover:bg-slate-50">
+                <tr key={`${item.source ?? 'wizard'}_${item.id}`} className="hover:bg-slate-50">
                   <td className="px-4 py-3 text-gray-mid">{item.id}</td>
                   <td className="px-4 py-3 font-medium">{item.ic_code ?? '—'}</td>
                   <td className="px-4 py-3">{item.ic_package_type ?? '—'}</td>
