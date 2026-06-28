@@ -70,6 +70,12 @@ export async function fetchMaterialTypes(): Promise<MasterOption[]> {
   }
 }
 
+export type PinImage = {
+  image_url: string;
+  image_type: 'render' | 'front' | 'side' | 'detail' | string;
+  sort_order: number;
+};
+
 export type PinSpec = {
   pin_id: number;
   pin_name: string;
@@ -82,7 +88,16 @@ export type PinSpec = {
   current_continuous: string | null;
   resistance: string | null;
   bandwidth3db: string | null;
+  images: PinImage[];
 };
+
+// S3 직접 URL → 사이트 상대 경로로 변환 (CloudFront 경유)
+export function pinImageSrc(images: PinImage[] | undefined): string {
+  const url = images?.[0]?.image_url;
+  if (!url) return '';
+  const match = url.match(/(\/upload\/.+)/);
+  return match ? match[1] : url;
+}
 
 export async function fetchPins(): Promise<PinSpec[]> {
   return fetchJson<PinSpec[]>('/api/erp/pins');

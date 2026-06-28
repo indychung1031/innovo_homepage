@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { fetchPins, type PinSpec } from '@/api/erp';
+import { fetchPins, pinImageSrc, type PinSpec } from '@/api/erp';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { isLangCode, type LangCode, withLang } from '@/lib/lang';
 import { displayPinName, formatSpec } from '@/lib/products/pinSpecFormat';
@@ -245,7 +245,7 @@ export function ProbePinGeneralPage() {
                 >
                   <div className="mb-3 flex h-32 items-center justify-center overflow-hidden rounded bg-slate-50">
                     <img
-                      src={`/upload/products/renders/probe_pin/${pin.pin_name}.png`}
+                      src={pinImageSrc(pin.images)}
                       alt={pin.pin_name}
                       className="max-h-full max-w-full object-contain"
                       onError={(e) => {
