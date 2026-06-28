@@ -168,6 +168,14 @@ export function ProbePinGeneralPage() {
           )}
 
           {!loading && !error && (
+            <p className="mb-3 text-sm text-gray-mid">
+              {isKo
+                ? '모델을 선택하시면 견적 문의창이 활성화 됩니다.'
+                : 'Select a model to activate the quote inquiry form.'}
+            </p>
+          )}
+
+          {!loading && !error && (
             <div className="mb-6 rounded-lg border border-gray-light bg-white p-4">
               <div className="mb-3 flex flex-wrap items-center gap-3">
                 <input
