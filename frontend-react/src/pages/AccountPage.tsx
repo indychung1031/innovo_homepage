@@ -318,6 +318,10 @@ function QuotesTab() {
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
+  const [wizardItems, setWizardItems] = useState<QuoteItem[]>([]);
+  const [wizardLoading, setWizardLoading] = useState(true);
+  const [wizardError, setWizardError] = useState<string | null>(null);
+
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -332,6 +336,19 @@ function QuotesTab() {
       }
     })();
   }, [page]);
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const items = await getWizardQuoteHistory();
+        setWizardItems(items);
+      } catch (err) {
+        setWizardError(err instanceof Error ? err.message : 'Error');
+      } finally {
+        setWizardLoading(false);
+      }
+    })();
+  }, []);
 
   if (loading) {
     return (
@@ -362,7 +379,7 @@ function QuotesTab() {
             {t('account:quotes.empty_cta')}
           </Link>
         </div>
-        <WizardQuotesSection />
+        <WizardQuotesSection items={wizardItems} loading={wizardLoading} error={wizardError} />
       </div>
     );
   }
@@ -442,68 +459,60 @@ function QuotesTab() {
         </div>
       )}
 
-      <WizardQuotesSection />
+      <WizardQuotesSection items={wizardItems} loading={wizardLoading} error={wizardError} />
     </div>
   );
 }
 
 // ────────────────────────────────────────────────────────────
-// Wizard Quotes Section (QuotesTab 하단)
+// Wizard Quotes Section (QuotesTab 하단 — 데이터는 부모에서 주입)
 // ────────────────────────────────────────────────────────────
-function WizardQuotesSection() {
+function WizardQuotesSection({
+  items,
+  loading,
+  error,
+}: {
+  items: QuoteItem[];
+  loading: boolean;
+  error: string | null;
+}) {
   const { lang: langParam } = useParams();
   const lang: LangCode = isLangCode(langParam) ? langParam : 'en';
-  const [items, setItems] = useState<QuoteItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setLoading(true);
-    void (async () => {
-      try {
-        const data = await getWizardQuoteHistory();
-        setItems(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error');
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  const { t } = useTranslation('account');
 
   if (loading) {
-    return <div className="h-10 animate-pulse rounded bg-slate-100" />;
+    return <div className="mt-8 h-10 animate-pulse rounded bg-slate-100" />;
   }
 
   if (error) {
-    return <p className="text-sm text-red-600">{error}</p>;
+    return <p className="mt-8 text-sm text-red-600">{error}</p>;
   }
 
   return (
     <div className="mt-8">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="font-semibold text-navy">Wizard Quote 견적 이력</h3>
+        <h3 className="font-semibold text-navy">{t('quotes.wizard_heading')}</h3>
         <Link
           to={withLang(lang, '/quote/wizard')}
           className="text-sm font-medium text-sky hover:underline"
         >
-          새 견적 요청 →
+          {t('quotes.wizard_new')}
         </Link>
       </div>
       {items.length === 0 ? (
-        <p className="py-6 text-center text-sm text-gray-mid">견적 위저드 제출 이력이 없습니다.</p>
+        <p className="py-6 text-center text-sm text-gray-mid">{t('quotes.wizard_empty')}</p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-gray-light">
           <table className="w-full text-sm">
             <thead className="bg-slate-50 text-left text-xs text-gray-mid">
               <tr>
-                <th className="px-4 py-3">ID</th>
-                <th className="px-4 py-3">IC Code</th>
-                <th className="px-4 py-3">Package</th>
-                <th className="px-4 py-3">Qty</th>
-                <th className="px-4 py-3">Price</th>
-                <th className="px-4 py-3">Date</th>
-                <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">#</th>
+                <th className="px-4 py-3">{t('quotes.wizard_col_ic_code')}</th>
+                <th className="px-4 py-3">{t('quotes.wizard_col_package')}</th>
+                <th className="px-4 py-3">{t('quotes.wizard_col_qty')}</th>
+                <th className="px-4 py-3">{t('quotes.wizard_col_price')}</th>
+                <th className="px-4 py-3">{t('quotes.wizard_col_date')}</th>
+                <th className="px-4 py-3">{t('quotes.wizard_col_status')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-light">
@@ -516,12 +525,12 @@ function WizardQuotesSection() {
                   <td className="px-4 py-3">
                     {item.total_price
                       ? `${item.total_price.toLocaleString()} ${item.currency ?? 'KRW'}`
-                      : <span className="text-gray-mid">담당자 확인 후 안내</span>}
+                      : <span className="text-gray-mid">{t('quotes.wizard_price_tbc')}</span>}
                   </td>
                   <td className="px-4 py-3">{formatDate(item.created_at)}</td>
                   <td className="px-4 py-3">
                     <span className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status]}`}>
-                      {item.status}
+                      {t(`quotes.status.${item.status}`, { defaultValue: item.status })}
                     </span>
                   </td>
                 </tr>

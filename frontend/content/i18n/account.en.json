@@ -54,7 +54,17 @@
       "quoted": "Quoted",
       "completed": "Completed",
       "expired": "Expired"
-    }
+    },
+    "wizard_heading": "Wizard Quote History",
+    "wizard_new": "New quote →",
+    "wizard_empty": "No wizard quote submissions yet.",
+    "wizard_col_ic_code": "IC Code",
+    "wizard_col_package": "Package",
+    "wizard_col_qty": "Qty",
+    "wizard_col_price": "Price",
+    "wizard_col_date": "Date",
+    "wizard_col_status": "Status",
+    "wizard_price_tbc": "To be confirmed by sales"
   },
   "catalogs": {
     "heading": "Catalog Downloads",

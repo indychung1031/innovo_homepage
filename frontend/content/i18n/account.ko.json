@@ -54,7 +54,17 @@
       "quoted": "견적발행",
       "completed": "완료",
       "expired": "만료"
-    }
+    },
+    "wizard_heading": "위저드 견적 이력",
+    "wizard_new": "새 견적 요청 →",
+    "wizard_empty": "견적 위저드 제출 이력이 없습니다.",
+    "wizard_col_ic_code": "IC 코드",
+    "wizard_col_package": "패키지",
+    "wizard_col_qty": "수량",
+    "wizard_col_price": "금액",
+    "wizard_col_date": "접수일",
+    "wizard_col_status": "상태",
+    "wizard_price_tbc": "담당자 확인 후 안내"
   },
   "catalogs": {
     "heading": "카탈로그 다운로드",
