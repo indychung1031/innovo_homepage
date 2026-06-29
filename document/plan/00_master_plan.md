@@ -986,3 +986,58 @@ API 호출 (/api/*, /admin/api/*)
 - `innovotech.co.kr` 만료일: **2026-12-14** (이메일 수신용 — **2026년 12월 갱신 필요**)
 
 > ⚠️ **재빌드 주의**: `frontend-react/vite.config.ts`의 `@content` 별칭이 삭제된 `frontend/content/`를 가리킴 — ERP 담당자가 i18n 파일 이전 작업 중 (2026-06-02 위임)
+
+---
+
+## 13. 추가 검토 필요 항목
+
+> 2026-06-29 고아 코드 정리 작업 중 발견. 사용 여부·영향도를 확인한 후 처리 방향을 결정한다.
+
+### 13-1. WizardQuote 모델 및 wizard_quotes DB 테이블
+
+**현황**
+- `backend/models.py`의 `WizardQuote` 클래스가 아직 존재함
+- `wizard_quotes` 테이블이 프로덕션 DB에 존재함
+- 관련 Alembic 마이그레이션: `005_wizard_quotes.py`, `006_wizard_admin_note.py`
+
+**왜 즉시 제거하지 않았나**
+- `backend/routers/admin.py`가 현재 WizardQuote를 직접 쿼리하고 있음
+  - `GET /admin/api/wizard-quotes` (목록 + 대시보드 통계)
+  - `GET /admin/api/wizard-quotes/{id}` (상세)
+  - `PATCH /admin/api/wizard-quotes/{id}` (상태·메모 수정)
+- Admin 프론트엔드 페이지 `AdminWizardQuotesPage.tsx`, `AdminWizardQuoteDetailPage.tsx`도 이 라우트를 호출함
+- 제거하면 Admin 페이지가 즉시 깨짐
+
+**결정 전 확인 사항**
+1. ERP 팀의 자체 Admin에서 위저드 견적을 이미 관리하고 있는가?
+   - 그렇다면 홈페이지 Admin의 위저드 견적 페이지는 불필요 → 제거 가능
+   - 아니라면 Admin 페이지는 유지 필요
+2. `wizard_quotes` 테이블에 실제 데이터가 쌓이고 있는가?
+   - 현재 견적 제출은 ERP 서버(`/api/hp/wizard/submit`)로 가므로 홈페이지 DB에는 저장 안 됨
+   - 테이블이 빈 테이블이라면 삭제 부담이 낮음
+
+**제거 시 필요한 작업 (결정 후)**
+- `backend/models.py`에서 `WizardQuote` 클래스 제거
+- `backend/routers/admin.py`에서 wizard-quotes 관련 라우트 제거
+- `frontend-react/src/pages/admin/` 에서 `AdminWizardQuotesPage.tsx`, `AdminWizardQuoteDetailPage.tsx` 제거
+- `frontend-react/src/api/admin.ts`에서 `listWizardQuotes`, `getWizardQuote`, `patchWizardQuote` 함수 제거
+- 새 Alembic revision으로 `wizard_quotes` 테이블 드롭 (프로덕션 DB 마이그레이션 필요)
+- Admin 라우터 파일에서 WizardQuote import 제거
+
+---
+
+### 13-2. LeadTimeRule 모델 및 lead_time_rules DB 테이블
+
+**현황**
+- `backend/models.py`의 `LeadTimeRule` 클래스가 존재함
+- `lead_time_rules` 테이블이 프로덕션 DB에 존재함 (마이그레이션 005에서 초기 데이터 2행 삽입)
+- 삭제된 `backend/routers/erp.py`에서만 납기 조회 목적으로 사용하던 모델
+
+**왜 즉시 제거하지 않았나**
+- 현재 admin.py, 프론트엔드 어디서도 직접 사용하지 않으므로 기능 영향은 없음
+- 다만 마이그레이션 005가 `wizard_quotes`와 `lead_time_rules`를 함께 생성하므로, 이 둘의 처리를 묶어서 결정하는 것이 깔끔함
+- 13-1 결정 이후 함께 정리 권장
+
+**제거 시 필요한 작업 (결정 후)**
+- `backend/models.py`에서 `LeadTimeRule` 클래스 제거
+- 새 Alembic revision으로 `lead_time_rules` 테이블 드롭
