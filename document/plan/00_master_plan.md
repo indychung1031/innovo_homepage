@@ -1041,3 +1041,51 @@ API 호출 (/api/*, /admin/api/*)
 **제거 시 필요한 작업 (결정 후)**
 - `backend/models.py`에서 `LeadTimeRule` 클래스 제거
 - 새 Alembic revision으로 `lead_time_rules` 테이블 드롭
+
+---
+
+### 13-3. PDF 견적서 기능 — 미구현, 결정 대기
+
+**현황**
+- 기획서 §7-1에 "견적 PDF 구현" 항목이 있으나 현재 미구현
+- PDF 라이브러리(weasyprint 등) 없음, 백엔드 라우트 없음, 프론트엔드 UI(다운로드 버튼) 없음
+
+**결정 필요 사항**
+
+| 항목 | 선택지 |
+|------|--------|
+| **생성 주체** | A) HP 백엔드에서 생성 (weasyprint 등 라이브러리) / B) ERP 서버에서 생성 후 URL 제공 |
+| **시점** | A) 제출 즉시 PDF 생성 / B) Admin이 견적 확정 후 생성 |
+| **저장 위치** | A) S3에 저장 후 presigned URL / B) 요청 시마다 동적 생성 |
+| **형식** | 기획서 확정: "단순 내용 레이아웃, 회사 레터헤드 불필요, 가 견적 안내 문구 포함" |
+
+**구현 전 필요한 결정**
+1. 생성 주체를 결정해야 기술 스택(라이브러리 or ERP 요청)이 결정됨
+2. 마이페이지 견적 이력 테이블에 "PDF 다운로드" 버튼을 언제 활성화할지 (가 견적 제출 직후 vs 관리자 확정 후)
+
+---
+
+### 13-4. 위저드 파일 첨부 실제 전송 미구현 — 결정 대기
+
+**현황**
+- 위저드 Step 2에서 고객이 파일(DXF, PDF, STEP 등)을 첨부할 수 있는 UI가 있음
+- 그러나 현재는 **파일명만** draft에 저장되고 ERP에 `attachment_name` 문자열로 전달됨
+- 실제 파일 바이너리는 어디에도 전송·저장되지 않음 (`frontend-react/src/pages/quote-wizard/QuoteWizardPage.tsx`)
+
+**영향**
+- 고객이 파일을 첨부해도 ERP 영업팀은 파일을 받지 못함
+- ERP는 파일명 문자열만 확인 가능
+
+**결정 필요 사항**
+
+| 항목 | 선택지 |
+|------|--------|
+| **업로드 주체** | A) HP 백엔드 경유 S3 업로드 → CloudFront URL을 ERP에 전달 / B) 프론트에서 S3 presigned URL로 직접 업로드 → URL을 ERP에 전달 |
+| **저장 위치** | S3 `upload/wizard-attachments/` (기존 업로드 구조와 동일) |
+| **ERP 연동** | ERP `/api/hp/wizard/submit` payload에 `attachment_url` 필드 추가 필요 (ERP팀 확인 필요) |
+
+**구현 범위 (결정 후 HP 측 작업)**
+- 백엔드: `POST /api/account/upload-attachment` — S3 업로드 후 URL 반환
+- 프론트엔드: Step 2에서 파일 선택 시 즉시 업로드, URL을 draft에 저장
+- 제출 시 `attachment_url` 필드로 ERP에 전달
+- ERP팀에 `attachment_url` 필드 수신 처리 요청 필요
