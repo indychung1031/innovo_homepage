@@ -2,7 +2,7 @@ import { parseApiError } from '@/api/errors';
 import type { UserPublic } from '@/api/auth';
 import { authFetch } from '@/lib/authSession';
 
-export type QuoteStatus = 'pending' | 'reviewing' | 'quoted' | 'completed' | 'expired';
+export type QuoteStatus = 'pending' | 'reviewing' | 'quoted' | 'completed' | 'expired' | 'sent_to_erp' | 'closed';
 
 export type QuoteItem = {
   id: number;

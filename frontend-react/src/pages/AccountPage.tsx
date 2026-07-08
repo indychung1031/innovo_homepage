@@ -31,7 +31,10 @@ const STATUS_STYLES: Record<QuoteStatus, string> = {
   quoted: 'bg-green-100 text-green-700',
   completed: 'bg-navy/10 text-navy',
   expired: 'bg-red-100 text-red-700',
+  sent_to_erp: 'bg-sky/10 text-sky',
+  closed: 'bg-slate-100 text-slate-500',
 };
+const STATUS_STYLE_FALLBACK = 'bg-slate-100 text-slate-500';
 
 function buildReorderUrl(lang: LangCode, item: QuoteItem): string {
   const params = new URLSearchParams({
@@ -410,7 +413,7 @@ function QuotesTab() {
                 <td className="px-4 py-3">{item.quantity ?? '—'}</td>
                 <td className="px-4 py-3">{formatDate(item.created_at)}</td>
                 <td className="px-4 py-3">
-                  <span className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status]}`}>
+                  <span className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status] ?? STATUS_STYLE_FALLBACK}`}>
                     {t(`account:quotes.status.${item.status}`)}
                   </span>
                 </td>
@@ -529,7 +532,7 @@ function WizardQuotesSection({
                   </td>
                   <td className="px-4 py-3">{formatDate(item.created_at)}</td>
                   <td className="px-4 py-3">
-                    <span className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status]}`}>
+                    <span className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status] ?? STATUS_STYLE_FALLBACK}`}>
                       {t(`quotes.status.${item.status}`, { defaultValue: item.status })}
                     </span>
                   </td>

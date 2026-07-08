@@ -53,7 +53,9 @@
       "reviewing": "Reviewing",
       "quoted": "Quoted",
       "completed": "Completed",
-      "expired": "Expired"
+      "expired": "Expired",
+      "sent_to_erp": "Submitted",
+      "closed": "Closed"
     },
     "wizard_heading": "Wizard Quote History",
     "wizard_new": "New quote →",

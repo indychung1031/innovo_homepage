@@ -53,7 +53,9 @@
       "reviewing": "검토중",
       "quoted": "견적발행",
       "completed": "완료",
-      "expired": "만료"
+      "expired": "만료",
+      "sent_to_erp": "전달완료",
+      "closed": "종료"
     },
     "wizard_heading": "위저드 견적 이력",
     "wizard_new": "새 견적 요청 →",

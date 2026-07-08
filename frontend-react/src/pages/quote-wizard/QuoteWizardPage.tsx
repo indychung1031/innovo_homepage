@@ -139,7 +139,7 @@ export function QuoteWizardPage() {
     if (!draft.pitch.trim()) {
       return false;
     }
-    if (draft.series === 'test_socket' && !draft.socket_type_id) {
+    if (draft.series === 'test_socket' && !recommended) {
       return false;
     }
     return true;

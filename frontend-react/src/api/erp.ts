@@ -122,19 +122,15 @@ export async function postQuoteEstimate(
     return mockQuoteEstimate(draft, membershipTier);
   }
 
-  try {
-    const res = await authFetch('/api/hp/wizard/quote-estimate', {
-      method: 'POST',
-      body: JSON.stringify(body),
-    });
-    const data = (await res.json()) as QuoteEstimateResult & { detail?: unknown };
-    if (!res.ok) {
-      throw new Error(parseApiError(data.detail, 'Estimate failed'));
-    }
-    return data;
-  } catch {
-    return mockQuoteEstimate(draft, membershipTier);
+  const res = await authFetch('/api/hp/wizard/quote-estimate', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = (await res.json()) as QuoteEstimateResult & { detail?: unknown };
+  if (!res.ok) {
+    throw new Error(parseApiError(data.detail, 'Estimate failed'));
   }
+  return data;
 }
 
 export type WizardSubmitPayload = {
