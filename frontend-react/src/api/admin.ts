@@ -53,6 +53,19 @@ export function adminLogout(): void {
 
 export type Paginated<T> = { total: number; page: number; items: T[] };
 
+// Quick Quote 상태 전체 집합 — 목록·상세가 반드시 같은 값을 쓴다.
+// 'closed'는 대시보드 미처리 집계(status != 'closed')의 유일한 제외 값이므로 빠지면
+// 미처리 카운트를 줄일 방법이 없어진다. 'sent_to_erp'는 ERP 전송 시 자동 설정 값.
+export const QUICK_QUOTE_STATUSES = [
+  'pending',
+  'sent_to_erp',
+  'reviewing',
+  'quoted',
+  'completed',
+  'expired',
+  'closed',
+] as const;
+
 export async function listQuickQuotes(page = 1, size = 50): Promise<Paginated<QuickQuoteRow>> {
   const res = await adminFetch(`/quick-quotes?page=${page}&size=${size}`);
   return parseAdminJson(res);
@@ -292,6 +305,11 @@ export type DashboardData = {
 export async function getDashboard(): Promise<DashboardData> {
   const res = await adminFetch('/dashboard');
   return parseAdminJson(res);
+}
+
+/** parseAdminJson이 401에서 던지는 sentinel 판별 — 페이지에서 로그인 리다이렉트에 사용 */
+export function isAdminUnauthorized(err: unknown): boolean {
+  return err instanceof Error && err.message === 'ADMIN_UNAUTHORIZED';
 }
 
 async function parseAdminJson<T>(res: Response): Promise<T> {

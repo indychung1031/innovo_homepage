@@ -1,15 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { listQuickQuotes, type QuickQuoteRow } from '@/api/admin';
+import { isAdminUnauthorized, listQuickQuotes, QUICK_QUOTE_STATUSES, type QuickQuoteRow } from '@/api/admin';
 
-const STATUSES = ['pending', 'sent_to_erp', 'reviewing', 'quoted', 'completed', 'expired'] as const;
+const STATUSES = QUICK_QUOTE_STATUSES;
 
 const inputCls = 'rounded border border-gray-light px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-sky';
 
 export function AdminQuotesPage() {
+  const navigate = useNavigate();
   const [items, setItems] = useState<QuickQuoteRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
 
@@ -18,11 +20,18 @@ export function AdminQuotesPage() {
       try {
         const data = await listQuickQuotes();
         setItems(data.items);
+      } catch (err) {
+        // 오류를 삼키면 "검색 결과가 없습니다"로 오인됨 — 토큰 만료는 로그인으로 복귀
+        if (isAdminUnauthorized(err)) {
+          navigate('/admin/login', { replace: true });
+          return;
+        }
+        setError(err instanceof Error ? err.message : 'Error');
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [navigate]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -67,6 +76,7 @@ export function AdminQuotesPage() {
         <span className="ml-auto self-center text-sm text-gray-mid">{filtered.length}건</span>
       </div>
       {loading ? <p className="text-gray-mid">Loading…</p> : null}
+      {error ? <p className="mb-3 text-sm text-red-600">데이터를 불러오지 못했습니다: {error}</p> : null}
       <div className="overflow-x-auto rounded border border-gray-light bg-white">
         <table className="w-full text-sm">
           <thead className="bg-slate-100">

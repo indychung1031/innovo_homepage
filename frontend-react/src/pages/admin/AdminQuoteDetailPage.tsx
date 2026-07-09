@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { getQuickQuote, patchQuickQuote, type QuickQuoteDetail } from '@/api/admin';
+import { getQuickQuote, isAdminUnauthorized, patchQuickQuote, QUICK_QUOTE_STATUSES, type QuickQuoteDetail } from '@/api/admin';
 import { AdminDetailTable, dash } from '@/components/admin/AdminDetailTable';
 
-const QUOTE_STATUSES = ['pending', 'reviewing', 'quoted', 'completed', 'expired'] as const;
+const QUOTE_STATUSES = QUICK_QUOTE_STATUSES;
 
 const inputCls = 'rounded border border-gray-light px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky';
 
 export function AdminQuoteDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [row, setRow] = useState<QuickQuoteDetail | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [status, setStatus] = useState('');
   const [note, setNote] = useState('');
   const [noteSaving, setNoteSaving] = useState(false);
@@ -19,12 +21,22 @@ export function AdminQuoteDetailPage() {
   useEffect(() => {
     const num = parseInt(id ?? '', 10);
     if (!Number.isFinite(num)) return;
-    void getQuickQuote(num).then((data) => {
-      setRow(data);
-      setStatus(data.status ?? 'pending');
-      setNote(data.admin_note ?? '');
-    });
-  }, [id]);
+    void (async () => {
+      try {
+        const data = await getQuickQuote(num);
+        setRow(data);
+        setStatus(data.status ?? 'pending');
+        setNote(data.admin_note ?? '');
+      } catch (err) {
+        // 실패 시 "Loading…" 무한 대기 방지
+        if (isAdminUnauthorized(err)) {
+          navigate('/admin/login', { replace: true });
+          return;
+        }
+        setLoadError(err instanceof Error ? err.message : 'Error');
+      }
+    })();
+  }, [id, navigate]);
 
   async function handleStatusChange(next: string) {
     if (!row) return;
@@ -49,6 +61,10 @@ export function AdminQuoteDetailPage() {
       setNoteSaving(false);
       setTimeout(() => setNoteMsg(null), 2000);
     }
+  }
+
+  if (loadError) {
+    return <p className="text-sm text-red-600">불러오기 실패: {loadError}</p>;
   }
 
   if (!row) {

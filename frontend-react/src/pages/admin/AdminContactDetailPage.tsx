@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { downloadContactAttachment, getContactDetail, patchContact, type ContactDetail } from '@/api/admin';
+import { downloadContactAttachment, getContactDetail, isAdminUnauthorized, patchContact, type ContactDetail } from '@/api/admin';
 import { AdminDetailTable, dash } from '@/components/admin/AdminDetailTable';
 
 const CONTACT_STATUSES = ['new', 'in_progress', 'resolved', 'closed'] as const;
@@ -10,7 +10,9 @@ const inputCls = 'rounded border border-gray-light px-3 py-2 text-sm focus:outli
 
 export function AdminContactDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [row, setRow] = useState<ContactDetail | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [status, setStatus] = useState('');
   const [note, setNote] = useState('');
   const [noteSaving, setNoteSaving] = useState(false);
@@ -19,12 +21,21 @@ export function AdminContactDetailPage() {
   useEffect(() => {
     const num = parseInt(id ?? '', 10);
     if (!Number.isFinite(num)) return;
-    void getContactDetail(num).then((data) => {
-      setRow(data);
-      setStatus(data.status ?? 'new');
-      setNote(data.admin_note ?? '');
-    });
-  }, [id]);
+    void (async () => {
+      try {
+        const data = await getContactDetail(num);
+        setRow(data);
+        setStatus(data.status ?? 'new');
+        setNote(data.admin_note ?? '');
+      } catch (err) {
+        if (isAdminUnauthorized(err)) {
+          navigate('/admin/login', { replace: true });
+          return;
+        }
+        setLoadError(err instanceof Error ? err.message : 'Error');
+      }
+    })();
+  }, [id, navigate]);
 
   async function handleStatusChange(next: string) {
     if (!row) return;
@@ -64,6 +75,10 @@ export function AdminContactDetailPage() {
     } catch {
       window.alert('Download failed');
     }
+  }
+
+  if (loadError) {
+    return <p className="text-sm text-red-600">불러오기 실패: {loadError}</p>;
   }
 
   if (!row) {

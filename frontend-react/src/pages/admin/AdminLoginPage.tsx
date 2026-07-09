@@ -91,7 +91,10 @@ export function AdminLoginPage() {
         ) : (
           <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); void handleVerify(); }}>
             <p className="text-sm text-gray-mid">Enter the 6-digit code sent to your email.</p>
-            <p className="text-xs text-gray-mid">Dev: use 000000 if SMTP is unavailable.</p>
+            {/* 우회 코드 안내는 운영 번들에서 제외 — 공개 URL에 노출 금지 */}
+            {import.meta.env.DEV ? (
+              <p className="text-xs text-gray-mid">Dev: use 000000 if SMTP is unavailable.</p>
+            ) : null}
             <input
               type="text"
               maxLength={6}

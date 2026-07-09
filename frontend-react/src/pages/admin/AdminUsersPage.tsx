@@ -1,24 +1,34 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { deleteUser, listUsers, patchUserMembership, type UserRow } from '@/api/admin';
+import { deleteUser, isAdminUnauthorized, listUsers, patchUserMembership, type UserRow } from '@/api/admin';
 
 const inputCls = 'rounded border border-gray-light px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-sky';
 
 export function AdminUsersPage() {
+  const navigate = useNavigate();
   const [items, setItems] = useState<UserRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [tier, setTier] = useState('');
 
   const load = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const data = await listUsers();
       setItems(data.items);
+    } catch (err) {
+      if (isAdminUnauthorized(err)) {
+        navigate('/admin/login', { replace: true });
+        return;
+      }
+      setError(err instanceof Error ? err.message : 'Error');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -37,7 +47,13 @@ export function AdminUsersPage() {
   }, [load]);
 
   async function handleTier(user: UserRow, tier: string) {
-    await patchUserMembership(user.id, tier);
+    try {
+      await patchUserMembership(user.id, tier);
+    } catch (err) {
+      // 실패를 삼키면 관리자가 성공한 것으로 오인함
+      window.alert(`등급 변경 실패: ${err instanceof Error ? err.message : 'Error'}`);
+      return;
+    }
     await load();
   }
 
@@ -48,7 +64,12 @@ export function AdminUsersPage() {
     if (!ok) {
       return;
     }
-    await deleteUser(user.id);
+    try {
+      await deleteUser(user.id);
+    } catch (err) {
+      window.alert(`삭제 실패: ${err instanceof Error ? err.message : 'Error'}`);
+      return;
+    }
     await load();
   }
 
@@ -80,6 +101,7 @@ export function AdminUsersPage() {
         <span className="ml-auto self-center text-sm text-gray-mid">{filtered.length}건</span>
       </div>
       {loading ? <p className="text-gray-mid">Loading…</p> : null}
+      {error ? <p className="mb-3 text-sm text-red-600">데이터를 불러오지 못했습니다: {error}</p> : null}
       <div className="overflow-x-auto rounded border border-gray-light bg-white">
         <table className="w-full text-sm">
           <thead className="bg-slate-100">

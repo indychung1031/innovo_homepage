@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { listWizardQuotes, type WizardQuoteRow } from '@/api/admin';
+import { isAdminUnauthorized, listWizardQuotes, type WizardQuoteRow } from '@/api/admin';
 
 const STATUSES = ['pending', 'reviewing', 'quoted', 'completed', 'expired'] as const;
 const inputCls = 'rounded border border-gray-light px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-sky';
@@ -15,8 +15,10 @@ const STATUS_STYLES: Record<string, string> = {
 };
 
 export function AdminWizardQuotesPage() {
+  const navigate = useNavigate();
   const [items, setItems] = useState<WizardQuoteRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
 
@@ -25,11 +27,17 @@ export function AdminWizardQuotesPage() {
       try {
         const data = await listWizardQuotes();
         setItems(data.items);
+      } catch (err) {
+        if (isAdminUnauthorized(err)) {
+          navigate('/admin/login', { replace: true });
+          return;
+        }
+        setError(err instanceof Error ? err.message : 'Error');
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [navigate]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -74,6 +82,7 @@ export function AdminWizardQuotesPage() {
         <span className="ml-auto self-center text-sm text-gray-mid">{filtered.length}건</span>
       </div>
       {loading ? <p className="text-gray-mid">Loading…</p> : null}
+      {error ? <p className="mb-3 text-sm text-red-600">데이터를 불러오지 못했습니다: {error}</p> : null}
       <div className="overflow-x-auto rounded border border-gray-light bg-white">
         <table className="w-full text-sm">
           <thead className="bg-slate-100">
