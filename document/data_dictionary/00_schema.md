@@ -2,6 +2,12 @@
 
 > PostgreSQL 스키마 문서. Alembic revision과 동기화한다.
 
+> ⚠️ **운영 데이터 위치 주의 (2026-07-07 3차 검토)**: 프론트엔드가 ERP HP API(`/api/hp/*`)로
+> 전환된 이후, 회원·퀵견적·문의·위저드의 **운영 데이터는 ERP DB**(`hp_users`,
+> `homepage_inquiries`, ERP측 `contact_inquiries`·`wizard_quotes`)에 쌓인다.
+> 본 문서의 테이블들은 홈페이지 자체 DB(`innovo_homepage`)로, 현재 `/admin/api`와
+> staff 계정만 실사용 중이다. 상세: `document/reports/20260707_code_review_erp_integration.md` §0.
+
 ---
 
 ## `quick_quote_inquiries`
@@ -26,6 +32,7 @@
 | `quantity` | INTEGER | YES | — | 수량 |
 | `desired_delivery` | DATE | YES | — | 납기 희망 |
 | `message` | TEXT | YES | — | 기타 요청 |
+| `product_category` | VARCHAR(30) | YES | — | test_socket / probe_pin / test_jig / other (007) |
 | `status` | VARCHAR(20) | NO | `pending` | `pending` \| `sent_to_erp` \| `closed` |
 | `admin_note` | TEXT | YES | — | Admin 내부 메모 |
 | `erp_inquiry_id` | INTEGER | YES | — | ERP inquiry_id (Phase 5) |
@@ -33,7 +40,7 @@
 | `created_at` | TIMESTAMPTZ | NO | `now()` | 생성 |
 | `updated_at` | TIMESTAMPTZ | NO | `now()` | 수정 |
 
-**Revision**: `001_quick_quote`, `002_users_and_tokens` (admin_note)
+**Revision**: `001_quick_quote`, `002_users_and_tokens` (admin_note), `007_quick_quote_product_category`
 
 **API**: `POST /api/quick-quote`, Admin `GET/PATCH /admin/api/quick-quotes/{id}`
 
@@ -101,9 +108,56 @@ Contact 폼 문의.
 
 ---
 
+## `wizard_quotes`
+
+Quote Wizard 제출 기록 (Phase 4, revision `005_wizard_quotes` + `006_wizard_admin_note`).
+
+> ⚠️ 운영에서 위저드 제출은 ERP `POST /api/hp/wizard/submit` → **ERP DB의 동명 테이블**에
+> 저장된다. 이 테이블은 ERP 전환 이전(홈페이지 자체 제출 경로 시절)의 기록만 보유.
+
+| 컬럼 | 타입 | 설명 |
+|------|------|------|
+| `id` | SERIAL PK | |
+| `user_id` | INTEGER FK(users) ON DELETE SET NULL | 제출 회원 |
+| `status` | VARCHAR(20) | `pending` 등 — Admin에서 전환 |
+| `lang` | VARCHAR(2) | en / ko |
+| `series` | VARCHAR(20) | test_socket / probe_pin / test_jig |
+| `ic_type` / `ic_code` / `ic_package_code` | VARCHAR | IC 정보 |
+| `dimension_d` / `dimension_e` / `dimension_a` | NUMERIC(8,3) | IC 치수 (mm) |
+| `pitch` | VARCHAR(20) | |
+| `pin_count` | INTEGER | |
+| `socket_type_id` / `socket_type_name` | INTEGER / VARCHAR(100) | 추천 소켓 |
+| `quantity` | INTEGER | |
+| `cover_type_id` / `material_type_id` | INTEGER | 옵션 |
+| `spec_notes` | TEXT | 추가 요구사항 |
+| `attachment_name` | VARCHAR(255) | 파일명만 저장 (실파일 미전송 — 기획서 §13) |
+| `matched` | BOOLEAN | 견적 매칭 여부 |
+| `unit_price` / `total_price` | INTEGER | 제출 시점 견적 스냅샷 |
+| `currency` | VARCHAR(10) | 기본 KRW |
+| `lead_time_label` | VARCHAR(100) | 납기 라벨 |
+| `contact_*` | VARCHAR | 이름·회사·이메일·연락처 |
+| `membership_tier` | VARCHAR(20) | 제출 시점 등급 스냅샷 |
+| `admin_note` | TEXT | Admin 내부 메모 (006) |
+| `created_at` / `updated_at` | TIMESTAMPTZ | |
+
+---
+
+## `lead_time_rules`
+
+납기 규칙 — 소켓 종류 × 수량 구간별 납기 라벨 (revision `005_wizard_quotes`).
+
+| 컬럼 | 타입 | 설명 |
+|------|------|------|
+| `id` | SERIAL PK | |
+| `socket_type` | VARCHAR(50) | 소켓 종류 |
+| `qty_min` / `qty_max` | INTEGER | 수량 구간 (`qty_max` NULL = 무제한) |
+| `lead_time_label` | VARCHAR(100) | 예: `3 Weeks` |
+| `note` | TEXT | 비고 |
+
+---
+
 ## 향후 (Phase 4+)
 
 | 테이블 | Phase | 비고 |
 |--------|-------|------|
-| ERP 마스터 | 4 | `02_plan` |
-| `quote_requests` | 4 | Quote Wizard |
+| ERP 마스터 | 4 | `02_plan` — ERP API 방식으로 대체되어 이식 불필요 확정 |
