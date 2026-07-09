@@ -149,7 +149,11 @@ export function DownloadsPage() {
                   )}
                 </div>
                 {hasError && (
-                  <p className="mt-1 text-xs text-red-600">다운로드에 실패했습니다. 다시 시도해주세요.</p>
+                  <p className="mt-1 text-xs text-red-600">
+                    {lang === 'ko'
+                      ? '다운로드에 실패했습니다. 다시 시도해주세요.'
+                      : 'Download failed. Please try again.'}
+                  </p>
                 )}
               </div>
               <div className="shrink-0">{action}</div>
