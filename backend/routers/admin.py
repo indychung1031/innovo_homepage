@@ -96,9 +96,12 @@ async def admin_verify_2fa(
     now = datetime.now(timezone.utc)
     otp_valid = False
 
-    # 개발 환경 전용 — 고정 bypass 코드 허용
-    settings_check = get_settings()
-    if settings_check.is_development and payload.otp_code == "000000":
+    # 개발 전용 고정 bypass — 환경 오설정만으로 열리지 않도록 명시적 플래그를 함께 요구
+    if (
+        settings.is_development
+        and settings.admin_2fa_dev_bypass
+        and payload.otp_code == "000000"
+    ):
         otp_valid = True
 
     if not otp_valid and staff.totp_secret:

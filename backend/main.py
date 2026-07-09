@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from backend.routers import account, admin, auth, contact, quick_quote
-from backend.startup import seed_staff_if_needed
+from backend.startup import check_production_settings, seed_staff_if_needed
 
 load_dotenv()
 
@@ -35,6 +35,7 @@ app.include_router(admin.router)
 
 @app.on_event("startup")
 def on_startup() -> None:
+    check_production_settings()
     seed_staff_if_needed()
 
 

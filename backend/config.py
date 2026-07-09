@@ -21,9 +21,10 @@ class Settings(BaseSettings):
     postgres_user: str = ""
     postgres_password: str = ""
 
-    # 앱
+    # 앱 — app_env 기본값은 production: 환경변수 누락 시 개발용 완화(2FA 우회·SQL echo·
+    # insecure 쿠키)가 운영에서 켜지는 사고를 막는다. 로컬은 .env에 development 명시.
     secret_key: str = "change-me"
-    app_env: str = "development"
+    app_env: str = "production"
 
     # SMTP (Mailnara)
     smtp_host: str = "smtp.mailnara.com"
@@ -53,6 +54,9 @@ class Settings(BaseSettings):
     # Contact 업로드
     contact_upload_max_bytes: int = 10_485_760
     contact_upload_dir: str = "upload/contact"
+
+    # Admin 2FA 개발용 우회 — 운영에서는 항상 False여야 한다
+    admin_2fa_dev_bypass: bool = False
 
     # Admin seed (최초 1회)
     admin_seed_email: str = "sbchung@innovotech.co.kr"
