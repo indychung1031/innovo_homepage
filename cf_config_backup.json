@@ -1,5 +1,5 @@
-﻿{
-    "ETag": "E1PA6795UKMFR9",
+{
+    "ETag": "E1VC38T7YXB528",
     "DistributionConfig": {
         "CallerReference": "innovo-www-prod-20260531",
         "Aliases": {
@@ -104,7 +104,7 @@
             }
         },
         "CacheBehaviors": {
-            "Quantity": 4,
+            "Quantity": 5,
             "Items": [
                 {
                     "PathPattern": "/admin/api/*",
@@ -199,25 +199,27 @@
                     }
                 },
                 {
-                    "PathPattern": "/upload/catalog/*",
-                    "TargetOriginId": "S3-innovo-www-prod",
+                    "PathPattern": "/api/erp/pins",
+                    "TargetOriginId": "ERP-EC2",
                     "TrustedSigners": {
                         "Enabled": false,
                         "Quantity": 0
                     },
                     "TrustedKeyGroups": {
-                        "Enabled": true,
-                        "Quantity": 1,
-                        "Items": [
-                            "b2546c77-2ecb-4b41-b240-4c751be3e79e"
-                        ]
+                        "Enabled": false,
+                        "Quantity": 0
                     },
                     "ViewerProtocolPolicy": "redirect-to-https",
                     "AllowedMethods": {
-                        "Quantity": 2,
+                        "Quantity": 7,
                         "Items": [
                             "HEAD",
-                            "GET"
+                            "DELETE",
+                            "POST",
+                            "GET",
+                            "OPTIONS",
+                            "PUT",
+                            "PATCH"
                         ],
                         "CachedMethods": {
                             "Quantity": 2,
@@ -228,7 +230,7 @@
                         }
                     },
                     "SmoothStreaming": false,
-                    "Compress": true,
+                    "Compress": false,
                     "LambdaFunctionAssociations": {
                         "Quantity": 0
                     },
@@ -236,13 +238,60 @@
                         "Quantity": 0
                     },
                     "FieldLevelEncryptionId": "",
-                    "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                    "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+                    "OriginRequestPolicyId": "b689b0a8-53d0-40ab-baf2-68738e2966ac",
                     "GrpcConfig": {
                         "Enabled": false
                     }
                 },
                 {
-                    "PathPattern": "/upload/certificate/*",
+                    "PathPattern": "/api/erp/pins/*",
+                    "TargetOriginId": "ERP-EC2",
+                    "TrustedSigners": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "TrustedKeyGroups": {
+                        "Enabled": false,
+                        "Quantity": 0
+                    },
+                    "ViewerProtocolPolicy": "redirect-to-https",
+                    "AllowedMethods": {
+                        "Quantity": 7,
+                        "Items": [
+                            "HEAD",
+                            "DELETE",
+                            "POST",
+                            "GET",
+                            "OPTIONS",
+                            "PUT",
+                            "PATCH"
+                        ],
+                        "CachedMethods": {
+                            "Quantity": 2,
+                            "Items": [
+                                "HEAD",
+                                "GET"
+                            ]
+                        }
+                    },
+                    "SmoothStreaming": false,
+                    "Compress": false,
+                    "LambdaFunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FunctionAssociations": {
+                        "Quantity": 0
+                    },
+                    "FieldLevelEncryptionId": "",
+                    "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+                    "OriginRequestPolicyId": "b689b0a8-53d0-40ab-baf2-68738e2966ac",
+                    "GrpcConfig": {
+                        "Enabled": false
+                    }
+                },
+                {
+                    "PathPattern": "/upload/catalog/*",
                     "TargetOriginId": "S3-innovo-www-prod",
                     "TrustedSigners": {
                         "Enabled": false,
